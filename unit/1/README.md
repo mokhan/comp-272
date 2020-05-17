@@ -139,4 +139,4 @@ are initially at most n + 1 possible answers is at most log2(n+1).
 Another logarithm that comes up several times in this book is the natural logarithm.
 Here we use the notation ln k to denote log e(k), where e -- Euler's constant -- is given by:
 
-![eulers constant](./img/eulers-constant.png)
+![eulers constant](./eulers-constant.png)
