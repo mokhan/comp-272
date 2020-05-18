@@ -1,3 +1,12 @@
+Read:
+
+* https://en.wikipedia.org/wiki/List_of_algorithms
+* https://www.topcoder.com/community/competitive-programming/tutorials/the-importance-of-algorithms/
+
+Watch:
+
+* https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-1-algorithmic-thinking-peak-finding/
+
 ## The need for efficiency
 
 * Number of operations
