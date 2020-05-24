@@ -1,11 +1,18 @@
 Study the following sections from Pat Morin’s textbook:
 
+Read:
+
 * 2.1 ArrayStack: Fast Stack Operations Using an Array
 * 2.2 FastArrayStack: An Optimized ArrayStack
 * 2.3 ArrayQueue: An Array-Based Queue
 * 2.4 ArrayDeque: Fast Deque Operations Using an Array
 * 2.5 DualArrayDeque: Building a Deque from Two Stacks
 * 2.6 RootishArrayStack: A Space-Efficient Array Stack
+
+Execute:
+* https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+* http://www.cs.usfca.edu/~galles/visualization/StackArray.html
+* http://www.cs.usfca.edu/~Egalles/visualization/QueueArray.html
 
 # Chapter 2 - Array-Based Lists
 
