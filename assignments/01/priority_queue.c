@@ -17,10 +17,12 @@ Node *create_node(int priority, int data) {
   return node;
 }
 
+// This function is constant time O(1)
 int size(PriorityQueue *queue) {
   return queue->size;
 }
 
+// This function is linear time O(n)
 void add(PriorityQueue *queue, Node *node) {
   queue->size++;
 
@@ -46,6 +48,7 @@ void add(PriorityQueue *queue, Node *node) {
   }
 }
 
+// This function is constant time O(1)
 Node *delete_min(PriorityQueue *queue) {
   Node *tmp = queue->head;
   queue->head = tmp->next;
@@ -55,12 +58,10 @@ Node *delete_min(PriorityQueue *queue) {
 void inspect(PriorityQueue *queue) {
   Node *tmp = queue->head;
 
-  printf("*******\n");
   while(tmp) {
     printf("%d\n", tmp->data);
     tmp = tmp->next;
   }
-  printf("*******\n");
 }
 
 void destroy(PriorityQueue *queue) {
@@ -68,9 +69,9 @@ void destroy(PriorityQueue *queue) {
   Node *tmp;
 
   while(current) {
-    tmp = current;
-    current = current->next;
-    if (tmp)
-      free(tmp);
+    tmp = current, current = current->next;
+
+    if (tmp) free(tmp);
   }
+  free(queue);
 }
