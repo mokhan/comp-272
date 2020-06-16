@@ -1,5 +1,12 @@
-struct PriorityQueue {
-};
+typedef struct {
 
-struct PriorityQueue initialize();
-int count(struct PriorityQueue queue);
+} Node;
+
+typedef struct {
+  int size;
+} PriorityQueue;
+
+
+PriorityQueue *initialize();
+int count(PriorityQueue *queue);
+void add(PriorityQueue *queue, Node *node);

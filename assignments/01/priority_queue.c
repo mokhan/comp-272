@@ -1,15 +1,16 @@
 #include "priority_queue.h"
-/*#include <stdio.h>*/
-/*#include <stdlib.h>*/
-/*#include <stdint.h>*/
-/*#include <ctype.h>*/
-/*#include <string.h>*/
+#include <stdlib.h>
 
-struct PriorityQueue initialize() {
-  struct PriorityQueue queue;
+PriorityQueue *initialize() {
+  PriorityQueue *queue = malloc(sizeof(PriorityQueue));
+  queue->size = 0;
   return queue;
 }
 
-int count(struct PriorityQueue queue) {
-  return 0;
+int count(PriorityQueue *queue) {
+  return queue->size;
+}
+
+void add(PriorityQueue *queue, Node *node) {
+  queue->size++;
 }
