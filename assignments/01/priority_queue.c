@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "priority_queue.h"
 
+// https://en.wikipedia.org/wiki/Priority_queue
 PriorityQueue *initialize() {
   PriorityQueue *queue = malloc(sizeof(PriorityQueue));
   queue->size = 0;

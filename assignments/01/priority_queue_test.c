@@ -21,6 +21,7 @@ Ensure(PriorityQueue, returns_size) {
   PriorityQueue *queue = initialize();
 
   assert_that(size(queue), is_equal_to(0));
+
   destroy(queue);
 }
 
@@ -31,6 +32,7 @@ Ensure(PriorityQueue, adds_a_node) {
   add(queue, node);
 
   assert_that(size(queue), is_equal_to(1));
+
   destroy(queue);
 }
 
@@ -53,8 +55,10 @@ Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
 
 TestSuite *priority_queue_tests() {
   TestSuite *suite = create_test_suite();
+
   add_test_with_context(suite, PriorityQueue, returns_size);
   add_test_with_context(suite, PriorityQueue, adds_a_node);
   add_test_with_context(suite, PriorityQueue, removes_the_node_with_the_lowest_priority);
+
   return suite;
 }
