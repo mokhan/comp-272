@@ -42,13 +42,15 @@ Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
   Node *max = create_node(3, 300);
 
   add(queue, max);
+  inspect(queue);
   add(queue, min);
+  inspect(queue);
   add(queue, mid);
+  inspect(queue);
 
   assert_that(count(queue), is_equal_to(3));
-
-  Node *deleted = delete_min(queue);
-  assert_that(deleted, is_equal_to(min));
+  assert_that(delete_min(queue), is_equal_to(min));
+  assert_that(queue->head, is_equal_to(mid));
 
   free(max);
   free(mid);

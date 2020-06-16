@@ -1,5 +1,6 @@
-#include "priority_queue.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include "priority_queue.h"
 
 PriorityQueue *initialize() {
   PriorityQueue *queue = malloc(sizeof(PriorityQueue));
@@ -29,19 +30,35 @@ void add(PriorityQueue *queue, Node *node) {
   }
 
   Node *tmp = queue->head;
+  Node *prev = NULL;
 
   while(tmp != NULL) {
     if (tmp->data > node->data) {
-      tmp->next = node;
-      if (tmp == queue->head) {
+      node->next = tmp;
+      if (tmp == queue->head)
         queue->head = node;
-      }
+      else if (prev != NULL)
+        prev->next = node;
       break;
     }
+    prev = tmp;
     tmp = tmp->next;
   }
 }
 
 Node *delete_min(PriorityQueue *queue) {
-  return queue->head;
+  Node *tmp = queue->head;
+  queue->head = tmp->next;
+  return tmp;
+}
+
+void inspect(PriorityQueue *queue) {
+  Node *tmp = queue->head;
+
+  printf("*******\n");
+  while(tmp) {
+    printf("%d\n", tmp->data);
+    tmp = tmp->next;
+  }
+  printf("*******\n");
 }
