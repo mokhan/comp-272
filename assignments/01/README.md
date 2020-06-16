@@ -7,11 +7,13 @@ You must score at least 50 to pass the assignment.
   queue and priority queue, stack, list and linked list, sequence,
   and unordered set, and you understand the concept of interface or abstract data type that defines the set of operations supported by a data structure and the semantics, or meaning, of those operations.
   You can use the interface of one particular data structure to define or implement the operations of a different data structure.
-  * a. Describe the meaning of the essential methods `add(x)`, `deleteMin()`, and `size()` that are supported by the priority queue interface.
-    Implement those methods using a singly-linked list. Analyze the running time of the `add(x)` and `deletMin()` operations based on this implementation.
+  * a. Describe the meaning of the essential methods `add(x)`, `deleteMin()`, and `size()` that are supported by the priority queue interface
     * The `add(x)` method is used to add an element to the queue with a priority.
     * The `deleteMin()` method is used to remove the element with the lowest priority from the queue and return it.
     * The `size()` method is used to determine how many items are in the queue.
+
+    Implement those methods using a singly-linked list.
+    Analyze the running time of the `add(x)` and `deletMin()` operations based on this implementation.
   * b. Implement the stack methods `push(x)` and `pop()` using two queues. Analyze the running time of the `push(x)` and `pop()` operations based on this implementation.
 2. Swap two adjacent elements in a list by adjusting only the links (and not the data) using:
   * a. singly-linked list.
