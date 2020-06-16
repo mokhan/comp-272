@@ -35,9 +35,31 @@ Ensure(PriorityQueue, adds_a_node) {
   free(queue);
 }
 
+Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
+  PriorityQueue *queue = initialize();
+  Node *min = create_node(1, 100);
+  Node *mid = create_node(2, 200);
+  Node *max = create_node(3, 300);
+
+  add(queue, max);
+  add(queue, min);
+  add(queue, mid);
+
+  assert_that(count(queue), is_equal_to(3));
+
+  Node *deleted = delete_min(queue);
+  assert_that(deleted, is_equal_to(min));
+
+  free(max);
+  free(mid);
+  free(min);
+  free(queue);
+};
+
 TestSuite *priority_queue_tests() {
   TestSuite *suite = create_test_suite();
   add_test_with_context(suite, PriorityQueue, returns_size);
   add_test_with_context(suite, PriorityQueue, adds_a_node);
+  add_test_with_context(suite, PriorityQueue, removes_the_node_with_the_lowest_priority);
   return suite;
 }
