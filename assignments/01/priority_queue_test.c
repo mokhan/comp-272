@@ -21,13 +21,12 @@ Ensure(PriorityQueue, returns_size) {
   PriorityQueue *queue = initialize();
 
   assert_that(count(queue), is_equal_to(0));
+  free(queue);
 }
 
 Ensure(PriorityQueue, adds_a_node) {
   PriorityQueue *queue = initialize();
-  Node *node;
-
-  node = malloc(sizeof(Node));
+  Node *node = create_node(1, 0);
 
   add(queue, node);
 
