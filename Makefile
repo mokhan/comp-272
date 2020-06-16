@@ -7,6 +7,9 @@ ci : main
 	mkdir -p junit
 	cgreen-runner -c --xml=junit/ main
 
+doc : doc/
+	doxygen Doxyfile
+
 run : main
 	./main
 
@@ -29,4 +32,5 @@ priority_queue_test.o : assignments/01/priority_queue_test.c
 	$(CC) -c assignments/01/priority_queue_test.c
 
 clean:
-	rm main *.o
+	rm -f main *.o
+	rm -fr doc
