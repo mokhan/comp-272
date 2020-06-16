@@ -17,7 +17,7 @@ Node *create_node(int priority, int data) {
   return node;
 }
 
-int count(PriorityQueue *queue) {
+int size(PriorityQueue *queue) {
   return queue->size;
 }
 
@@ -61,4 +61,16 @@ void inspect(PriorityQueue *queue) {
     tmp = tmp->next;
   }
   printf("*******\n");
+}
+
+void destroy(PriorityQueue *queue) {
+  Node *current = queue->head;
+  Node *tmp;
+
+  while(current) {
+    tmp = current;
+    current = current->next;
+    if (tmp)
+      free(tmp);
+  }
 }

@@ -13,7 +13,8 @@ typedef struct {
 
 PriorityQueue *initialize();
 Node *create_node(int priority, int data);
-int count(PriorityQueue *queue);
+int size(PriorityQueue *queue);
 void add(PriorityQueue *queue, Node *node);
 Node *delete_min(PriorityQueue *queue);
 void inspect(PriorityQueue *queue);
+void destroy(PriorityQueue *queue);

@@ -20,8 +20,8 @@ AfterEach(PriorityQueue){ }
 Ensure(PriorityQueue, returns_size) {
   PriorityQueue *queue = initialize();
 
-  assert_that(count(queue), is_equal_to(0));
-  free(queue);
+  assert_that(size(queue), is_equal_to(0));
+  destroy(queue);
 }
 
 Ensure(PriorityQueue, adds_a_node) {
@@ -30,9 +30,8 @@ Ensure(PriorityQueue, adds_a_node) {
 
   add(queue, node);
 
-  assert_that(count(queue), is_equal_to(1));
-  free(node);
-  free(queue);
+  assert_that(size(queue), is_equal_to(1));
+  destroy(queue);
 }
 
 Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
@@ -45,14 +44,11 @@ Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
   add(queue, min);
   add(queue, mid);
 
-  assert_that(count(queue), is_equal_to(3));
+  assert_that(size(queue), is_equal_to(3));
   assert_that(delete_min(queue), is_equal_to(min));
   assert_that(queue->head, is_equal_to(mid));
 
-  free(max);
-  free(mid);
-  free(min);
-  free(queue);
+  destroy(queue);
 };
 
 TestSuite *priority_queue_tests() {
