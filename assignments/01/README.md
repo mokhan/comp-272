@@ -13,7 +13,8 @@ You must score at least 50 to pass the assignment.
     * The `size()` method is used to determine how many items are in the queue.
     * The `add(x)` function is linear time O(n).
     * The `deleteMin(x)` function is constant time O(1).
-  * b. Implement the stack methods `push(x)` and `pop()` using two queues. Analyze the running time of the `push(x)` and `pop()` operations based on this implementation.
+  * b. Implement the stack methods `push(x)` and `pop()` using two queues.
+    Analyze the running time of the `push(x)` and `pop()` operations based on this implementation.
 2. Swap two adjacent elements in a list by adjusting only the links (and not the data) using:
   * a. singly-linked list.
   * b. doubly-linked list.
