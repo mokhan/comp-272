@@ -66,11 +66,13 @@ void enqueue(Queue *q, int data) {
 }
 
 int dequeue(Queue *q) {
+  if (q->head == NULL) return -1;
+
   Node *node = q->head;
   int data = node->data;
 
   q->head = node->next;
-  free(q);
+  free(node);
   return data;
 }
 
@@ -78,16 +80,20 @@ static void push(Stack *stack, int data) {
   enqueue(stack->q1, data);
 }
 
-static int pop(Stack *stack) {
-  int count = stack->q1->size - 1;
-  for (int i = 0; i < count; i++) {
-    enqueue(stack->q2, dequeue(stack->q1));
-  }
-
-  int data = dequeue(stack->q1);
+void swap(Stack *stack) {
   Queue *tmp = stack->q1;
   stack->q1 = stack->q2;
   stack->q2 = tmp;
+}
+
+static int pop(Stack *stack) {
+  int count = stack->q1->size - 1;
+
+  for (int i = 0; i < count; i++)
+    enqueue(stack->q2, dequeue(stack->q1));
+
+  int data = dequeue(stack->q1);
+  swap(stack);
   return data;
 }
 // push 1, 2, 3, 4
@@ -99,6 +105,13 @@ int size(Stack *stack) {
 }
 
 static void destroy(Stack *stack) {
+  /*int count = size(stack);*/
+
+  /*for (int i = 0; i < count; i++)*/
+    /*pop(stack);*/
+
+  /*free(stack->q1);*/
+  /*free(stack->q2);*/
   free(stack);
 }
 
