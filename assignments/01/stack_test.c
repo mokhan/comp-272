@@ -23,7 +23,6 @@ typedef struct {
 
 typedef struct {
   Queue *q1;
-  Queue *q2;
 } Stack;
 
 static Queue *newQueue(){
@@ -36,7 +35,6 @@ static Queue *newQueue(){
 static Stack *initialize() {
   Stack *stack = malloc(sizeof(Stack));
   stack->q1 = newQueue();
-  stack->q2 = newQueue();
   return stack;
 }
 
@@ -56,11 +54,8 @@ void enqueue(Queue *q, int data) {
   } else {
     Node *tail = q->head;
 
-    while (1) {
-      if (tail->next == NULL)
-        break;
+    while (tail->next != NULL)
       tail = tail->next;
-    }
     tail->next = node;
   }
 }
@@ -76,24 +71,22 @@ int dequeue(Queue *q) {
   return data;
 }
 
+// The running time is linear time.
 static void push(Stack *stack, int data) {
   enqueue(stack->q1, data);
 }
 
-void swap(Stack *stack) {
-  Queue *tmp = stack->q1;
-  stack->q1 = stack->q2;
-  stack->q2 = tmp;
-}
-
+// The running time is linear time.
 static int pop(Stack *stack) {
   int count = stack->q1->size - 1;
+  Queue *tmp = newQueue();
 
   for (int i = 0; i < count; i++)
-    enqueue(stack->q2, dequeue(stack->q1));
+    enqueue(tmp, dequeue(stack->q1));
 
   int data = dequeue(stack->q1);
-  swap(stack);
+  free(stack->q1);
+  stack->q1 = tmp;
   return data;
 }
 
@@ -108,7 +101,6 @@ static void destroy(Stack *stack) {
     pop(stack);
 
   free(stack->q1);
-  free(stack->q2);
   free(stack);
 }
 
