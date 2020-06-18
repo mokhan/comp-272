@@ -96,22 +96,19 @@ static int pop(Stack *stack) {
   swap(stack);
   return data;
 }
-// push 1, 2, 3, 4
 
-// q1 [4, 3, 2, 1]
-// q2 []
 int size(Stack *stack) {
   return stack->q1->size;
 }
 
 static void destroy(Stack *stack) {
-  /*int count = size(stack);*/
+  int count = size(stack);
 
-  /*for (int i = 0; i < count; i++)*/
-    /*pop(stack);*/
+  for (int i = 0; i < count; i++)
+    pop(stack);
 
-  /*free(stack->q1);*/
-  /*free(stack->q2);*/
+  free(stack->q1);
+  free(stack->q2);
   free(stack);
 }
 
