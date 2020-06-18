@@ -13,8 +13,8 @@ doc : doc/
 run : main
 	./main
 
-main : main.o words_test.o words.o priority_queue.o priority_queue_test.o stack_test.o
-	$(CC) main.o words_test.o words.o priority_queue.o priority_queue_test.o stack_test.o -lcgreen -o main
+main : main.o words_test.o words.o priority_queue_test.o stack_test.o
+	$(CC) main.o words_test.o words.o priority_queue_test.o stack_test.o -lcgreen -o main
 
 main.o : main.c
 	$(CC) -c main.c
@@ -24,9 +24,6 @@ words.o : words.c
 
 words_test.o : words_test.c
 	$(CC) -c words_test.c
-
-priority_queue.o : assignments/01/priority_queue.c
-	$(CC) -c assignments/01/priority_queue.c
 
 priority_queue_test.o : assignments/01/priority_queue_test.c
 	$(CC) -c assignments/01/priority_queue_test.c
