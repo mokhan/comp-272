@@ -12,3 +12,28 @@ Go to Data Structure Visualizations at http://www.cs.usfca.edu/~galles/visualiza
 * Queues: Linked List Implementation
 * Lists: Array Implementation (available in Java version)
 * Lists: Linked List Implementation (available in Java version)
+
+# Linked Lists
+
+Have advantages and disadvantages over array based List interface.
+
+Advantage
+
+* more dynamic
+
+Disadvantage:
+
+* using `get(i)` or `set(i, x)` in constant time.
+
+## Singly-Linked List
+
+SLList: is a sequence of Nodes with a reference to a value and the next node.
+
+```java
+class Node {
+  T x;
+  Node next;
+}
+```
+
+For efficiency the variables `head` and `tail` are used to keep track of the first and last node.

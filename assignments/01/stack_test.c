@@ -104,7 +104,7 @@ static void destroy(Stack *stack) {
   free(stack);
 }
 
-void inspect(Queue *q) {
+static void inspect(Queue *q) {
   Node *tmp = q->head;
 
   if (q->size == 0) {
