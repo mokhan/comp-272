@@ -256,7 +256,7 @@ Ensure(SwapLinkedList, when_swapping_self) {
   free(head);
 }
 
-TestSuite *swap_linked_list_tests() {
+TestSuite *swap_singly_linked_list_tests() {
   TestSuite *suite = create_test_suite();
 
   add_test_with_context(suite, SwapLinkedList, when_getting_head);
