@@ -6,13 +6,14 @@ only the links (and not the data) using a:
 * doubly-linked list
 */
 
-Describe(SwapLinkedList);
-BeforeEach(SwapLinkedList){ }
-AfterEach(SwapLinkedList){ }
+Describe(DoublyLinkedList);
+BeforeEach(DoublyLinkedList){ }
+AfterEach(DoublyLinkedList){ }
 
 struct node {
   int data;
   struct node *next;
+  struct node *prev;
 };
 
 typedef struct node Node;
@@ -28,14 +29,15 @@ static void inspect(Node *node) {
   printf("*******\n");
 }
 
-Node *initialize(int data) {
+static Node *initialize(int data) {
   Node *node = malloc(sizeof(Node));
   node->data = data;
   node->next = NULL;
+  node->prev = NULL;
   return node;
 }
 
-Node *add(Node *head, int data) {
+static Node *add(Node *head, int data) {
   Node *tail;
   Node *tmp = head;
 
@@ -46,10 +48,11 @@ Node *add(Node *head, int data) {
   }
   tail = tmp;
   tail->next = initialize(data);
+  tail->next->prev = tail;
   return tail->next;
 }
 
-Node *get(Node *from, int index) {
+static Node *get(Node *from, int index) {
   if (!from || index < 0) return NULL;
 
   while(index > 0 && from){
@@ -65,7 +68,7 @@ static int size(Node *head) {
   return i;
 }
 
-void swap(Node **head, int x, int y) {
+static void swap(Node **head, int x, int y) {
   int count = size(*head);
 
   if (x == y) return;
@@ -92,13 +95,13 @@ void swap(Node **head, int x, int y) {
   xc->next = tmp;
 }
 
-Ensure(SwapLinkedList, when_getting_head) {
+Ensure(DoublyLinkedList, when_getting_head) {
   Node *head = initialize(100);
   assert_that(get(head, 0), is_equal_to(head));
   free(head);
 }
 
-Ensure(SwapLinkedList, when_getting_mid) {
+Ensure(DoublyLinkedList, when_getting_mid) {
   Node *head = initialize(100);
 
   Node *mid = add(head, 200);
@@ -110,7 +113,7 @@ Ensure(SwapLinkedList, when_getting_mid) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_getting_tail) {
+Ensure(DoublyLinkedList, when_getting_tail) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -121,11 +124,11 @@ Ensure(SwapLinkedList, when_getting_tail) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_getting_from_empty_list) {
+Ensure(DoublyLinkedList, when_getting_from_empty_list) {
   assert_that(get(NULL, 2), is_equal_to(NULL));
 }
 
-Ensure(SwapLinkedList, when_getting_negative_index) {
+Ensure(DoublyLinkedList, when_getting_negative_index) {
   Node *head = initialize(100);
 
   assert_that(get(head, -1), is_equal_to(NULL));
@@ -133,7 +136,7 @@ Ensure(SwapLinkedList, when_getting_negative_index) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_getting_index_out_of_range) {
+Ensure(DoublyLinkedList, when_getting_index_out_of_range) {
   Node *head = initialize(100);
 
   assert_that(get(head, 1), is_equal_to(NULL));
@@ -142,7 +145,7 @@ Ensure(SwapLinkedList, when_getting_index_out_of_range) {
 }
 
 
-Ensure(SwapLinkedList, when_swapping_head) {
+Ensure(DoublyLinkedList, when_swapping_head) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -160,7 +163,7 @@ Ensure(SwapLinkedList, when_swapping_head) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_swapping_y_head) {
+Ensure(DoublyLinkedList, when_swapping_y_head) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -178,7 +181,7 @@ Ensure(SwapLinkedList, when_swapping_y_head) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_swapping_mid) {
+Ensure(DoublyLinkedList, when_swapping_mid) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -195,7 +198,7 @@ Ensure(SwapLinkedList, when_swapping_mid) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_swapping_y_mid) {
+Ensure(DoublyLinkedList, when_swapping_y_mid) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -212,7 +215,7 @@ Ensure(SwapLinkedList, when_swapping_y_mid) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_swapping_tail) {
+Ensure(DoublyLinkedList, when_swapping_tail) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -230,7 +233,7 @@ Ensure(SwapLinkedList, when_swapping_tail) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_swapping_index_out_of_range) {
+Ensure(DoublyLinkedList, when_swapping_index_out_of_range) {
   Node *head = initialize(100);
 
   add(head, 200);
@@ -245,7 +248,7 @@ Ensure(SwapLinkedList, when_swapping_index_out_of_range) {
   free(head);
 }
 
-Ensure(SwapLinkedList, when_swapping_self) {
+Ensure(DoublyLinkedList, when_swapping_self) {
   Node *head = initialize(100);
 
   swap(&head, 0, 0);
@@ -256,23 +259,23 @@ Ensure(SwapLinkedList, when_swapping_self) {
   free(head);
 }
 
-TestSuite *swap_singly_linked_list_tests() {
+TestSuite *swap_doubly_linked_list_tests() {
   TestSuite *suite = create_test_suite();
 
-  add_test_with_context(suite, SwapLinkedList, when_getting_head);
-  add_test_with_context(suite, SwapLinkedList, when_getting_mid);
-  add_test_with_context(suite, SwapLinkedList, when_getting_tail);
-  add_test_with_context(suite, SwapLinkedList, when_getting_from_empty_list);
-  add_test_with_context(suite, SwapLinkedList, when_getting_negative_index);
-  add_test_with_context(suite, SwapLinkedList, when_getting_index_out_of_range);
+  add_test_with_context(suite, DoublyLinkedList, when_getting_head);
+  add_test_with_context(suite, DoublyLinkedList, when_getting_mid);
+  add_test_with_context(suite, DoublyLinkedList, when_getting_tail);
+  add_test_with_context(suite, DoublyLinkedList, when_getting_from_empty_list);
+  add_test_with_context(suite, DoublyLinkedList, when_getting_negative_index);
+  add_test_with_context(suite, DoublyLinkedList, when_getting_index_out_of_range);
 
-  add_test_with_context(suite, SwapLinkedList, when_swapping_head);
-  add_test_with_context(suite, SwapLinkedList, when_swapping_y_head);
-  add_test_with_context(suite, SwapLinkedList, when_swapping_mid);
-  add_test_with_context(suite, SwapLinkedList, when_swapping_y_mid);
-  add_test_with_context(suite, SwapLinkedList, when_swapping_tail);
-  add_test_with_context(suite, SwapLinkedList, when_swapping_index_out_of_range);
-  add_test_with_context(suite, SwapLinkedList, when_swapping_self);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_head);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_y_head);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_tail);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_index_out_of_range);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_self);
 
   return suite;
 }
