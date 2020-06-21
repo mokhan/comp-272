@@ -66,30 +66,28 @@ static int size(Node *head) {
 }
 
 void swap(Node **head, int x, int y) {
-  Node *xp, *yp, *xc, *yc, *tmp;
   int count = size(*head);
 
   if (x == y) return;
   if (x >= count) return;
   if (y >= count) return;
 
-  xp = get(*head, x - 1);
-  yp = get(*head, y - 1);
-  xc = get(*head, x);
-  yc = get(*head, y);
+  Node *xp = get(*head, x - 1);
+  Node *yp = get(*head, y - 1);
+  Node *xc = get(*head, x);
+  Node *yc = get(*head, y);
 
-  if (x == 0) {
+  if (x == 0)
     *head = yc;
-  } else {
+  else
     xp->next = yc;
-  }
-  if (y == 0) {
-    *head = xc;
-  } else {
-    yp->next = xc;
-  }
 
-  tmp = yc->next;
+  if (y == 0)
+    *head = xc;
+  else
+    yp->next = xc;
+
+  Node *tmp = yc->next;
   yc->next = xc->next;
   xc->next = tmp;
 }
