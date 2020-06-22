@@ -77,9 +77,10 @@ static int size(Node *head) {
   return i;
 }
 
-/*Node *head = initialize(100);*/
-/*x: Node *mid = add(head, 200);*/
-/*y: Node *tail = add(head, 300);*/
+/*x: Node *head = initialize(100);*/
+/*   Node *mid1 = add(head, 200);*/
+/*y: Node *mid2 = add(head, 300);*/
+/*   Node *tail = add(head, 400);*/
 static void swap(Node *x, Node *y) {
   if (x == y) return;
   if (!x || !y) return;
@@ -103,7 +104,8 @@ static void swap(Node *x, Node *y) {
     x->next = yn;
     x->next->prev = x;
     y->prev = xp;
-    y->prev->next = y;
+    if (xp)
+      y->prev->next = y;
     y->next = xn;
     y->next->prev = y;
   }
@@ -436,7 +438,7 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_getting_negative_index);
   add_test_with_context(suite, DoublyLinkedList, when_getting_index_out_of_range);
 
-  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node);*/
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_head_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_head_adjacent_inverted);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);
@@ -445,6 +447,7 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent_y);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent_inverted);
+  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_with_non_adjacent_node);*/
   add_test_with_context(suite, DoublyLinkedList, when_swapping_with_NULL);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_self);
 
