@@ -77,58 +77,19 @@ static int size(Node *head) {
   return i;
 }
 
-// nil <- 100 -> <- 200 -> <- 300 -> nil
-// x: nil <- 100 -> 200
-// y: 100 <- 200 -> 300
-// z: 200 <- 300 -> nil
-//
-// nil <- 200 -> <- 100 -> <- 300 -> nil
-// x: 200 <- 100 -> 300
-// y: nil <- 200 -> 100
-// z: 100 <- 300 -> nil
 static void swap(Node *x, Node *y) {
   if (x == y) return;
 
   Node *xp = x->prev, *xn = x->next, *yp = y->prev, *yn = y->next;
 
-  if (y->prev == x) {
-    x->prev = y;
-  } else {
-    x->prev = y->prev;
-  }
-// x: 200 <- 100 -> 200
-// y: 100 <- 200 -> 300
-// z: 200 <- 300 -> nil
-
-
+  x->prev = y->prev;
   x->prev->next = x;
-// x: 200 <- 100 -> 200
-// y: 100 <- 200 -> 100
-// z: 200 <- 300 -> nil
-
-
   x->next = yn;
-// x: 200 <- 100 -> 300
-// y: 100 <- 200 -> 100
-// z: 200 <- 300 -> nil
-
-
   x->next->prev = x;
-// x: 200 <- 100 -> 300
-// y: 100 <- 200 -> 100
-// z: 100 <- 300 -> nil
-
   y->prev = xp;
-// x: 200 <- 100 -> 300
-// y: nil <- 200 -> 100
-// z: 100 <- 300 -> nil
-
-
-  /*if (y->prev) {*/
-    /*y->prev->next = y;*/
-  /*}*/
-  /*y->next = xn;*/
-  /*y->next->prev = y;*/
+  y->prev->next = y;
+  y->next = xn;
+  y->next->prev = y;
 }
 
 Ensure(DoublyLinkedList, when_getting_head) {
@@ -185,7 +146,6 @@ Ensure(DoublyLinkedList, when_swapping_head) {
   Node *mid = add(head, 200);
   Node *tail = add(head, 300);
 
-  inspect(head);
   swap(head, mid);
 
   assert_that(head->data, is_equal_to(100));
@@ -210,7 +170,7 @@ Ensure(DoublyLinkedList, when_swapping_y_head) {
   Node *mid = add(head, 200);
   Node *tail = add(head, 300);
 
-  /*swap(&head, 1, 0);*/
+  inspect(head);
   swap(mid, head);
 
   assert_that(get(head, 0), is_non_null);
@@ -227,15 +187,30 @@ Ensure(DoublyLinkedList, when_swapping_mid) {
   Node *head = initialize(100);
   Node *mid1 = add(head, 200);
   Node *mid2 = add(head, 300);
-  Node *tail = add(head, 400);
+  Node *mid3 = add(head, 400);
+  Node *tail = add(head, 500);
 
-  /*swap(&head, 1, 2);*/
-  swap(mid1, mid2);
+  swap(mid1, mid3);
 
-  assert_that(get(head, 0)->data, is_equal_to(100));
-  assert_that(get(head, 1)->data, is_equal_to(300));
-  assert_that(get(head, 2)->data, is_equal_to(200));
-  assert_that(get(head, 3)->data, is_equal_to(400));
+  assert_that(head->prev, is_equal_to(NULL));
+  assert_that(head->data, is_equal_to(100));
+  assert_that(head->next, is_equal_to(mid3));
+
+  assert_that(mid1->prev, is_equal_to(mid2));
+  assert_that(mid1->data, is_equal_to(200));
+  assert_that(mid1->next, is_equal_to(tail));
+
+  assert_that(mid2->prev, is_equal_to(mid3));
+  assert_that(mid2->data, is_equal_to(300));
+  assert_that(mid2->next, is_equal_to(mid1));
+
+  assert_that(mid3->prev, is_equal_to(head));
+  assert_that(mid3->data, is_equal_to(400));
+  assert_that(mid3->next, is_equal_to(mid2));
+
+  assert_that(tail->prev, is_equal_to(mid1));
+  assert_that(tail->data, is_equal_to(500));
+  assert_that(tail->next, is_equal_to(NULL));
 
   free(head);
 }
@@ -244,15 +219,30 @@ Ensure(DoublyLinkedList, when_swapping_y_mid) {
   Node *head = initialize(100);
   Node *mid1 = add(head, 200);
   Node *mid2 = add(head, 300);
-  Node *tail = add(head, 400);
+  Node *mid3 = add(head, 400);
+  Node *tail = add(head, 500);
 
-  /*swap(&head, 2, 1);*/
-  swap(mid2, mid1);
+  swap(mid3, mid1);
 
-  assert_that(get(head, 0)->data, is_equal_to(100));
-  assert_that(get(head, 1)->data, is_equal_to(300));
-  assert_that(get(head, 2)->data, is_equal_to(200));
-  assert_that(get(head, 3)->data, is_equal_to(400));
+  assert_that(head->prev, is_equal_to(NULL));
+  assert_that(head->data, is_equal_to(100));
+  assert_that(head->next, is_equal_to(mid3));
+
+  assert_that(mid1->prev, is_equal_to(mid2));
+  assert_that(mid1->data, is_equal_to(200));
+  assert_that(mid1->next, is_equal_to(tail));
+
+  assert_that(mid2->prev, is_equal_to(mid3));
+  assert_that(mid2->data, is_equal_to(300));
+  assert_that(mid2->next, is_equal_to(mid1));
+
+  assert_that(mid3->prev, is_equal_to(head));
+  assert_that(mid3->data, is_equal_to(400));
+  assert_that(mid3->next, is_equal_to(mid2));
+
+  assert_that(tail->prev, is_equal_to(mid1));
+  assert_that(tail->data, is_equal_to(500));
+  assert_that(tail->next, is_equal_to(NULL));
 
   free(head);
 }
@@ -311,10 +301,10 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_getting_negative_index);
   add_test_with_context(suite, DoublyLinkedList, when_getting_index_out_of_range);
 
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_head);
+  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_head);*/
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_y_head);*/
-  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);*/
-  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);*/
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_tail);*/
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_index_out_of_range);*/
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_self);*/
