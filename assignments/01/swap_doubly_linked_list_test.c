@@ -335,16 +335,24 @@ Ensure(DoublyLinkedList, when_swapping_tail_adjacent) {
   free(head);
 }
 
-Ensure(DoublyLinkedList, when_swapping_index_out_of_range) {
+Ensure(DoublyLinkedList, when_swapping_with_NULL) {
   Node *head = initialize(100);
   Node *mid = add(head, 200);
   Node *tail = add(head, 300);
 
   swap(mid, NULL);
 
-  assert_that(get(head, 0)->data, is_equal_to(100));
-  assert_that(get(head, 1)->data, is_equal_to(200));
-  assert_that(get(head, 2)->data, is_equal_to(300));
+  assert_that(head->prev, is_equal_to(NULL));
+  assert_that(head->data, is_equal_to(100));
+  assert_that(head->next, is_equal_to(mid));
+
+  assert_that(mid->prev, is_equal_to(head));
+  assert_that(mid->data, is_equal_to(200));
+  assert_that(mid->next, is_equal_to(tail));
+
+  assert_that(tail->prev, is_equal_to(mid));
+  assert_that(tail->data, is_equal_to(300));
+  assert_that(tail->next, is_equal_to(NULL));
 
   free(head);
 }
@@ -379,7 +387,7 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent_y);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent);
-  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_index_out_of_range);*/
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_with_NULL);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_self);
 
   return suite;
