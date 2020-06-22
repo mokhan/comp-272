@@ -82,14 +82,26 @@ static void swap(Node *x, Node *y) {
 
   Node *xp = x->prev, *xn = x->next, *yp = y->prev, *yn = y->next;
 
-  x->prev = y->prev;
-  x->prev->next = x;
-  x->next = yn;
-  x->next->prev = x;
-  y->prev = xp;
-  y->prev->next = y;
-  y->next = xn;
-  y->next->prev = y;
+  // if adjacent
+  if (x->next == y && y->prev == x) {
+    x->next = y->next;
+    x->next->prev = x;
+    x->prev = y;
+    y->next = x;
+    y->prev = xp;
+    y->prev->next = y;
+  } else if (x->prev == y && y->next == x) {
+    swap(y, x);
+  } else {
+    x->prev = y->prev;
+    x->prev->next = x;
+    x->next = yn;
+    x->next->prev = x;
+    y->prev = xp;
+    y->prev->next = y;
+    y->next = xn;
+    y->next->prev = y;
+  }
 }
 
 Ensure(DoublyLinkedList, when_getting_head) {
@@ -247,6 +259,60 @@ Ensure(DoublyLinkedList, when_swapping_y_mid) {
   free(head);
 }
 
+Ensure(DoublyLinkedList, when_swapping_mid_adjacent) {
+  Node *head = initialize(100);
+  Node *mid1 = add(head, 200);
+  Node *mid2 = add(head, 300);
+  Node *tail = add(head, 400);
+
+  swap(mid1, mid2);
+
+  assert_that(head->prev, is_equal_to(NULL));
+  assert_that(head->data, is_equal_to(100));
+  assert_that(head->next, is_equal_to(mid2));
+
+  assert_that(mid1->prev, is_equal_to(mid2));
+  assert_that(mid1->data, is_equal_to(200));
+  assert_that(mid1->next, is_equal_to(tail));
+
+  assert_that(mid2->prev, is_equal_to(head));
+  assert_that(mid2->data, is_equal_to(300));
+  assert_that(mid2->next, is_equal_to(mid1));
+
+  assert_that(tail->prev, is_equal_to(mid1));
+  assert_that(tail->data, is_equal_to(400));
+  assert_that(tail->next, is_equal_to(NULL));
+
+  free(head);
+}
+
+Ensure(DoublyLinkedList, when_swapping_mid_adjacent_y) {
+  Node *head = initialize(100);
+  Node *mid1 = add(head, 200);
+  Node *mid2 = add(head, 300);
+  Node *tail = add(head, 400);
+
+  swap(mid2, mid1);
+
+  assert_that(head->prev, is_equal_to(NULL));
+  assert_that(head->data, is_equal_to(100));
+  assert_that(head->next, is_equal_to(mid2));
+
+  assert_that(mid1->prev, is_equal_to(mid2));
+  assert_that(mid1->data, is_equal_to(200));
+  assert_that(mid1->next, is_equal_to(tail));
+
+  assert_that(mid2->prev, is_equal_to(head));
+  assert_that(mid2->data, is_equal_to(300));
+  assert_that(mid2->next, is_equal_to(mid1));
+
+  assert_that(tail->prev, is_equal_to(mid1));
+  assert_that(tail->data, is_equal_to(400));
+  assert_that(tail->next, is_equal_to(NULL));
+
+  free(head);
+}
+
 Ensure(DoublyLinkedList, when_swapping_tail) {
   Node *head = initialize(100);
   Node *mid = add(head, 200);
@@ -305,6 +371,8 @@ TestSuite *swap_doubly_linked_list_tests() {
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_y_head);*/
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent_y);
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_tail);*/
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_index_out_of_range);*/
   /*add_test_with_context(suite, DoublyLinkedList, when_swapping_self);*/
