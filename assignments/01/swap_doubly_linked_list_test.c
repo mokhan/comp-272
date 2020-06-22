@@ -77,10 +77,16 @@ static int size(Node *head) {
   return i;
 }
 
-/*x: Node *head = initialize(100);*/
-/*   Node *mid1 = add(head, 200);*/
-/*y: Node *mid2 = add(head, 300);*/
-/*   Node *tail = add(head, 400);*/
+static void assign_next(Node *self, Node *other) {
+  if (self)
+    self->next = other;
+}
+
+static void assign_prev(Node *self, Node *other) {
+  if (self)
+    self->prev = other;
+}
+
 static void swap(Node *x, Node *y) {
   if (x == y) return;
   if (!x || !y) return;
@@ -90,27 +96,21 @@ static void swap(Node *x, Node *y) {
 
   // if adjacent
   if (x->next == y && y->prev == x) {
-    x->next = yn;
-    if (yn)
-      x->next->prev = x;
-    x->prev = y;
-    y->next = x;
-    y->prev = xp;
-    if (xp)
-      y->prev->next = y;
+    assign_next(x, yn);
+    assign_prev(x->next, x);
+    assign_prev(x, y);
+    assign_next(y, x);
+    assign_prev(y, xp);
+    assign_next(y->prev, y);
   } else {
-    x->prev = y->prev;
-    if (x->prev)
-      x->prev->next = x;
-    x->next = yn;
-    if (yn)
-      x->next->prev = x;
-    y->prev = xp;
-    if (xp)
-      y->prev->next = y;
-    y->next = xn;
-    if (xn)
-      y->next->prev = y;
+    assign_prev(x, yp);
+    assign_next(x->prev, x);
+    assign_next(x, yn);
+    assign_prev(x->next, x);
+    assign_prev(y, xp);
+    assign_next(y->prev, y);
+    assign_next(y, xn);
+    assign_prev(y->next, y);
   }
 }
 
