@@ -100,7 +100,8 @@ static void swap(Node *x, Node *y) {
       y->prev->next = y;
   } else {
     x->prev = y->prev;
-    x->prev->next = x;
+    if (x->prev)
+      x->prev->next = x;
     x->next = yn;
     if (yn)
       x->next->prev = x;
@@ -169,6 +170,33 @@ Ensure(DoublyLinkedList, when_swapping_head_with_non_adjacent_node) {
   Node *tail = add(head, 400);
 
   swap(head, mid2);
+
+  assert_that(head->prev, is_equal_to(mid1));
+  assert_that(head->data, is_equal_to(100));
+  assert_that(head->next, is_equal_to(tail));
+
+  assert_that(mid1->prev, is_equal_to(mid2));
+  assert_that(mid1->data, is_equal_to(200));
+  assert_that(mid1->next, is_equal_to(head));
+
+  assert_that(mid2->prev, is_equal_to(NULL));
+  assert_that(mid2->data, is_equal_to(300));
+  assert_that(mid2->next, is_equal_to(mid1));
+
+  assert_that(tail->prev, is_equal_to(head));
+  assert_that(tail->data, is_equal_to(400));
+  assert_that(tail->next, is_equal_to(NULL));
+
+  free(head);
+}
+
+Ensure(DoublyLinkedList, when_swapping_head_with_non_adjacent_node_inverted) {
+  Node *head = initialize(100);
+  Node *mid1 = add(head, 200);
+  Node *mid2 = add(head, 300);
+  Node *tail = add(head, 400);
+
+  swap(mid2, head);
 
   assert_that(head->prev, is_equal_to(mid1));
   assert_that(head->data, is_equal_to(100));
@@ -494,9 +522,10 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_getting_negative_index);
   add_test_with_context(suite, DoublyLinkedList, when_getting_index_out_of_range);
 
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_head_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_head_adjacent_inverted);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node);
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node_inverted);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent);
