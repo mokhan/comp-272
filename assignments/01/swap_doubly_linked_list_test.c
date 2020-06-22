@@ -80,11 +80,17 @@ static int size(Node *head) {
 static void assign_next(Node *self, Node *other) {
   if (self)
     self->next = other;
+
+  if (other)
+    other->prev = self;
 }
 
 static void assign_prev(Node *self, Node *other) {
   if (self)
     self->prev = other;
+
+  if (other)
+    other->next = self;
 }
 
 static void swap(Node *x, Node *y) {
@@ -97,20 +103,13 @@ static void swap(Node *x, Node *y) {
   // if adjacent
   if (x->next == y && y->prev == x) {
     assign_next(x, yn);
-    assign_prev(x->next, x);
     assign_prev(x, y);
-    assign_next(y, x);
     assign_prev(y, xp);
-    assign_next(y->prev, y);
   } else {
     assign_prev(x, yp);
-    assign_next(x->prev, x);
     assign_next(x, yn);
-    assign_prev(x->next, x);
     assign_prev(y, xp);
-    assign_next(y->prev, y);
     assign_next(y, xn);
-    assign_prev(y->next, y);
   }
 }
 
