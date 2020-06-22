@@ -77,22 +77,26 @@ static int size(Node *head) {
   return i;
 }
 
+/*Node *head = initialize(100);*/
+/*x: Node *mid = add(head, 200);*/
+/*y: Node *tail = add(head, 300);*/
 static void swap(Node *x, Node *y) {
   if (x == y) return;
   if (!x || !y) return;
+  if (x->prev == y && y->next == x) return swap(y, x);
 
   Node *xp = x->prev, *xn = x->next, *yp = y->prev, *yn = y->next;
 
   // if adjacent
   if (x->next == y && y->prev == x) {
-    x->next = y->next;
-    x->next->prev = x;
+    x->next = yn;
+    if (yn)
+      x->next->prev = x;
     x->prev = y;
     y->next = x;
     y->prev = xp;
-    y->prev->next = y;
-  } else if (x->prev == y && y->next == x) {
-    swap(y, x);
+    if (xp)
+      y->prev->next = y;
   } else {
     x->prev = y->prev;
     x->prev->next = x;
@@ -412,7 +416,7 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent_y);
-  /*add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent);*/
+  add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_with_NULL);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_self);
 
