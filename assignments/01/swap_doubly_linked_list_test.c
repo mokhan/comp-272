@@ -4,6 +4,9 @@ Swap two adjacent elements in a list by adjusting
 only the links (and not the data) using a:
 * singly-linked list
 * doubly-linked list
+*
+*
+* Write a method, `reverse()`, that reverses the order of elements in a `DLList`
 */
 
 Describe(DoublyLinkedList);
@@ -111,6 +114,19 @@ static void swap(Node *x, Node *y) {
     assign_prev(y, xp);
     assign_next(y, xn);
   }
+}
+
+static Node *reverse(Node *head) {
+  Node *tmp = NULL;
+  Node *current = head;
+
+  while (current != NULL) {
+    tmp = current->prev;
+    current->prev = current->next;
+    current->next = tmp;
+    current = current->prev;
+  }
+  return tmp ? tmp->prev : head;
 }
 
 Ensure(DoublyLinkedList, when_getting_head) {
@@ -511,6 +527,33 @@ Ensure(DoublyLinkedList, when_swapping_self) {
   free(head);
 }
 
+Ensure(DoublyLinkedList, when_reversing_a_short_list) {
+  Node *head = initialize(100);
+  Node *mid = add(head, 200);
+  Node *tail = add(head, 300);
+
+  Node *new_head = reverse(head);
+
+  assert_that(new_head->prev, is_equal_to(NULL));
+  assert_that(new_head, is_equal_to(tail));
+  assert_that(new_head->next, is_equal_to(mid));
+
+  assert_that(mid->prev, is_equal_to(tail));
+  assert_that(mid->next, is_equal_to(head));
+
+  assert_that(head->prev, is_equal_to(mid));
+  assert_that(head->next, is_equal_to(NULL));
+}
+
+Ensure(DoublyLinkedList, when_reversing_an_empty_list) {
+  Node *head = initialize(100);
+  Node *result = reverse(head);
+
+  assert_that(result, is_equal_to(head));
+
+  free(head);
+}
+
 TestSuite *swap_doubly_linked_list_tests() {
   TestSuite *suite = create_test_suite();
 
@@ -535,6 +578,9 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_with_non_adjacent_node_inverted);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_with_NULL);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_self);
+
+  add_test_with_context(suite, DoublyLinkedList, when_reversing_a_short_list);
+  add_test_with_context(suite, DoublyLinkedList, when_reversing_an_empty_list);
 
   return suite;
 }
