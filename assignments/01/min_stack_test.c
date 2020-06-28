@@ -62,11 +62,9 @@ static void insert(Node **self, int data) {
       else
         (*self)->next = node;
       break;
-    case -1:
+    default:
       node->next = *self;
       *self = node;
-      break;
-    default:
       break;
   }
 }
@@ -138,6 +136,24 @@ Ensure(MinStack, when_pushing_multiple_integers_out_of_order) {
 
   assert_that(pop(stack), is_equal_to(NULL));
   assert_that(size(stack), is_equal_to(0));
+
+  free(stack);
+}
+
+Ensure(MinStack, when_pushing_duplicate_values_on_to_the_stack) {
+  Stack *stack = initialize();
+
+  push(stack, 2);
+  push(stack, 1);
+  push(stack, 2);
+
+  assert_that(size(stack), is_equal_to(3));
+  assert_that(min(stack), is_equal_to(1));
+
+  assert_that(pop(stack), is_equal_to(1));
+  assert_that(pop(stack), is_equal_to(2));
+  assert_that(pop(stack), is_equal_to(2));
+  assert_that(pop(stack), is_equal_to(NULL));
 
   free(stack);
 }
