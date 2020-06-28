@@ -1,6 +1,5 @@
 #include <cgreen/cgreen.h>
 
-TestSuite *words_tests();
 TestSuite *priority_queue_tests();
 TestSuite *stack_tests();
 TestSuite *swap_singly_linked_list_tests();
@@ -10,7 +9,6 @@ TestSuite *min_stack_tests();
 int main(int argc, char **argv) {
   TestSuite *suite = create_test_suite();
 
-  add_suite(suite, words_tests());
   add_suite(suite, priority_queue_tests());
   add_suite(suite, stack_tests());
   add_suite(suite, swap_singly_linked_list_tests());
