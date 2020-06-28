@@ -1,6 +1,6 @@
 CC=gcc
 
-test : main
+test : build/main
 	cgreen-runner -c main
 
 ci : main
