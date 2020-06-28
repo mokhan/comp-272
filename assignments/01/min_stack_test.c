@@ -55,11 +55,21 @@ static int min(Stack *stack) {
   return (int)NULL;
 }
 
+static int pop(Stack *stack) {
+  if (!stack->head)
+    return (int)NULL;
+
+  Node *current = stack->head;
+  stack->head = current->next;
+  return current->data;
+}
+
 Ensure(MinStack, when_empty) {
   Stack *stack = initialize();
 
   assert_that(size(stack), is_equal_to(0));
   assert_that(min(stack), is_equal_to(NULL));
+  assert_that(pop(stack), is_equal_to(NULL));
 
   free(stack);
 }
@@ -71,7 +81,8 @@ Ensure(MinStack, when_pushing_a_single_integer) {
 
   assert_that(size(stack), is_equal_to(1));
   assert_that(min(stack), is_equal_to(1));
-  /*assert_that(pop(stack), is_equal(1));*/
+  assert_that(pop(stack), is_equal_to(1));
+  assert_that(size(stack), is_equal_to(0));
 
   free(stack);
 }
