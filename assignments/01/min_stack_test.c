@@ -27,13 +27,13 @@ typedef struct {
 } Stack;
 
 static Stack *initialize() {
-  Stack *stack = malloc(sizeof(Stack));
-  stack->head = NULL;
-  return stack;
+  Stack *self = malloc(sizeof(Stack));
+  self->head = NULL;
+  return self;
 }
 
-static int size(Stack *stack) {
-  Node *current = stack->head;
+static int size(Stack *self) {
+  Node *current = self->head;
   int i;
   for (i = 0; current != NULL; i++)
     current = current->next;
@@ -69,27 +69,30 @@ static void insert(Node **self, int data) {
   }
 }
 
-static void push(Stack *stack, int data) {
-  if (stack->head)
-    insert(&stack->head, data);
+static void push(Stack *self, int data) {
+  if (self->head)
+    insert(&self->head, data);
   else
-    stack->head = new(data);
+    self->head = new(data);
 }
 
-static int min(Stack *stack) {
-  if (stack && stack->head)
-    return stack->head->data;
+static int min(Stack *self) {
+  if (self && self->head)
+    return self->head->data;
 
   return (int)NULL;
 }
 
-static int pop(Stack *stack) {
-  if (!stack->head)
+static int pop(Stack *self) {
+  if (!self->head)
     return (int)NULL;
 
-  Node *current = stack->head;
-  stack->head = current->next;
-  return current->data;
+  Node *current = self->head;
+  int data = current->data;
+  self->head = current->next;
+  current->next = NULL;
+  free(current);
+  return data;
 }
 
 Ensure(MinStack, when_empty) {
