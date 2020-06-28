@@ -11,10 +11,10 @@ $(BUILDDIR)/%.o : src/01/%.c
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
 test : all
-	cgreen-runner -c $(BUILDDIR)/program
+	cgreen-runner -c -v $(BUILDDIR)/program
 
 ci : all
-	cgreen-runner -c --xml=$(BUILDDIR)/ $(BUILDDIR)/program
+	cgreen-runner -c -v --xml=$(BUILDDIR)/ $(BUILDDIR)/program
 
 .PHONY: all
 all: $(OBJS) $(BUILDDIR)/html
