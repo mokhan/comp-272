@@ -37,3 +37,4 @@ swap_doubly_linked_list_test.o : src/01/swap_doubly_linked_list_test.c
 clean:
 	rm -f main *.o
 	rm -fr doc
+	rm -fr junit
