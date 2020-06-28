@@ -1,33 +1,36 @@
+#!/usr/bin/make -f
+SHELL=/bin/sh
+
 CC=gcc
-OBJDIR := build
-objects = build/*.o
-OBJS := $(addprefix $(OBJDIR)/,priority_queue_test.o stack_test.o min_stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o)
+LIBS = -lcgreen
 
-include src/**/*.mk
-
-#test : build/main
-	#cgreen-runner -c main
-
-#ci : build/main
-	#mkdir -p junit
-	#cgreen-runner -c --xml=build/junit/ main
+BUILDDIR := build
+OBJS := $(addprefix $(BUILDDIR)/,priority_queue_test.o stack_test.o min_stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o main.o)
 
 #doc : doc/
-	#doxygen Doxyfile
+#doxygen Doxyfile
 
-#build/main : $(objects)
-	#$(CC) -o build/main $(CFLAGS) $(objects)
-	#$(CC) main.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o min_stack_test.o -lcgreen -o main
-
-$(OBJDIR)/%.o : %.c
+$(BUILDDIR)/%.o : src/01/%.c
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
-all: $(OBJS)
+test : all
+	cgreen-runner -c $(BUILDDIR)/main
 
-$(OBJS): | $(OBJDIR)
+ci : all
+	cgreen-runner -c --xml=$(BUILDDIR)/ $(BUILDDIR)/main
 
-$(OBJDIR):
-	mkdir $(OBJDIR)
+.PHONY: all
+all: $(OBJS) $(BUILDDIR)/html
+	$(CC) $(OBJS) $(LIBS) -o $(BUILDDIR)/main
 
+$(OBJS): | $(BUILDDIR)
+
+$(BUILDDIR):
+	mkdir $(BUILDDIR)
+
+$(BUILDDIR)/html :
+	doxygen Doxyfile
+
+.PHONY: clean
 clean:
 	rm -fr build
