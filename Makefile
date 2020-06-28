@@ -1,40 +1,33 @@
 CC=gcc
+OBJDIR := build
+objects = build/*.o
+OBJS := $(addprefix $(OBJDIR)/,priority_queue_test.o stack_test.o min_stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o)
 
-test : build/main
-	cgreen-runner -c main
+include src/**/*.mk
 
-ci : main
-	mkdir -p junit
-	cgreen-runner -c --xml=junit/ main
+#test : build/main
+	#cgreen-runner -c main
 
-doc : doc/
-	doxygen Doxyfile
+#ci : build/main
+	#mkdir -p junit
+	#cgreen-runner -c --xml=build/junit/ main
 
-run : main
-	./main
+#doc : doc/
+	#doxygen Doxyfile
 
-main : main.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o min_stack_test.o
-	$(CC) main.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o min_stack_test.o -lcgreen -o main
+#build/main : $(objects)
+	#$(CC) -o build/main $(CFLAGS) $(objects)
+	#$(CC) main.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o min_stack_test.o -lcgreen -o main
 
-main.o : main.c
-	$(CC) -c main.c
+$(OBJDIR)/%.o : %.c
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
-priority_queue_test.o : src/01/priority_queue_test.c
-	$(CC) -c src/01/priority_queue_test.c
+all: $(OBJS)
 
-stack_test.o : src/01/stack_test.c
-	$(CC) -c src/01/stack_test.c
+$(OBJS): | $(OBJDIR)
 
-min_stack_test.o : src/01/min_stack_test.c
-	$(CC) -c src/01/min_stack_test.c
-
-swap_singly_linked_list_test.o : src/01/swap_singly_linked_list_test.c
-	$(CC) -c src/01/swap_singly_linked_list_test.c
-
-swap_doubly_linked_list_test.o : src/01/swap_doubly_linked_list_test.c
-	$(CC) -c src/01/swap_doubly_linked_list_test.c
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 clean:
-	rm -f main *.o
-	rm -fr doc
-	rm -fr junit
+	rm -fr build
