@@ -13,8 +13,8 @@ doc : doc/
 run : main
 	./main
 
-main : main.o words_test.o words.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o
-	$(CC) main.o words_test.o words.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o -lcgreen -o main
+main : main.o words_test.o words.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o min_stack_test.o
+	$(CC) main.o words_test.o words.o priority_queue_test.o stack_test.o swap_singly_linked_list_test.o swap_doubly_linked_list_test.o min_stack_test.o -lcgreen -o main
 
 main.o : main.c
 	$(CC) -c main.c
@@ -30,6 +30,9 @@ priority_queue_test.o : assignments/01/priority_queue_test.c
 
 stack_test.o : assignments/01/stack_test.c
 	$(CC) -c assignments/01/stack_test.c
+
+min_stack_test.o : assignments/01/min_stack_test.c
+	$(CC) -c assignments/01/min_stack_test.c
 
 swap_singly_linked_list_test.o : assignments/01/swap_singly_linked_list_test.c
 	$(CC) -c assignments/01/swap_singly_linked_list_test.c

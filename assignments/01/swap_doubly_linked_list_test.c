@@ -543,6 +543,8 @@ Ensure(DoublyLinkedList, when_reversing_a_short_list) {
 
   assert_that(head->prev, is_equal_to(mid));
   assert_that(head->next, is_equal_to(NULL));
+
+  free(head);
 }
 
 Ensure(DoublyLinkedList, when_reversing_an_empty_list) {
