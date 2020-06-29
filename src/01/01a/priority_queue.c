@@ -52,9 +52,11 @@ void add(PriorityQueue *queue, int priority, int data) {
 int delete_min(PriorityQueue *queue) {
   if (queue->head) {
     Node *tmp = queue->head;
+    int data = tmp->data;
     queue->head = tmp->next;
     queue->size--;
-    return tmp->data;
+    free(tmp);
+    return data;
   }
   return 0;
 }
