@@ -35,9 +35,8 @@ Ensure(PriorityQueue, returns_size) {
 
 Ensure(PriorityQueue, adds_a_node) {
   PriorityQueue *queue = initialize();
-  Node *node = create_node(1, 0);
 
-  add(queue, node);
+  add(queue, create_node(1, 0));
 
   assert_that(size(queue), is_equal_to(1));
 
@@ -46,17 +45,14 @@ Ensure(PriorityQueue, adds_a_node) {
 
 Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
   PriorityQueue *queue = initialize();
-  Node *min = create_node(1, 100);
-  Node *mid = create_node(2, 200);
-  Node *max = create_node(3, 300);
 
-  add(queue, max);
-  add(queue, min);
-  add(queue, mid);
+  add(queue, create_node(3, 300));
+  add(queue, create_node(1, 100));
+  add(queue, create_node(2, 200));
 
   assert_that(size(queue), is_equal_to(3));
-  assert_that(delete_min(queue), is_equal_to(min));
-  assert_that(queue->head, is_equal_to(mid));
+  assert_that(delete_min(queue)->data, is_equal_to(100));
+  assert_that(queue->head->data, is_equal_to(200));
   assert_that(size(queue), is_equal_to(2));
 
   destroy(queue);
