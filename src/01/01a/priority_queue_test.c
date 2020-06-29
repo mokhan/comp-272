@@ -51,7 +51,7 @@ Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
   add(queue, 2, 200);
 
   assert_that(size(queue), is_equal_to(3));
-  assert_that(delete_min(queue)->data, is_equal_to(100));
+  assert_that(delete_min(queue), is_equal_to(100));
   assert_that(queue->head->data, is_equal_to(200));
   assert_that(size(queue), is_equal_to(2));
 

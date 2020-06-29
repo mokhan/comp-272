@@ -49,14 +49,14 @@ void add(PriorityQueue *queue, int priority, int data) {
 }
 
 // This function is constant time O(1)
-Node *delete_min(PriorityQueue *queue) {
+int delete_min(PriorityQueue *queue) {
   if (queue->head) {
     Node *tmp = queue->head;
     queue->head = tmp->next;
     queue->size--;
-    return tmp;
+    return tmp->data;
   }
-  return NULL;
+  return 0;
 }
 
 void destroy(PriorityQueue *queue) {
