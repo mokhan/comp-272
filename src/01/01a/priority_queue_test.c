@@ -1,5 +1,6 @@
 #include <cgreen/cgreen.h>
 #include <string.h>
+#include "priority_queue.h"
 
 /*
 Implement the methods of the priority queue interface using a singly-linked list.
@@ -10,73 +11,6 @@ Implement the methods of the priority queue interface using a singly-linked list
 
 Analyze the running time of the `add(x)` and `deletMin()` operations based on this implementation.
 */
-struct node {
-  int priority;
-  int data;
-  struct node *next;
-};
-
-typedef struct node Node;
-
-typedef struct {
-  Node *head;
-  int size;
-} PriorityQueue;
-
-
-// https://en.wikipedia.org/wiki/Priority_queue
-static PriorityQueue *initialize() {
-  PriorityQueue *queue = malloc(sizeof(PriorityQueue));
-  queue->size = 0;
-  queue->head = NULL;
-  return queue;
-}
-
-static Node *create_node(int priority, int data) {
-  Node *node = malloc(sizeof(Node));
-  node->priority = priority;
-  node->data = data;
-  node->next = NULL;
-  return node;
-}
-
-// This function is constant time O(1)
-static int size(PriorityQueue *queue) {
-  return queue->size;
-}
-
-// This function is linear time O(n)
-static void add(PriorityQueue *queue, Node *node) {
-  queue->size++;
-
-  if (queue->head == NULL) {
-    queue->head = node;
-    return;
-  }
-
-  Node *tmp = queue->head;
-  Node *prev = NULL;
-
-  while(tmp != NULL) {
-    if (tmp->data > node->data) {
-      node->next = tmp;
-      if (tmp == queue->head)
-        queue->head = node;
-      else if (prev != NULL)
-        prev->next = node;
-      break;
-    }
-    prev = tmp;
-    tmp = tmp->next;
-  }
-}
-
-// This function is constant time O(1)
-static Node *delete_min(PriorityQueue *queue) {
-  Node *tmp = queue->head;
-  queue->head = tmp->next;
-  return tmp;
-}
 
 static void inspect(PriorityQueue *queue) {
   Node *tmp = queue->head;
@@ -85,18 +19,6 @@ static void inspect(PriorityQueue *queue) {
     printf("%d\n", tmp->data);
     tmp = tmp->next;
   }
-}
-
-static void destroy(PriorityQueue *queue) {
-  Node *current = queue->head;
-  Node *tmp;
-
-  while(current) {
-    tmp = current, current = current->next;
-
-    if (tmp) free(tmp);
-  }
-  free(queue);
 }
 
 Describe(PriorityQueue);
@@ -147,4 +69,10 @@ TestSuite *priority_queue_tests() {
   add_test_with_context(suite, PriorityQueue, removes_the_node_with_the_lowest_priority);
 
   return suite;
+}
+
+int main(int argc, char **argv) {
+  TestSuite *suite = create_test_suite();
+  add_suite(suite, priority_queue_tests());
+  return run_test_suite(suite, create_text_reporter());
 }
