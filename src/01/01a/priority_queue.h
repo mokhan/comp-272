@@ -11,7 +11,6 @@ typedef struct {
   int size;
 } PriorityQueue;
 
-
 PriorityQueue *initialize();
 Node *create_node(int priority, int data);
 int size(PriorityQueue *queue);
