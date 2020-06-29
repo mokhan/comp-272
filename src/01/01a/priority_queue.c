@@ -65,4 +65,3 @@ void destroy(PriorityQueue *queue) {
   }
   free(queue);
 }
-

@@ -2,19 +2,26 @@
 SHELL=/bin/sh
 
 CC=gcc
-LIBS = -lcgreen
+TEST_LIBS = -lcgreen
 
 BUILDDIR := build
-OBJS := $(addprefix $(BUILDDIR)/,priority_queue.o priority_queue_test.o)
+OBJS := $(addprefix $(BUILDDIR)/,priority_queue.o)
+TEST_OBJS := $(addprefix $(BUILDDIR)/,priority_queue_test.o)
 
 $(BUILDDIR)/%.o : %.c
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
 .PHONY: all
-all: $(OBJS)
-	$(CC) $(OBJS) $(LIBS) -o $(BUILDDIR)/program
+all: $(OBJS) $(BUILDDIR)/main.o
+	$(CC) $(OBJS) $(BUILDDIR)/main.o -o $(BUILDDIR)/program
+
+.PHONY: test
+test: $(OBJS) $(TEST_OBJS)
+	$(CC) $(OBJS) $(TEST_OBJS) $(TEST_LIBS) -o $(BUILDDIR)/test
 
 $(OBJS): | $(BUILDDIR)
+
+$(TEST_OBJS): | $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir $(BUILDDIR)
@@ -23,5 +30,8 @@ $(BUILDDIR):
 clean:
 	rm -fr build
 
-test : all
-	cgreen-runner -c -v $(BUILDDIR)/program
+run : all
+	./build/program
+
+run_test : test
+	cgreen-runner -c -v $(BUILDDIR)/test
