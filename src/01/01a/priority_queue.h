@@ -12,8 +12,7 @@ typedef struct {
 } PriorityQueue;
 
 PriorityQueue *initialize();
-Node *create_node(int priority, int data);
 int size(PriorityQueue *queue);
-void add(PriorityQueue *queue, Node *node);
+void add(PriorityQueue *queue, int priority, int data);
 Node *delete_min(PriorityQueue *queue);
 void destroy(PriorityQueue *queue);

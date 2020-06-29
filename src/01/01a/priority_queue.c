@@ -22,7 +22,8 @@ int size(PriorityQueue *queue) {
 }
 
 // This function is linear time O(n)
-void add(PriorityQueue *queue, Node *node) {
+void add(PriorityQueue *queue, int priority, int data) {
+  Node *node = create_node(priority, data);
   queue->size++;
 
   if (queue->head == NULL) {
