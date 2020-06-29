@@ -57,9 +57,45 @@ Ensure(PriorityQueue, removes_the_node_with_the_lowest_priority){
   assert_that(size(queue), is_equal_to(3));
   assert_that(delete_min(queue), is_equal_to(min));
   assert_that(queue->head, is_equal_to(mid));
+  assert_that(size(queue), is_equal_to(2));
 
   destroy(queue);
 };
+
+Ensure(PriorityQueue, when_removing_node_from_empty_queue) {
+  PriorityQueue *queue = initialize();
+
+  assert_that(delete_min(queue), is_equal_to(NULL));
+  assert_that(size(queue), is_equal_to(0));
+
+  destroy(queue);
+}
+
+Ensure(PriorityQueue, when_removing_it_decreases_the_size) {
+  PriorityQueue *queue = initialize();
+
+  add(queue, create_node(1, 0));
+  delete_min(queue);
+
+  assert_that(size(queue), is_equal_to(0));
+
+  destroy(queue);
+}
+
+Ensure(PriorityQueue, when_removing_the_last_node_it_decrements_the_count_correctly) {
+  PriorityQueue *queue = initialize();
+
+  add(queue, create_node(2, 200));
+  add(queue, create_node(1, 100));
+  add(queue, create_node(3, 300));
+
+  delete_min(queue);
+  delete_min(queue);
+  delete_min(queue);
+
+  assert_that(size(queue), is_equal_to(0));
+  destroy(queue);
+}
 
 TestSuite *priority_queue_tests() {
   TestSuite *suite = create_test_suite();
@@ -67,6 +103,9 @@ TestSuite *priority_queue_tests() {
   add_test_with_context(suite, PriorityQueue, returns_size);
   add_test_with_context(suite, PriorityQueue, adds_a_node);
   add_test_with_context(suite, PriorityQueue, removes_the_node_with_the_lowest_priority);
+  add_test_with_context(suite, PriorityQueue, when_removing_node_from_empty_queue);
+  add_test_with_context(suite, PriorityQueue, when_removing_it_decreases_the_size);
+  add_test_with_context(suite, PriorityQueue, when_removing_the_last_node_it_decrements_the_count_correctly);
 
   return suite;
 }
