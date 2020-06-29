@@ -10,12 +10,6 @@ OBJS := $(addprefix $(BUILDDIR)/,priority_queue_test.o stack_test.o min_stack_te
 $(BUILDDIR)/%.o : src/01/%.c
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
-test : all
-	cgreen-runner -c -v $(BUILDDIR)/program
-
-ci : all
-	cgreen-runner -c -v --xml=$(BUILDDIR)/ $(BUILDDIR)/program
-
 .PHONY: all
 all: $(OBJS) $(BUILDDIR)/html
 	$(CC) $(OBJS) $(LIBS) -o $(BUILDDIR)/program
@@ -31,3 +25,9 @@ $(BUILDDIR)/html :
 .PHONY: clean
 clean:
 	rm -fr build
+
+test : all
+	cgreen-runner -c -v $(BUILDDIR)/program
+
+ci : all
+	cgreen-runner -c -v --xml=$(BUILDDIR)/ $(BUILDDIR)/program
