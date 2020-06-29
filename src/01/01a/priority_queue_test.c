@@ -15,6 +15,7 @@ Analyze the running time of the `add(x)` and `deletMin()` operations based on th
 static void inspect(PriorityQueue *queue) {
   Node *tmp = queue->head;
 
+  printf("Inspecting...\n");
   while(tmp) {
     printf("%d\n", tmp->data);
     tmp = tmp->next;

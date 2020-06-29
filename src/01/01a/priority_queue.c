@@ -8,7 +8,7 @@ PriorityQueue *initialize() {
   return queue;
 }
 
-Node *create_node(int priority, int data) {
+static Node *create_node(int priority, int data) {
   Node *node = malloc(sizeof(Node));
   node->priority = priority;
   node->data = data;
@@ -21,31 +21,43 @@ int size(PriorityQueue *queue) {
   return queue->size;
 }
 
-// This function is linear time O(n)
-void add(PriorityQueue *queue, int priority, int data) {
-  Node *node = create_node(priority, data);
-  queue->size++;
+static int compare(const int x, const int y) {
+  return x == y ? 0 : x > y ? 1 : -1;
+}
 
-  if (queue->head == NULL) {
-    queue->head = node;
+void enqueue(Node *self, int priority, int data) {
+  if (self->next == NULL) {
+    self->next = create_node(priority, data);
     return;
   }
 
-  Node *tmp = queue->head;
-  Node *prev = NULL;
-
-  while(tmp != NULL) {
-    if (tmp->data > node->data) {
-      node->next = tmp;
-      if (tmp == queue->head)
-        queue->head = node;
-      else if (prev != NULL)
-        prev->next = node;
-      break;
-    }
-    prev = tmp;
-    tmp = tmp->next;
+  int comparison = compare(self->next->priority, priority);
+  if (comparison == 0) {
+    return enqueue(self->next, priority, data);
   }
+
+  if (comparison < 0) {
+    return enqueue(self->next, priority, data);
+  }
+
+  self->next = create_node(priority, data);
+}
+
+// This function is linear time O(n)
+void add(PriorityQueue *queue, int priority, int data) {
+  queue->size++;
+
+  if (!queue->head) {
+    queue->head = create_node(priority, data);
+    return;
+  }
+
+  if (compare(queue->head->priority, priority) <= 0)
+    return enqueue(queue->head, priority, data);
+
+  Node *node = create_node(priority, data);
+  node->next = queue->head;
+  queue->head = node;
 }
 
 // This function is constant time O(1)
