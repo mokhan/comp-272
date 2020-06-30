@@ -1,24 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "priority_queue.h"
 
 int main(int argc, char *argv[])
 {
-  printf("hello world\n");
-
+  printf("=== COMP-272 - Assignment 1 - Question 1a ===\n");
   PriorityQueue *queue = initialize();
 
-  add(queue, create_node(2, 200));
-  add(queue, create_node(1, 100));
-  add(queue, create_node(3, 300));
+  for (int i = 0; i < 10; i++) {
+    int priority = rand() % 10;
+    int data = rand() % 1000;
 
-  printf("%d\n", size(queue));
+    printf("Enqueue: %d\t%d\n", priority, data);
+    add(queue, priority, data);
+  }
 
+  printf("\n");
   while (size(queue) > 0) {
-    Node *tmp = delete_min(queue);
-    if (tmp)
-      printf("%d\n", tmp->data);
-    else
-      printf("%d\n", size(queue));
+    printf("Dequeue: %d\n", delete_min(queue));
+    inspect(queue);
   }
   printf("Bye\n");
   return 0;

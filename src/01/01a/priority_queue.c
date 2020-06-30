@@ -1,4 +1,5 @@
 #include "priority_queue.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 PriorityQueue *initialize() {
@@ -71,6 +72,17 @@ int delete_min(PriorityQueue *queue) {
     return data;
   }
   return 0;
+}
+
+void inspect(PriorityQueue *queue) {
+  Node *tmp = queue->head;
+
+  printf("Items (%d): [ ", size(queue));
+  while(tmp) {
+    printf("%d ", tmp->data);
+    tmp = tmp->next;
+  }
+  printf("]\n");
 }
 
 void destroy(PriorityQueue *queue) {

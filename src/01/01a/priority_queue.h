@@ -16,3 +16,4 @@ int size(PriorityQueue *queue);
 void add(PriorityQueue *queue, int priority, int data);
 int delete_min(PriorityQueue *queue);
 void destroy(PriorityQueue *queue);
+void inspect(PriorityQueue *queue);

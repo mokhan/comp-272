@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 SHELL=/bin/sh
 
-CC=gcc
+CC=clang
 TEST_LIBS = -lcgreen
 
 BUILDDIR := build

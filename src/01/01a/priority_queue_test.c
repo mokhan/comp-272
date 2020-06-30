@@ -12,16 +12,6 @@ Implement the methods of the priority queue interface using a singly-linked list
 Analyze the running time of the `add(x)` and `deletMin()` operations based on this implementation.
 */
 
-static void inspect(PriorityQueue *queue) {
-  Node *tmp = queue->head;
-
-  printf("Inspecting...\n");
-  while(tmp) {
-    printf("%d\n", tmp->data);
-    tmp = tmp->next;
-  }
-}
-
 Describe(PriorityQueue);
 BeforeEach(PriorityQueue){ }
 AfterEach(PriorityQueue){ }
@@ -89,6 +79,19 @@ Ensure(PriorityQueue, when_removing_the_last_node_it_decrements_the_count_correc
   delete_min(queue);
   delete_min(queue);
   delete_min(queue);
+
+  assert_that(size(queue), is_equal_to(0));
+  destroy(queue);
+}
+
+Ensure(PriorityQueue, when_adding_random_values_with_random_priority_it_returns_the_minimum_priority_value_correctly) {
+  PriorityQueue *queue = initialize();
+
+  for (int i = 0; i < 10; i++)
+    add(queue, rand() % 10, rand() % 1000);
+
+  while (size(queue) > 0)
+    delete_min(queue);
 
   assert_that(size(queue), is_equal_to(0));
   destroy(queue);
