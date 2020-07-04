@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static int MAX_SIZE = 2147483647;
+
 /**
  * Constructs a new instance of a queue
  *
@@ -83,7 +85,8 @@ int dequeue(Queue *self) {
  * @param data The data to push on to the stack
  */
 void push(Stack *self, int data) {
-  enqueue(self->q1, data);
+  if (self->q1->size < MAX_SIZE)
+    enqueue(self->q1, data);
 }
 
 /**
@@ -93,10 +96,14 @@ void push(Stack *self, int data) {
  * @return The data associated with the item to pop off the stack
  */
 int pop(Stack *self) {
-  int count = self->q1->size - 1;
+  int count = self->q1->size;
+
+  if (count <= 0)
+    return 0;
+
   Queue *tmp = newQueue();
 
-  for (int i = 0; i < count; i++)
+  for (int i = 0; i < count - 1; i++)
     enqueue(tmp, dequeue(self->q1));
 
   int data = dequeue(self->q1);
