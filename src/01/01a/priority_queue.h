@@ -1,3 +1,6 @@
+/**
+ * A struct that represents a single node in a linked list
+ */
 struct node {
   int priority;
   int data;
@@ -6,6 +9,9 @@ struct node {
 
 typedef struct node Node;
 
+/**
+ * A struct that represents a Queue implemented using a Singly Linked List.
+ */
 typedef struct {
   Node *head;
   int size;
