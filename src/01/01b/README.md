@@ -1,4 +1,4 @@
-# Learning Profile for Assignment #1 - Question #1b - Computer Science 272: Data Structures and Algorithms
+# Learning Profile for Assignment #1 - Question #6 - Computer Science 272: Data Structures and Algorithms
 
 Name: Mo Khan
 Student ID: 3431709

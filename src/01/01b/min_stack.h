@@ -10,7 +10,7 @@ typedef struct {
 } Stack;
 
 Stack *initialize();
-int size(Stack *self);
 void push(Stack *self, int data);
-int min(Stack *self);
 int pop(Stack *self);
+int size(Stack *self);
+int min(Stack *self);

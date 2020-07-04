@@ -1,17 +1,6 @@
 #include <cgreen/cgreen.h>
 #include "min_stack.h"
 
-/*
-   Design and implement a `MinStack` data structure that can store
-   comparable elements and supports the stack operations:
-
- * `push(x)`
- * `pop()`
- * `size()`
- * `min()`
- All operations should run in constant time.
-*/
-
 Describe(MinStack);
 BeforeEach(MinStack){ }
 AfterEach(MinStack){ }
