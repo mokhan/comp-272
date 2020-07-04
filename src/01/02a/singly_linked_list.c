@@ -103,15 +103,15 @@ void swap(Node **head, int x, int y) {
  * A helper method used to print a visual representation
  * of a linked list
  *
- * @param node The head of the linked list
+ * @param self The head of the linked list
  */
-void inspect(Node *node) {
-  if (!node) return;
+void inspect(Node *self) {
+  if (!self) return;
 
-  printf("*******\n");
-  while (node) {
-    printf("\t%d\n", node->data);
-    node = node->next;
+  printf("[");
+  while(self) {
+    printf(" %d ", self->data);
+    self = self->next;
   }
-  printf("*******\n");
+  printf("]\n");
 }
