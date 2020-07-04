@@ -2,17 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void inspect(Node *node) {
-  if (!node) return;
-
-  printf("*******\n");
-  while (node) {
-    printf("\t%d\n", node->data);
-    node = node->next;
-  }
-  printf("*******\n");
-}
-
+/**
+ * The equivalent of a constructor to initalize a linked list.
+ *
+ * @param data The initial data to seed the linked list
+ * @return Returns a new Node
+ */
 Node *initialize(int data) {
   Node *node = malloc(sizeof(Node));
   node->data = data;
@@ -20,6 +15,12 @@ Node *initialize(int data) {
   return node;
 }
 
+/**
+ * Add a node to the tail of the linked list
+ *
+ * @param head The head of the linked list
+ * @param data The data to add to the linked list
+ */
 Node *add(Node *head, int data) {
   Node *tail;
   Node *tmp = head;
@@ -34,22 +35,43 @@ Node *add(Node *head, int data) {
   return tail->next;
 }
 
-Node *get(Node *from, int index) {
-  if (!from || index < 0) return NULL;
+/**
+ * Gets a specific node by index starting from index 0.
+ *
+ * @param self The Node to start from
+ * @param index The index of the node to return
+ * @return The node at the specific index
+ */
+Node *get(Node *self, int index) {
+  if (!self || index < 0) return NULL;
 
-  while(index > 0 && from){
-    from = from->next;
+  while(index > 0 && self){
+    self = self->next;
     index--;
   }
-  return from;
+  return self;
 }
 
+/**
+ * Counts the number of items in the linked list
+ *
+ * @param head The head of the linked list
+ * @return The # of items in the linked list
+ */
 static int size(Node *head) {
   int i = 0;
   for (Node *tmp = head; tmp && tmp != NULL; tmp = tmp->next) i++;
   return i;
 }
 
+/**
+ * Swaps nodes in a linked list that are in positions
+ * x and y.
+ *
+ * @param head The head of the linked list
+ * @param x The node in position x
+ * @param y The node in position y
+ */
 void swap(Node **head, int x, int y) {
   int count = size(*head);
 
@@ -75,4 +97,21 @@ void swap(Node **head, int x, int y) {
   Node *tmp = yc->next;
   yc->next = xc->next;
   xc->next = tmp;
+}
+
+/**
+ * A helper method used to print a visual representation
+ * of a linked list
+ *
+ * @param node The head of the linked list
+ */
+void inspect(Node *node) {
+  if (!node) return;
+
+  printf("*******\n");
+  while (node) {
+    printf("\t%d\n", node->data);
+    node = node->next;
+  }
+  printf("*******\n");
 }
