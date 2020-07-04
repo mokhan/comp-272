@@ -84,10 +84,29 @@ Ensure(PriorityQueue, when_removing_the_last_node_it_decrements_the_count_correc
   destroy(queue);
 }
 
-Ensure(PriorityQueue, when_adding_random_values_with_random_priority_it_returns_the_minimum_priority_value_correctly) {
+Ensure(PriorityQueue, when_adding_data_out_of_order) {
   PriorityQueue *queue = initialize();
 
-  for (int i = 0; i < 10; i++)
+  add(queue, 7, 700);
+  add(queue, 3, 300);
+  add(queue, 0, 100);
+  add(queue, 4, 400);
+
+  assert_that(size(queue), is_equal_to(4));
+  assert_that(delete_min(queue), is_equal_to(100));
+  assert_that(delete_min(queue), is_equal_to(300));
+  assert_that(delete_min(queue), is_equal_to(400));
+  assert_that(delete_min(queue), is_equal_to(700));
+  assert_that(size(queue), is_equal_to(0));
+
+  destroy(queue);
+}
+
+Ensure(PriorityQueue, when_adding_random_values_with_random_priority_it_returns_the_minimum_priority_value_correctly) {
+  PriorityQueue *queue = initialize();
+  int n = 10;
+
+  for (int i = 0; i < n; i++)
     add(queue, rand() % 10, rand() % 1000);
 
   while (size(queue) > 0)
@@ -100,11 +119,13 @@ Ensure(PriorityQueue, when_adding_random_values_with_random_priority_it_returns_
 TestSuite *priority_queue_tests() {
   TestSuite *suite = create_test_suite();
 
-  add_test_with_context(suite, PriorityQueue, returns_size);
   add_test_with_context(suite, PriorityQueue, adds_a_node);
   add_test_with_context(suite, PriorityQueue, removes_the_node_with_the_lowest_priority);
-  add_test_with_context(suite, PriorityQueue, when_removing_node_from_empty_queue);
+  add_test_with_context(suite, PriorityQueue, returns_size);
+  add_test_with_context(suite, PriorityQueue, when_adding_data_out_of_order);
+  add_test_with_context(suite, PriorityQueue, when_adding_random_values_with_random_priority_it_returns_the_minimum_priority_value_correctly);
   add_test_with_context(suite, PriorityQueue, when_removing_it_decreases_the_size);
+  add_test_with_context(suite, PriorityQueue, when_removing_node_from_empty_queue);
   add_test_with_context(suite, PriorityQueue, when_removing_the_last_node_it_decrements_the_count_correctly);
 
   return suite;

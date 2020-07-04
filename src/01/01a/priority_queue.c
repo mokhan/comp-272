@@ -41,7 +41,9 @@ void enqueue(Node *self, int priority, int data) {
     return enqueue(self->next, priority, data);
   }
 
+  Node *tmp = self->next;
   self->next = create_node(priority, data);
+  self->next->next = tmp;
 }
 
 // This function is linear time O(n)
@@ -79,7 +81,7 @@ void inspect(PriorityQueue *queue) {
 
   printf("Items (%d): [ ", size(queue));
   while(tmp) {
-    printf("%d ", tmp->data);
+    printf("(%d,%d) ", tmp->priority, tmp->data);
     tmp = tmp->next;
   }
   printf("]\n");
