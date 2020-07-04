@@ -19,7 +19,8 @@ The implementation of the `pop()` function operates in linear time `O(n)`.
 
 ## Errors and Warnings
 
-The design this program I used [cgreen](https://cgreen-devs.github.io/) to unit test the pseudo public
+For the design of this program I used
+[c-green](https://cgreen-devs.github.io/) to unit test the pseudo public
 functions of the Stack interface.
 
 The [`stack_test.c`](./stack_test.c) file includes unit tests to cover the following scenarios:
@@ -45,6 +46,7 @@ Completed "main": 5 passes in 1ms.
 
 ```bash
 モ make run
+clang    -c -o build/main.o main.c
 clang build/stack.o build/main.o -o build/program
 ./build/program
 === COMP-272 - Assignment 1 - Question 1b ===
@@ -59,28 +61,22 @@ Push: 492
 Push: 649
 Push: 421
 
-[383,886,777,915,793,335,386,492,649,421]
-Pop: 421
-[383,886,777,915,793,335,386,492,649]
-Pop: 649
-[383,886,777,915,793,335,386,492]
-Pop: 492
-[383,886,777,915,793,335,386]
-Pop: 386
-[383,886,777,915,793,335]
-Pop: 335
-[383,886,777,915,793]
-Pop: 793
-[383,886,777,915]
-Pop: 915
-[383,886,777]
-Pop: 777
-[383,886]
-Pop: 886
-[383]
-Pop: 383
-[]
+Stack:          [383,886,777,915,793,335,386,492,649,421]
+  Pop: 421      [383,886,777,915,793,335,386,492,649]
+  Pop: 649      [383,886,777,915,793,335,386,492]
+  Pop: 492      [383,886,777,915,793,335,386]
+  Pop: 386      [383,886,777,915,793,335]
+  Pop: 335      [383,886,777,915,793]
+  Pop: 793      [383,886,777,915]
+  Pop: 915      [383,886,777]
+  Pop: 777      [383,886]
+  Pop: 886      [383]
+  Pop: 383      []
+
 Bye
 ```
 
 ## Discussion
+
+This implementation of a Stack can hold a maximum of 2^32 number of items.
+Once the Stack is full it stops accepting new items to push.

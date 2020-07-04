@@ -14,13 +14,13 @@ int main(int argc, char *argv[])
     push(stack, data);
   }
 
-  printf("\n");
+  printf("\nStack:\t\t");
   inspect(stack->q1);
 
   while (size(stack) > 0) {
-    printf("Pop: %d\n", pop(stack));
+    printf("  Pop: %d\t", pop(stack));
     inspect(stack->q1);
   }
-  printf("Bye\n");
+  printf("\nBye\n");
   return 0;
 }
