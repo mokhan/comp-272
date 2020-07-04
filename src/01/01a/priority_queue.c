@@ -5,7 +5,7 @@
 /**
  * The equivalent of a constructor to create a PriorityQueue.
  */
-PriorityQueue *initialize() {
+PriorityQueue *initialize(void) {
   PriorityQueue *self = malloc(sizeof(PriorityQueue));
   self->size = 0;
   self->head = NULL;
