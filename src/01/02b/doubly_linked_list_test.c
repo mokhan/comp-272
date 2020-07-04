@@ -1,4 +1,6 @@
 #include <cgreen/cgreen.h>
+#include "doubly_linked_list.h"
+
 /*
 Swap two adjacent elements in a list by adjusting
 only the links (and not the data) using a:
@@ -12,122 +14,6 @@ only the links (and not the data) using a:
 Describe(DoublyLinkedList);
 BeforeEach(DoublyLinkedList){ }
 AfterEach(DoublyLinkedList){ }
-
-struct node {
-  int data;
-  struct node *next;
-  struct node *prev;
-};
-
-typedef struct node Node;
-
-static void print(Node *node) {
-  if (node->prev && node->next)
-    printf("%d <- %d -> %d\n", node->prev->data, node->data, node->next->data);
-  else if (node->next)
-    printf("nil <- %d -> %d\n", node->data, node->next->data);
-  else
-    printf("%d <- %d -> nil\n", node->prev->data, node->data);
-}
-
-static void inspect(Node *node) {
-  if (!node) return;
-
-  printf("*******\n");
-  while (node) {
-    print(node);
-    node = node->next;
-  }
-  printf("*******\n");
-}
-
-static Node *initialize(int data) {
-  Node *node = malloc(sizeof(Node));
-  node->data = data;
-  node->next = NULL;
-  node->prev = NULL;
-  return node;
-}
-
-static Node *add(Node *head, int data) {
-  Node *tail;
-  Node *tmp = head;
-
-  while(tmp) {
-    if (!tmp->next)
-      break;
-    tmp = tmp->next;
-  }
-  tail = tmp;
-  tail->next = initialize(data);
-  tail->next->prev = tail;
-  return tail->next;
-}
-
-static Node *get(Node *from, int index) {
-  if (!from || index < 0) return NULL;
-
-  while(index > 0 && from){
-    from = from->next;
-    index--;
-  }
-  return from;
-}
-
-static int size(Node *head) {
-  int i = 0;
-  for (Node *tmp = head; tmp && tmp != NULL; tmp = tmp->next) i++;
-  return i;
-}
-
-static void assign_next(Node *self, Node *other) {
-  if (self)
-    self->next = other;
-
-  if (other)
-    other->prev = self;
-}
-
-static void assign_prev(Node *self, Node *other) {
-  if (self)
-    self->prev = other;
-
-  if (other)
-    other->next = self;
-}
-
-static void swap(Node *x, Node *y) {
-  if (x == y) return;
-  if (!x || !y) return;
-  if (x->prev == y && y->next == x) return swap(y, x);
-
-  Node *xp = x->prev, *xn = x->next, *yp = y->prev, *yn = y->next;
-
-  // if adjacent
-  if (x->next == y && y->prev == x) {
-    assign_next(x, yn);
-    assign_prev(x, y);
-    assign_prev(y, xp);
-  } else {
-    assign_prev(x, yp);
-    assign_next(x, yn);
-    assign_prev(y, xp);
-    assign_next(y, xn);
-  }
-}
-
-static Node *reverse(Node *head) {
-  Node *tmp = NULL;
-  Node *current = head;
-
-  while (current != NULL) {
-    tmp = current->prev;
-    current->prev = current->next;
-    current->next = tmp;
-    current = current->prev;
-  }
-  return tmp ? tmp->prev : head;
-}
 
 Ensure(DoublyLinkedList, when_getting_head) {
   Node *head = initialize(100);
@@ -585,4 +471,10 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_reversing_an_empty_list);
 
   return suite;
+}
+
+int main(int argc, char **argv) {
+  TestSuite *suite = create_test_suite();
+  add_suite(suite, swap_doubly_linked_list_tests());
+  return run_test_suite(suite, create_text_reporter());
 }
