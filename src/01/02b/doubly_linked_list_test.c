@@ -1,16 +1,6 @@
 #include <cgreen/cgreen.h>
 #include "doubly_linked_list.h"
 
-/*
-Swap two adjacent elements in a list by adjusting
-only the links (and not the data) using a:
-* singly-linked list
-* doubly-linked list
-*
-*
-* Write a method, `reverse()`, that reverses the order of elements in a `DLList`
-*/
-
 Describe(DoublyLinkedList);
 BeforeEach(DoublyLinkedList){ }
 AfterEach(DoublyLinkedList){ }
