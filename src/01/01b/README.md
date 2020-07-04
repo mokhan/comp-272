@@ -7,7 +7,7 @@ Student ID: 3431709
 
 Implement the stack methods `push(x)` and `pop()` using two queues.
 
-Analyze the running time of the push(x) and pop() operations based on this implementation.
+Analyze the running time of the `push(x)` and `pop()` operations based on this implementation.
 
 2. Description of the Code:
 3. Errors and Warnings:
