@@ -28,3 +28,4 @@ void push(Stack *stack, int data);
 int pop(Stack *stack);
 int size(Stack *stack);
 void destroy(Stack *stack);
+void inspect(Queue *self);

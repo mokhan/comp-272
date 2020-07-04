@@ -135,7 +135,7 @@ void destroy(Stack *self) {
  *
  * @param self the queue to print
  */
-static void inspect(Queue *self) {
+void inspect(Queue *self) {
   Node *tmp = self->head;
 
   if (self->size == 0) {
@@ -150,4 +150,3 @@ static void inspect(Queue *self) {
   }
   printf("\b]\n");
 }
-
