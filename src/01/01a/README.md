@@ -48,7 +48,15 @@ Running "test" (8 tests)...
 Completed "test": 17 passes in 5ms.
 ```
 
-The test cases include
+The test cases include:
+
+* add a node to an empty queue
+* remove a node from the head of the queue
+* removing a node from an empty queue
+* removing the last node
+* adding nodes out of order
+
+Please see [`priority_queue_test.c`](./priority_queue_test.c) for more details.
 
 ## Sample Input and Output
 
