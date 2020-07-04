@@ -2,16 +2,6 @@
 #include <string.h>
 #include "priority_queue.h"
 
-/*
-Implement the methods of the priority queue interface using a singly-linked list.
-
-* `add(x)`
-* `deleteMin()`
-* `size()`
-
-Analyze the running time of the `add(x)` and `deletMin()` operations based on this implementation.
-*/
-
 Describe(PriorityQueue);
 BeforeEach(PriorityQueue){ }
 AfterEach(PriorityQueue){ }

@@ -5,6 +5,7 @@
 int main(int argc, char *argv[])
 {
   printf("=== COMP-272 - Assignment 1 - Question 1a ===\n");
+  printf("%lu\n", sizeof(int));
   PriorityQueue *queue = initialize();
 
   for (int i = 0; i < 10; i++) {

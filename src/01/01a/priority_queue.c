@@ -17,7 +17,6 @@ static Node *create_node(int priority, int data) {
   return node;
 }
 
-// This function is constant time O(1)
 int size(PriorityQueue *queue) {
   return queue->size;
 }
@@ -46,7 +45,6 @@ void enqueue(Node *self, int priority, int data) {
   self->next->next = tmp;
 }
 
-// This function is linear time O(n)
 void add(PriorityQueue *queue, int priority, int data) {
   queue->size++;
 
@@ -63,7 +61,6 @@ void add(PriorityQueue *queue, int priority, int data) {
   queue->head = node;
 }
 
-// This function is constant time O(1)
 int delete_min(PriorityQueue *queue) {
   if (queue->head) {
     Node *tmp = queue->head;
