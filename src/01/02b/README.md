@@ -9,6 +9,10 @@ Swap two adjacent elements in a list by adjusting only the links (and not the da
 
 ## Description of the Code
 
+The `swap()` function operates in constant time by adjusing the next and previous
+pointers for the target nodes to swap. It also updates any pointers for neighbor
+nodes that need to be updated as well.
+
 ## Errors and Warnings
 
 ```bash
