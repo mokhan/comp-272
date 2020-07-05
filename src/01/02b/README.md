@@ -8,6 +8,7 @@ Student ID: 3431709
 Swap two adjacent elements in a list by adjusting only the links (and not the data) using doubly-linked list.
 
 ## Description of the Code
+
 ## Errors and Warnings
 
 ```bash
