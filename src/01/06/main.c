@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     inspect(stack);
   }
 
-  printf("Bye");
+  printf("Bye\n");
   free(stack);
   return 0;
 }

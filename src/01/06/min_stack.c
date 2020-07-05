@@ -22,14 +22,12 @@ int size(Stack *self) {
 }
 
 void push(Stack *self, int data) {
-  if (self->min) {
-    if (data < self->min->data) {
-      Node *tmp = new(data);
-      tmp->next = self->min;
-      self->min = tmp;
-    }
-  } else {
+  if (!self->min)
     self->min = new(data);
+  else if (data < self->min->data) {
+    Node *tmp = new(data);
+    tmp->next = self->min;
+    self->min = tmp;
   }
 
   Node *node = new(data);
@@ -72,10 +70,8 @@ int pop(Stack *self) {
 
   Node *current = self->head;
   int data = current->data;
-  if (data == self->min->data) {
+  if (data == self->min->data)
     self->min = self->min->next;
-  }
-
   self->head = current->next;
   self->size--;
   current->next = NULL;
