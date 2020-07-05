@@ -9,6 +9,7 @@ including array-based lists, linked lists, skiplists, hash tables,
 recursion, binary trees, scapegoat trees, red–black trees, heaps,
 sorting algorithms, graphs, and binary trie.
 
+* [Course Website](https://www.athabascau.ca/syllabi/comp/comp272.php)
 * [Assignments](./doc/assignments)
 * [Units](./doc/unit)
 
