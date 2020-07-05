@@ -7,6 +7,8 @@ typedef struct node Node;
 
 typedef struct {
   Node *head;
+  Node *min;
+  int size;
 } Stack;
 
 Stack *initialize(void);
