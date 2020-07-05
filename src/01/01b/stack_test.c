@@ -3,8 +3,8 @@
 #include <math.h>
 
 Describe(Stack);
-BeforeEach(Stack){ }
-AfterEach(Stack){ }
+BeforeEach(Stack) {}
+AfterEach(Stack) {}
 
 Ensure(Stack, push_onto_stack) {
   Stack *stack = initialize();

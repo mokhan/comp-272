@@ -1,9 +1,8 @@
+#include "priority_queue.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "priority_queue.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   printf("=== COMP-272 - Assignment 1 - Question 1a ===\n");
   PriorityQueue *queue = initialize();
 

@@ -1,9 +1,9 @@
-#include <cgreen/cgreen.h>
 #include "doubly_linked_list.h"
+#include <cgreen/cgreen.h>
 
 Describe(DoublyLinkedList);
-BeforeEach(DoublyLinkedList){ }
-AfterEach(DoublyLinkedList){ }
+BeforeEach(DoublyLinkedList) {}
+AfterEach(DoublyLinkedList) {}
 
 Ensure(DoublyLinkedList, when_reversing_a_short_list) {
   Node *head = initialize(100);

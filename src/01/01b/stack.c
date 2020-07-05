@@ -9,7 +9,7 @@ static int MAX_SIZE = 2147483647;
  *
  * @return A Queue struct
  */
-static Queue *newQueue(void){
+static Queue *newQueue(void) {
   Queue *queue = malloc(sizeof(Queue));
   queue->size = 0;
   queue->head = NULL;
@@ -68,7 +68,8 @@ void enqueue(Queue *self, int data) {
  * @return The data for the next it to remove from the Queue
  */
 int dequeue(Queue *self) {
-  if (self->head == NULL) return -1;
+  if (self->head == NULL)
+    return -1;
 
   Node *node = self->head;
   int data = node->data;
@@ -118,9 +119,7 @@ int pop(Stack *self) {
  * @param self The stack to investigate
  * @return The count of items on the stack.
  */
-int size(Stack *self) {
-  return self->q1->size;
-}
+int size(Stack *self) { return self->q1->size; }
 
 /**
  * The equivalent of a destructor to free any memory associated with a Stack.

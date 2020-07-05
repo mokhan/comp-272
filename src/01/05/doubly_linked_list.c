@@ -14,7 +14,7 @@ Node *add(Node *head, int data) {
   Node *tail;
   Node *tmp = head;
 
-  while(tmp) {
+  while (tmp) {
     if (!tmp->next)
       break;
     tmp = tmp->next;
@@ -26,9 +26,10 @@ Node *add(Node *head, int data) {
 }
 
 Node *get(Node *from, int index) {
-  if (!from || index < 0) return NULL;
+  if (!from || index < 0)
+    return NULL;
 
-  while(index > 0 && from){
+  while (index > 0 && from) {
     from = from->next;
     index--;
   }
@@ -37,7 +38,8 @@ Node *get(Node *from, int index) {
 
 static int size(Node *head) {
   int i = 0;
-  for (Node *tmp = head; tmp && tmp != NULL; tmp = tmp->next) i++;
+  for (Node *tmp = head; tmp && tmp != NULL; tmp = tmp->next)
+    i++;
   return i;
 }
 
@@ -80,7 +82,8 @@ static void print(Node *node) {
 }
 
 void inspect(Node *node) {
-  if (!node) return;
+  if (!node)
+    return;
 
   printf("[ ");
   while (node) {
@@ -90,4 +93,3 @@ void inspect(Node *node) {
   }
   printf("]\n");
 }
-

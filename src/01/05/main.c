@@ -2,12 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int next(void) {
-  return rand() % 100;
-}
+int next(void) { return rand() % 100; }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   printf("=== COMP-272 - Assignment 1 - Question 5 ===\n");
 
   Node *head = initialize(0);

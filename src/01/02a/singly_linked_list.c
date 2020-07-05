@@ -25,7 +25,7 @@ Node *add(Node *head, int data) {
   Node *tail;
   Node *tmp = head;
 
-  while(tmp) {
+  while (tmp) {
     if (!tmp->next)
       break;
     tmp = tmp->next;
@@ -43,9 +43,10 @@ Node *add(Node *head, int data) {
  * @return The node at the specific index
  */
 Node *get(Node *self, int index) {
-  if (!self || index < 0) return NULL;
+  if (!self || index < 0)
+    return NULL;
 
-  while(index > 0 && self){
+  while (index > 0 && self) {
     self = self->next;
     index--;
   }
@@ -60,7 +61,8 @@ Node *get(Node *self, int index) {
  */
 static int size(Node *head) {
   int i = 0;
-  for (Node *tmp = head; tmp && tmp != NULL; tmp = tmp->next) i++;
+  for (Node *tmp = head; tmp && tmp != NULL; tmp = tmp->next)
+    i++;
   return i;
 }
 
@@ -75,9 +77,12 @@ static int size(Node *head) {
 void swap(Node **head, int x, int y) {
   int count = size(*head);
 
-  if (x == y) return;
-  if (x >= count) return;
-  if (y >= count) return;
+  if (x == y)
+    return;
+  if (x >= count)
+    return;
+  if (y >= count)
+    return;
 
   Node *xp = get(*head, x - 1);
   Node *yp = get(*head, y - 1);
@@ -106,10 +111,11 @@ void swap(Node **head, int x, int y) {
  * @param self The head of the linked list
  */
 void inspect(Node *self) {
-  if (!self) return;
+  if (!self)
+    return;
 
   printf("[");
-  while(self) {
+  while (self) {
     printf(" %d ", self->data);
     self = self->next;
   }

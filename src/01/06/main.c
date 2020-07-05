@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   Stack *stack = initialize();
 
   printf("=== COMP-272 - Assignment 1 - Question 6 ===\n");
@@ -18,7 +17,7 @@ int main(int argc, char *argv[])
 
   printf("Popping:\n==========\n");
   inspect(stack);
-  while(size(stack) > 0) {
+  while (size(stack) > 0) {
     printf("Pop: %d, Min: %d\n", pop(stack), min(stack));
     inspect(stack);
   }

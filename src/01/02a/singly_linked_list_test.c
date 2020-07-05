@@ -2,8 +2,8 @@
 #include <cgreen/cgreen.h>
 
 Describe(SinglyLinkedList);
-BeforeEach(SinglyLinkedList){ }
-AfterEach(SinglyLinkedList){ }
+BeforeEach(SinglyLinkedList) {}
+AfterEach(SinglyLinkedList) {}
 
 Ensure(SinglyLinkedList, when_getting_head) {
   Node *head = initialize(100);
@@ -53,7 +53,6 @@ Ensure(SinglyLinkedList, when_getting_index_out_of_range) {
 
   free(head);
 }
-
 
 Ensure(SinglyLinkedList, when_swapping_head) {
   Node *head = initialize(100);
@@ -177,14 +176,16 @@ TestSuite *swap_singly_linked_list_tests() {
   add_test_with_context(suite, SinglyLinkedList, when_getting_tail);
   add_test_with_context(suite, SinglyLinkedList, when_getting_from_empty_list);
   add_test_with_context(suite, SinglyLinkedList, when_getting_negative_index);
-  add_test_with_context(suite, SinglyLinkedList, when_getting_index_out_of_range);
+  add_test_with_context(suite, SinglyLinkedList,
+                        when_getting_index_out_of_range);
 
   add_test_with_context(suite, SinglyLinkedList, when_swapping_head);
   add_test_with_context(suite, SinglyLinkedList, when_swapping_y_head);
   add_test_with_context(suite, SinglyLinkedList, when_swapping_mid);
   add_test_with_context(suite, SinglyLinkedList, when_swapping_y_mid);
   add_test_with_context(suite, SinglyLinkedList, when_swapping_tail);
-  add_test_with_context(suite, SinglyLinkedList, when_swapping_index_out_of_range);
+  add_test_with_context(suite, SinglyLinkedList,
+                        when_swapping_index_out_of_range);
   add_test_with_context(suite, SinglyLinkedList, when_swapping_self);
 
   return suite;

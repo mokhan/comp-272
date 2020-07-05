@@ -33,9 +33,7 @@ static Node *create_node(int priority, int data) {
  * @param self The queue to investigate
  * @return The total number of items stored in the queue.
  */
-int size(PriorityQueue *self) {
-  return self->size;
-}
+int size(PriorityQueue *self) { return self->size; }
 
 /**
  * Compares two integers and returns:
@@ -129,7 +127,7 @@ void inspect(PriorityQueue *self) {
   Node *tmp = self->head;
 
   printf("Items (%d): [ ", size(self));
-  while(tmp) {
+  while (tmp) {
     printf("(%d,%d) ", tmp->priority, tmp->data);
     tmp = tmp->next;
   }
@@ -146,10 +144,11 @@ void destroy(PriorityQueue *self) {
   Node *current = self->head;
   Node *tmp;
 
-  while(current) {
+  while (current) {
     tmp = current, current = current->next;
 
-    if (tmp) free(tmp);
+    if (tmp)
+      free(tmp);
   }
   free(self);
 }

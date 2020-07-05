@@ -1,9 +1,9 @@
-#include <cgreen/cgreen.h>
 #include "min_stack.h"
+#include <cgreen/cgreen.h>
 
 Describe(MinStack);
-BeforeEach(MinStack){ }
-AfterEach(MinStack){ }
+BeforeEach(MinStack) {}
+AfterEach(MinStack) {}
 
 Ensure(MinStack, when_empty) {
   Stack *stack = initialize();
@@ -51,7 +51,9 @@ Ensure(MinStack, when_a_single_item_is_on_the_stack_it_is_the_min) {
   free(stack);
 }
 
-Ensure(MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_the_item) {
+Ensure(
+    MinStack,
+    when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_the_item) {
   Stack *stack = initialize();
 
   push(stack, 200);
@@ -61,7 +63,9 @@ Ensure(MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_ret
   free(stack);
 }
 
-Ensure(MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_size_of_zero) {
+Ensure(
+    MinStack,
+    when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_size_of_zero) {
   Stack *stack = initialize();
 
   push(stack, 200);
@@ -72,7 +76,9 @@ Ensure(MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_ret
   free(stack);
 }
 
-Ensure(MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_min_of_null) {
+Ensure(
+    MinStack,
+    when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_min_of_null) {
   Stack *stack = initialize();
 
   push(stack, 200);
@@ -159,15 +165,24 @@ TestSuite *min_stack_tests() {
   add_test_with_context(suite, MinStack, when_empty_it_has_a_size_of_zero);
   add_test_with_context(suite, MinStack, when_empty_it_has_a_min_of_null);
 
-  add_test_with_context(suite, MinStack, when_a_single_item_is_on_the_stack_it_has_a_size_of_one);
-  add_test_with_context(suite, MinStack, when_a_single_item_is_on_the_stack_it_is_the_min);
+  add_test_with_context(
+      suite, MinStack, when_a_single_item_is_on_the_stack_it_has_a_size_of_one);
+  add_test_with_context(suite, MinStack,
+                        when_a_single_item_is_on_the_stack_it_is_the_min);
 
-  add_test_with_context(suite, MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_the_item);
-  add_test_with_context(suite, MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_size_of_zero);
-  add_test_with_context(suite, MinStack, when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_min_of_null);
+  add_test_with_context(
+      suite, MinStack,
+      when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_the_item);
+  add_test_with_context(
+      suite, MinStack,
+      when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_size_of_zero);
+  add_test_with_context(
+      suite, MinStack,
+      when_a_single_item_is_on_the_stack_when_it_is_popped_off_it_returns_a_min_of_null);
 
   add_test_with_context(suite, MinStack, when_pushing_a_single_integer);
-  add_test_with_context(suite, MinStack, when_pushing_multiple_integers_out_of_order);
+  add_test_with_context(suite, MinStack,
+                        when_pushing_multiple_integers_out_of_order);
   return suite;
 }
 

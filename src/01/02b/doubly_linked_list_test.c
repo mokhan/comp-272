@@ -1,9 +1,9 @@
-#include <cgreen/cgreen.h>
 #include "doubly_linked_list.h"
+#include <cgreen/cgreen.h>
 
 Describe(DoublyLinkedList);
-BeforeEach(DoublyLinkedList){ }
-AfterEach(DoublyLinkedList){ }
+BeforeEach(DoublyLinkedList) {}
+AfterEach(DoublyLinkedList) {}
 
 Ensure(DoublyLinkedList, when_getting_head) {
   Node *head = initialize(100);
@@ -440,20 +440,27 @@ TestSuite *swap_doubly_linked_list_tests() {
   add_test_with_context(suite, DoublyLinkedList, when_getting_tail);
   add_test_with_context(suite, DoublyLinkedList, when_getting_from_empty_list);
   add_test_with_context(suite, DoublyLinkedList, when_getting_negative_index);
-  add_test_with_context(suite, DoublyLinkedList, when_getting_index_out_of_range);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_getting_index_out_of_range);
 
   add_test_with_context(suite, DoublyLinkedList, when_swapping_head_adjacent);
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_adjacent_inverted);
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node);
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_head_with_non_adjacent_node_inverted);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_swapping_head_adjacent_inverted);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_swapping_head_with_non_adjacent_node);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_swapping_head_with_non_adjacent_node_inverted);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_y_mid);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_mid_adjacent_y);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent);
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_adjacent_inverted);
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_with_non_adjacent_node);
-  add_test_with_context(suite, DoublyLinkedList, when_swapping_tail_with_non_adjacent_node_inverted);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_swapping_tail_adjacent_inverted);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_swapping_tail_with_non_adjacent_node);
+  add_test_with_context(suite, DoublyLinkedList,
+                        when_swapping_tail_with_non_adjacent_node_inverted);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_with_NULL);
   add_test_with_context(suite, DoublyLinkedList, when_swapping_self);
 

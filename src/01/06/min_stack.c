@@ -1,8 +1,8 @@
+#include "min_stack.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "min_stack.h"
 
-static Node *new(int data, Node *next) {
+static Node *new (int data, Node *next) {
   Node *node = malloc(sizeof(Node));
   node->next = next;
   node->data = data;
@@ -17,36 +17,34 @@ Stack *initialize(void) {
   return self;
 }
 
-int size(Stack *self) {
-  return self->size;
-}
+int size(Stack *self) { return self->size; }
 
 void push(Stack *self, int data) {
   if (!self->min || (data < self->min->data))
-    self->min = new(data, self->min);
+    self->min = new (data, self->min);
 
-  self->head = new(data, self->head);
+  self->head = new (data, self->head);
   self->size++;
 }
 
 void each(Node *head, Visitor block) {
   Node *tmp = head;
 
-  while(tmp) {
+  while (tmp) {
     (*block)(tmp);
     tmp = tmp->next;
   }
 }
 
 int min(Stack *self) {
-  if(self->min)
+  if (self->min)
     return self->min->data;
 
   if (self->head) {
     int min = self->head->data;
     Node *tmp = self->head->next;
 
-    while(tmp) {
+    while (tmp) {
       if (tmp->data < min)
         min = tmp->data;
       tmp = tmp->next;
@@ -72,9 +70,7 @@ int pop(Stack *self) {
   return data;
 }
 
-void print_node(Node *node) {
-  printf("[%d]", node->data);
-}
+void print_node(Node *node) { printf("[%d]", node->data); }
 
 void inspect(Stack *stack) {
   printf("\t");
