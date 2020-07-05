@@ -1,6 +1,7 @@
 #include "doubly_linked_list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * The equivalent of a constructor
@@ -136,18 +137,34 @@ void swap(Node *x, Node *y) {
 }
 
 /**
+ * Generates a string representation of the Node usable for printing to stdout
+ *
+ * @param node The node to represent as a string
+ * @return The string that represents the node
+ */
+char *to_s(Node *node) {
+  const int buffer_size = 32;
+  char *buffer = malloc(buffer_size);
+  memset(buffer, buffer_size, '\0');
+
+  if (node->prev && node->next)
+    snprintf(buffer, buffer_size, "(%d<%d>%d) ", node->prev->data, node->data, node->next->data);
+  else if (node->next)
+    snprintf(buffer, buffer_size, "(nil<%d>%d) ", node->data, node->next->data);
+  else
+    snprintf(buffer, buffer_size, "(%d<%d>nil) ", node->prev->data, node->data);
+  return buffer;
+}
+
+/**
  * Prints the previous, data and next pointers for a node
  *
  * @param node The node to print
  */
 static void print(Node *node) {
-  if (node->prev && node->next)
-    printf("(%d<%d>%d)", node->prev->data, node->data, node->next->data);
-  else if (node->next)
-    printf("(nil<%d>%d)", node->data, node->next->data);
-  else
-    printf("(%d<%d>nil)", node->prev->data, node->data);
-  printf(" ");
+  char *message = to_s(node);
+  printf("%s", message);
+  free(message);
 }
 
 /**
