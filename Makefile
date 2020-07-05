@@ -4,6 +4,9 @@ objects := $(shell find src -mindepth 2 -maxdepth 2 -type d)
 run :
 	for i in $(objects); do cd $$i && make clean run && cd -; done
 
+clean :
+	for i in $(objects); do cd $$i && make clean && cd -; done
+
 test :
 	for i in $(objects); do cd $$i && make clean run_test && cd -; done
 

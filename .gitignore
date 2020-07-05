@@ -1,3 +1,5 @@
 *.o
 program
 build/
+*.tar.gz
+*.zip
