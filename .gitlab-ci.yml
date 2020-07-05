@@ -3,8 +3,4 @@ test:
   script:
     - wget https://github.com/cgreen-devs/cgreen/releases/download/1.3.0/cgreen_1.3.0_amd64.deb
     - dpkg -i cgreen_1.3.0_amd64.deb
-    - make ci
-  artifacts:
-    reports:
-      junit:
-        - ./build/junit/*.xml
+    - make test
