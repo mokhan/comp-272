@@ -9,7 +9,7 @@ typedef struct {
   Node *head;
 } Stack;
 
-Stack *initialize();
+Stack *initialize(void);
 void push(Stack *self, int data);
 int pop(Stack *self);
 int size(Stack *self);

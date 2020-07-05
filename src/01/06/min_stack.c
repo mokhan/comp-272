@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "min_stack.h"
 
-Stack *initialize() {
+Stack *initialize(void) {
   Stack *self = malloc(sizeof(Stack));
   self->head = NULL;
   return self;

@@ -3,14 +3,14 @@
 Name: Mo Khan
 Student ID: 3431709
 
-1. Problem Statement:
+## Problem Statement
 
 Design and implement a MinStack data structure that can store comparable elements and supports the stack operations `push(x)`, `pop()`, and `size()`,
 as well as the `min()` operation, which returns the minimum value currently stored in the data structure.
 
 All operations should run in constant time.
 
-2. Description of the Code:
-3. Errors and Warnings:
-4. Sample Input and Output:
-5. Discussion:
+## Description of the Code
+## Errors and Warnings
+## Sample Input and Output
+## Discussion
