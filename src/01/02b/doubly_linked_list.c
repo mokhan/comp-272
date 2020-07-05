@@ -92,21 +92,22 @@ Node *reverse(Node *head) {
 
 static void print(Node *node) {
   if (node->prev && node->next)
-    printf("%d <- %d -> %d\n", node->prev->data, node->data, node->next->data);
+    printf("(%d<%d>%d)", node->prev->data, node->data, node->next->data);
   else if (node->next)
-    printf("nil <- %d -> %d\n", node->data, node->next->data);
+    printf("(nil<%d>%d)", node->data, node->next->data);
   else
-    printf("%d <- %d -> nil\n", node->prev->data, node->data);
+    printf("(%d<%d>nil)", node->prev->data, node->data);
 }
 
-static void inspect(Node *node) {
+void inspect(Node *node) {
   if (!node) return;
 
-  printf("*******\n");
+  printf("[ ");
   while (node) {
     print(node);
+    printf(" ");
     node = node->next;
   }
-  printf("*******\n");
+  printf("]\n");
 }
 

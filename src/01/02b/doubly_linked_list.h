@@ -11,3 +11,4 @@ Node *add(Node *head, int data);
 Node *get(Node *from, int index);
 void swap(Node *x, Node *y);
 Node *reverse(Node *head);
+void inspect(Node *node);
