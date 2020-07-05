@@ -11,6 +11,16 @@ as well as the `min()` operation, which returns the minimum value currently stor
 All operations should run in constant time.
 
 ## Description of the Code
+
+To keep track of the min value, I chose to use two Stacks.
+One stack keeps track of each item that is pushed on.
+The second stack keeps track of each new minimum value that is pushed on to the stack.
+
+`push()`, `pop()` and `size()` are operate in constant time.
+However, `min` operates in constant time until each of the min values
+have been popped off of the min stack. After that it falls back to a linear
+time algorithm to determine the next min.
+
 ## Errors and Warnings
 
 ```bash
@@ -152,3 +162,11 @@ Bye
 ```
 
 ## Discussion
+
+I struggled to find a good algorithm that would guarantee a constant time
+implementation of `min()`.
+
+The worst case scenario for this implementation is when the min value is pushed on to
+the stack right in the center. Half of the pops will would yield a constant time
+implementation of `min()` and the other half would yield a linear time implementation
+of `min()`.
