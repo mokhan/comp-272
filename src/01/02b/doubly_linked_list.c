@@ -147,6 +147,22 @@ static void print(Node *node) {
     printf("(nil<%d>%d)", node->data, node->next->data);
   else
     printf("(%d<%d>nil)", node->prev->data, node->data);
+  printf(" ");
+}
+
+/**
+ * Iterates through each node in a linked list.
+ *
+ * @param self The node to start iterating from.
+ * @param block The callback function to invoke on each node.
+ */
+void each(Node *self, Visitor block) {
+  Node *tmp = self;
+
+  while (tmp) {
+    block(tmp);
+    tmp = tmp->next;
+  }
 }
 
 /**
@@ -155,14 +171,7 @@ static void print(Node *node) {
  * @param node The head of the linked list
  */
 void inspect(Node *node) {
-  if (!node)
-    return;
-
   printf("[ ");
-  while (node) {
-    print(node);
-    printf(" ");
-    node = node->next;
-  }
+  each(node, &print);
   printf("]\n");
 }

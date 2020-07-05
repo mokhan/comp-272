@@ -5,6 +5,7 @@ struct node {
 };
 
 typedef struct node Node;
+typedef void (Visitor)(Node *);
 
 Node *initialize(int data);
 Node *add(Node *head, int data);
