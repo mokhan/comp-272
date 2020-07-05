@@ -8,27 +8,21 @@ int next(void) {
 
 int main(int argc, char *argv[])
 {
-  printf("=== COMP-272 - Assignment 1 - Question 2b ===\n");
-  Node *head = initialize(next());
-  Node *new_head = NULL;
+  printf("=== COMP-272 - Assignment 1 - Question 5 ===\n");
 
-  for (int i = 0; i < 9; ++i)
-    add(head, next());
+  Node *head = initialize(0);
 
-  printf("\t");
+  for (int i = 0; i < 10; i++)
+    add(head, i);
+
+  printf("Before:\n\t");
   inspect(head);
 
-  new_head = get(head, 1);
-  swap(head, new_head);
-  head = new_head;
-  printf("swap: 0,1\n\t");
-  inspect(head);
+  printf("Reversing...\n");
+  head = reverse(head);
 
-  for (int i = 2; i < 10; i+=2) {
-    swap(get(head, i), get(head, i + 1));
-    printf("swap: %d,%d\n\t", i, i + 1);
-    inspect(head);
-  }
+  printf("After:\n\t");
+  inspect(head);
 
   return 0;
 }
