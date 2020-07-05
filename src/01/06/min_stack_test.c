@@ -40,12 +40,15 @@ Ensure(MinStack, when_pushing_multiple_integers_out_of_order) {
 
   assert_that(pop(stack), is_equal_to(1));
   assert_that(size(stack), is_equal_to(2));
-
-  assert_that(pop(stack), is_equal_to(2));
-  assert_that(size(stack), is_equal_to(1));
+  assert_that(min(stack), is_equal_to(2));
 
   assert_that(pop(stack), is_equal_to(3));
+  assert_that(size(stack), is_equal_to(1));
+  assert_that(min(stack), is_equal_to(3));
+
+  assert_that(pop(stack), is_equal_to(2));
   assert_that(size(stack), is_equal_to(0));
+  assert_that(min(stack), is_equal_to(NULL));
 
   assert_that(pop(stack), is_equal_to(NULL));
   assert_that(size(stack), is_equal_to(0));
@@ -63,9 +66,15 @@ Ensure(MinStack, when_pushing_duplicate_values_on_to_the_stack) {
   assert_that(size(stack), is_equal_to(3));
   assert_that(min(stack), is_equal_to(1));
 
+  assert_that(pop(stack), is_equal_to(2));
+  assert_that(min(stack), is_equal_to(1));
+
   assert_that(pop(stack), is_equal_to(1));
+  assert_that(min(stack), is_equal_to(2));
+
   assert_that(pop(stack), is_equal_to(2));
-  assert_that(pop(stack), is_equal_to(2));
+  assert_that(min(stack), is_equal_to(NULL));
+
   assert_that(pop(stack), is_equal_to(NULL));
 
   free(stack);
