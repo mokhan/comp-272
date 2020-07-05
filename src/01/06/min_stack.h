@@ -11,8 +11,12 @@ typedef struct {
   int size;
 } Stack;
 
+typedef void (*Visitor)(Node *);
+
 Stack *initialize(void);
 void push(Stack *self, int data);
 int pop(Stack *self);
 int size(Stack *self);
 int min(Stack *self);
+void each(Node *head, Visitor block);
+void inspect(Stack *stack);

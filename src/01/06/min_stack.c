@@ -38,6 +38,15 @@ void push(Stack *self, int data) {
   self->size++;
 }
 
+void each(Node *head, Visitor block) {
+  Node *tmp = head;
+
+  while(tmp) {
+    (*block)(tmp);
+    tmp = tmp->next;
+  }
+}
+
 int min(Stack *self) {
   if(self->min)
     return self->min->data;
@@ -72,4 +81,16 @@ int pop(Stack *self) {
   current->next = NULL;
   free(current);
   return data;
+}
+
+void print_node(Node *node)
+{
+  printf("[%d]", node->data);
+}
+
+void inspect(Stack *stack)
+{
+  printf("\t");
+  each(stack->head, &print_node);
+  printf("\n");
 }

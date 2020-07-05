@@ -2,34 +2,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void inspect(Stack *stack)
-{
-  Node *head = stack->head;
-
-  while(head) {
-    printf("\t [%7d]\n", head->data);
-    head = head->next;
-  }
-}
-
 int main(int argc, char *argv[])
 {
-  printf("=== COMP-272 - Assignment 1 - Question 6 ===\n");
-
   Stack *stack = initialize();
 
-  for (int i = 0; i < 10; i++) {
-    int data = rand() % 100;
-    printf("Push: %d\n", data);
+  printf("=== COMP-272 - Assignment 1 - Question 6 ===\n");
+  printf("Pushing:\n==========\n");
+  int n = 25;
+  for (int i = 0; i < n; i++) {
+    int data = rand() % n;
     push(stack, data);
+    printf("Push: %d, Min: %d\n", data, min(stack));
     inspect(stack);
   }
 
+  printf("Popping:\n==========\n");
+  inspect(stack);
   while(size(stack) > 0) {
-    printf("Pop: %d\n", pop(stack));
+    printf("Pop: %d, Min: %d\n", pop(stack), min(stack));
     inspect(stack);
   }
 
+  printf("Bye");
   free(stack);
   return 0;
 }
