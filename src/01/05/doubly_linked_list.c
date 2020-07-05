@@ -138,7 +138,8 @@ char *to_s(Node *node) {
   memset(buffer, buffer_size, '\0');
 
   if (node->prev && node->next)
-    snprintf(buffer, buffer_size, "(%d<%d>%d) ", node->prev->data, node->data, node->next->data);
+    snprintf(buffer, buffer_size, "(%d<%d>%d) ", node->prev->data, node->data,
+             node->next->data);
   else if (node->next)
     snprintf(buffer, buffer_size, "(nil<%d>%d) ", node->data, node->next->data);
   else
