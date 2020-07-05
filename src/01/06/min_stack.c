@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "min_stack.h"
 
-static Node *new(int data) {
+static Node *new(int data, Node *next) {
   Node *node = malloc(sizeof(Node));
-  node->next = NULL;
+  node->next = next;
   node->data = data;
   return node;
 }
@@ -22,17 +22,10 @@ int size(Stack *self) {
 }
 
 void push(Stack *self, int data) {
-  if (!self->min)
-    self->min = new(data);
-  else if (data < self->min->data) {
-    Node *tmp = new(data);
-    tmp->next = self->min;
-    self->min = tmp;
-  }
+  if (!self->min || (data < self->min->data))
+    self->min = new(data, self->min);
 
-  Node *node = new(data);
-  node->next = self->head;
-  self->head = node;
+  self->head = new(data, self->head);
   self->size++;
 }
 
@@ -79,13 +72,11 @@ int pop(Stack *self) {
   return data;
 }
 
-void print_node(Node *node)
-{
+void print_node(Node *node) {
   printf("[%d]", node->data);
 }
 
-void inspect(Stack *stack)
-{
+void inspect(Stack *stack) {
   printf("\t");
   each(stack->head, &print_node);
   printf("\n");
