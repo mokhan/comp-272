@@ -27,6 +27,10 @@ void postorder_traversal(Node *node, Visitor visitor) {
   visitor(node);
 }
 
+static void destructor(Node *node) {
+  free(node);
+}
+
 void destroy(Node *head) {
-  free(head);
+  postorder_traversal(head, destructor);
 }
