@@ -30,6 +30,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_single_node) 
 
   assert_that(visited_count, is_equal_to(1));
   assert_that(visited[0], is_equal_to(100));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_node) {
@@ -41,6 +42,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_node) {
   assert_that(visited_count, is_equal_to(2));
   assert_that(visited[0], is_equal_to(100));
   assert_that(visited[1], is_equal_to(200));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_right_node) {
@@ -52,6 +54,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_right_node) {
   assert_that(visited_count, is_equal_to(2));
   assert_that(visited[0], is_equal_to(100));
   assert_that(visited[1], is_equal_to(300));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node) {
@@ -65,6 +68,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_righ
   assert_that(visited[0], is_equal_to(100));
   assert_that(visited[1], is_equal_to(200));
   assert_that(visited[2], is_equal_to(300));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_multiple_levels) {
@@ -83,6 +87,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_multiple_levels
   assert_that(visited[2], is_equal_to(400));
   assert_that(visited[3], is_equal_to(500));
   assert_that(visited[4], is_equal_to(300));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_is_empty) {
@@ -98,6 +103,7 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_single_node)
 
   assert_that(visited_count, is_equal_to(1));
   assert_that(visited[0], is_equal_to(100));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_node) {
@@ -109,6 +115,7 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_node) {
   assert_that(visited_count, is_equal_to(2));
   assert_that(visited[0], is_equal_to(200));
   assert_that(visited[1], is_equal_to(100));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_right_node) {
@@ -120,6 +127,7 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_right_node) 
   assert_that(visited_count, is_equal_to(2));
   assert_that(visited[0], is_equal_to(300));
   assert_that(visited[1], is_equal_to(100));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node) {
@@ -133,6 +141,7 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_and_rig
   assert_that(visited[0], is_equal_to(200));
   assert_that(visited[1], is_equal_to(300));
   assert_that(visited[2], is_equal_to(100));
+  destroy(node);
 }
 
 Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_multiple_levels) {
@@ -151,6 +160,7 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_multiple_level
   assert_that(visited[2], is_equal_to(200));
   assert_that(visited[3], is_equal_to(300));
   assert_that(visited[4], is_equal_to(100));
+  destroy(node);
 }
 
 TestSuite *binary_tree_tests() {
