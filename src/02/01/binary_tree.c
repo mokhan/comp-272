@@ -18,6 +18,15 @@ void preorder_traversal(Node *node, Visitor visitor) {
   preorder_traversal(node->right, visitor);
 }
 
+void inorder_traversal(Node *node, Visitor visitor) {
+  if (!node)
+    return;
+
+  inorder_traversal(node->left, visitor);
+  visitor(node);
+  inorder_traversal(node->right, visitor);
+}
+
 void postorder_traversal(Node *node, Visitor visitor) {
   if (!node)
     return;
