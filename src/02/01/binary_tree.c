@@ -9,13 +9,13 @@ Node *initialize(int data) {
   return item;
 }
 
-void preorder_next(Node *node, Visitor visitor) {
+void preorder_traversal(Node *node, Visitor visitor) {
   if (!node)
     return;
 
   visitor(node);
-  preorder_next(node->left, visitor);
-  preorder_next(node->right, visitor);
+  preorder_traversal(node->left, visitor);
+  preorder_traversal(node->right, visitor);
 }
 
 void destroy(Node *head) {

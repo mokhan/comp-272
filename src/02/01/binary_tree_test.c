@@ -18,7 +18,7 @@ void visitor(Node *node) {
 }
 
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_is_empty) {
-  preorder_next(NULL, visitor);
+  preorder_traversal(NULL, visitor);
 
   assert_that(visited_count, is_equal_to(0));
 }
@@ -26,7 +26,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_is_empty) {
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_single_node) {
   Node *node = initialize(100);
 
-  preorder_next(node, visitor);
+  preorder_traversal(node, visitor);
 
   assert_that(visited_count, is_equal_to(1));
   assert_that(visited[0], is_equal_to(100));
@@ -36,7 +36,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_node) {
   Node *node = initialize(100);
   node->left = initialize(200);
 
-  preorder_next(node, visitor);
+  preorder_traversal(node, visitor);
 
   assert_that(visited_count, is_equal_to(2));
   assert_that(visited[0], is_equal_to(100));
@@ -47,7 +47,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_right_node) {
   Node *node = initialize(100);
   node->right = initialize(300);
 
-  preorder_next(node, visitor);
+  preorder_traversal(node, visitor);
 
   assert_that(visited_count, is_equal_to(2));
   assert_that(visited[0], is_equal_to(100));
@@ -59,7 +59,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_righ
   node->left = initialize(200);
   node->right = initialize(300);
 
-  preorder_next(node, visitor);
+  preorder_traversal(node, visitor);
 
   assert_that(visited_count, is_equal_to(3));
   assert_that(visited[0], is_equal_to(100));
@@ -75,7 +75,7 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_multiple_levels
   node->left->left = initialize(400);
   node->left->right = initialize(500);
 
-  preorder_next(node, visitor);
+  preorder_traversal(node, visitor);
 
   assert_that(visited_count, is_equal_to(5));
   assert_that(visited[0], is_equal_to(100));
