@@ -23,7 +23,8 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_is_empty) {
   assert_that(visited_count, is_equal_to(0));
 }
 
-Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_single_node) {
+Ensure(BinaryTree,
+       when_traversing_in_preorder_when_the_tree_has_a_single_node) {
   Node *node = initialize(100);
 
   traverse(node, visitor, PREORDER);
@@ -57,7 +58,8 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_right_node) {
   destroy(node);
 }
 
-Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node) {
+Ensure(BinaryTree,
+       when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node) {
   Node *node = initialize(100);
   node->left = initialize(200);
   node->right = initialize(300);
@@ -71,7 +73,8 @@ Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_righ
   destroy(node);
 }
 
-Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_has_multiple_levels) {
+Ensure(BinaryTree,
+       when_traversing_in_preorder_when_the_tree_has_multiple_levels) {
   Node *node = initialize(100);
   node->left = initialize(200);
   node->right = initialize(300);
@@ -96,7 +99,8 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_is_empty) {
   assert_that(visited_count, is_equal_to(0));
 }
 
-Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_single_node) {
+Ensure(BinaryTree,
+       when_traversing_in_postorder_when_the_tree_has_a_single_node) {
   Node *node = initialize(100);
 
   traverse(node, visitor, POSTORDER);
@@ -118,7 +122,8 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_node) {
   destroy(node);
 }
 
-Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_right_node) {
+Ensure(BinaryTree,
+       when_traversing_in_postorder_when_the_tree_has_a_right_node) {
   Node *node = initialize(100);
   node->right = initialize(300);
 
@@ -130,7 +135,8 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_right_node) 
   destroy(node);
 }
 
-Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node) {
+Ensure(BinaryTree,
+       when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node) {
   Node *node = initialize(100);
   node->left = initialize(200);
   node->right = initialize(300);
@@ -144,7 +150,8 @@ Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_and_rig
   destroy(node);
 }
 
-Ensure(BinaryTree, when_traversing_in_postorder_when_the_tree_has_multiple_levels) {
+Ensure(BinaryTree,
+       when_traversing_in_postorder_when_the_tree_has_multiple_levels) {
   Node *node = initialize(100);
   node->left = initialize(200);
   node->right = initialize(300);
@@ -203,7 +210,8 @@ Ensure(BinaryTree, when_traversing_inorder_when_the_tree_has_a_right_node) {
   destroy(node);
 }
 
-Ensure(BinaryTree, when_traversing_inorder_when_the_tree_has_a_left_and_right_node) {
+Ensure(BinaryTree,
+       when_traversing_inorder_when_the_tree_has_a_left_and_right_node) {
   Node *node = initialize(100);
   node->left = initialize(200);
   node->right = initialize(300);
@@ -239,26 +247,57 @@ Ensure(BinaryTree, when_traversing_inorder_when_the_tree_has_multiple_levels) {
 TestSuite *binary_tree_tests() {
   TestSuite *suite = create_test_suite();
 
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_is_empty);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_single_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_multiple_levels);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_in_preorder_when_the_tree_is_empty);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_single_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_left_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_multiple_levels);
 
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_is_empty);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_single_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_multiple_levels);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_in_postorder_when_the_tree_is_empty);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_single_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_left_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_multiple_levels);
 
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_is_empty);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_single_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_left_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_left_and_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_multiple_levels);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_inorder_when_the_tree_is_empty);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_inorder_when_the_tree_has_a_single_node);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_inorder_when_the_tree_has_a_left_node);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_inorder_when_the_tree_has_a_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_inorder_when_the_tree_has_a_left_and_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_inorder_when_the_tree_has_multiple_levels);
 
   return suite;
 }

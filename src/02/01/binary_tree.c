@@ -14,31 +14,27 @@ void traverse(Node *node, Visitor visitor, enum Traversal traversal) {
     return;
 
   switch (traversal) {
-    case PREORDER:
-      visitor(node);
-      traverse(node->left, visitor, traversal);
-      traverse(node->right, visitor, traversal);
-      break;
-    case INORDER:
-      traverse(node->left, visitor, traversal);
-      visitor(node);
-      traverse(node->right, visitor, traversal);
-      break;
-    case POSTORDER:
-      traverse(node->left, visitor, traversal);
-      traverse(node->right, visitor, traversal);
-      visitor(node);
-      break;
-    default:
-      visitor(node);
-      break;
+  case PREORDER:
+    visitor(node);
+    traverse(node->left, visitor, traversal);
+    traverse(node->right, visitor, traversal);
+    break;
+  case INORDER:
+    traverse(node->left, visitor, traversal);
+    visitor(node);
+    traverse(node->right, visitor, traversal);
+    break;
+  case POSTORDER:
+    traverse(node->left, visitor, traversal);
+    traverse(node->right, visitor, traversal);
+    visitor(node);
+    break;
+  default:
+    visitor(node);
+    break;
   }
 }
 
-static void destructor(Node *node) {
-  free(node);
-}
+static void destructor(Node *node) { free(node); }
 
-void destroy(Node *head) {
-  traverse(head, destructor, POSTORDER);
-}
+void destroy(Node *head) { traverse(head, destructor, POSTORDER); }
