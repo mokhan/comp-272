@@ -9,31 +9,30 @@ Node *initialize(int data) {
   return item;
 }
 
-void preorder_traversal(Node *node, Visitor visitor) {
+void traverse(Node *node, Visitor visitor, enum Traversal traversal) {
   if (!node)
     return;
 
-  visitor(node);
-  preorder_traversal(node->left, visitor);
-  preorder_traversal(node->right, visitor);
-}
-
-void inorder_traversal(Node *node, Visitor visitor) {
-  if (!node)
-    return;
-
-  inorder_traversal(node->left, visitor);
-  visitor(node);
-  inorder_traversal(node->right, visitor);
-}
-
-void postorder_traversal(Node *node, Visitor visitor) {
-  if (!node)
-    return;
-
-  postorder_traversal(node->left, visitor);
-  postorder_traversal(node->right, visitor);
-  visitor(node);
+  switch (traversal) {
+    case PREORDER:
+      visitor(node);
+      traverse(node->left, visitor, traversal);
+      traverse(node->right, visitor, traversal);
+      break;
+    case INORDER:
+      traverse(node->left, visitor, traversal);
+      visitor(node);
+      traverse(node->right, visitor, traversal);
+      break;
+    case POSTORDER:
+      traverse(node->left, visitor, traversal);
+      traverse(node->right, visitor, traversal);
+      visitor(node);
+      break;
+    default:
+      visitor(node);
+      break;
+  }
 }
 
 static void destructor(Node *node) {
@@ -41,5 +40,5 @@ static void destructor(Node *node) {
 }
 
 void destroy(Node *head) {
-  postorder_traversal(head, destructor);
+  traverse(head, destructor, POSTORDER);
 }
