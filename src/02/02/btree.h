@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct node {
-  struct node *left;
-  struct node *right;
+typedef struct btree_node {
+  struct btree_node *left;
+  struct btree_node *right;
   int data;
 } BTree;
 

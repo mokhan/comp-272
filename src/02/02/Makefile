@@ -5,7 +5,7 @@ CC=clang
 TEST_LIBS = -lcgreen
 
 BUILDDIR := build
-OBJS := $(addprefix $(BUILDDIR)/,btree.o)
+OBJS := $(addprefix $(BUILDDIR)/,btree.o queue.o)
 TEST_OBJS := $(addprefix $(BUILDDIR)/,btree_test.o)
 
 $(BUILDDIR)/%.o : %.c
