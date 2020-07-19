@@ -37,3 +37,7 @@ BTree *btree_init(int data) {
 bool btree_is_bst(BTree *tree) {
   return in_range(tree, INT_MIN, INT_MAX);
 }
+
+void btree_inspect(BTree *tree) {
+  inspect(tree, 0);
+}

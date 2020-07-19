@@ -9,3 +9,4 @@ typedef struct btree_node {
 
 BTree *btree_init(int data);
 bool btree_is_bst(BTree *tree);
+void btree_inspect(BTree *tree);
