@@ -1,4 +1,17 @@
 #include "btree.h"
+#include <stdio.h>
+
+static void inspect(BTree *tree, int level) {
+  if (!tree)
+    return;
+
+  for (int i = 0; i < level; i++)
+    printf("  ");
+
+  printf("%2d\n", tree->data);
+  inspect(tree->left, level + 1);
+  inspect(tree->right, level + 1);
+}
 
 BTree *btree_init(int data) {
   BTree *tree = malloc(sizeof(BTree));
@@ -13,10 +26,22 @@ BTree *btree_insert(BTree *tree, int data) {
     return btree_init(data);
 
   if (data <= tree->data) {
-    tree->left = btree_init(data);
+    if (tree->left) {
+      btree_insert(tree->left, data);
+    } else {
+      tree->left = btree_init(data);
+    }
   } else {
-    tree->right = btree_init(data);
+    if (tree->right) {
+      btree_insert(tree->right, data);
+    } else {
+      tree->right = btree_init(data);
+    }
   }
 
   return tree;
+}
+
+void btree_inspect(BTree *tree) {
+  inspect(tree, 0);
 }
