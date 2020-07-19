@@ -6,16 +6,15 @@ static void inspect(BTree *tree, int level) {
   if (!tree)
     return;
 
-  BTree *current = tree;
-
   for (int i = 0; i < level; i++)
     printf("  ");
+
   printf("%2d\n", tree->data);
   inspect(tree->left, level + 1);
   inspect(tree->right, level + 1);
 }
 
-static bool btree_in_range(BTree *tree, int min, int max) {
+static bool in_range(BTree *tree, int min, int max) {
   if (!tree)
     return true;
 
@@ -23,8 +22,8 @@ static bool btree_in_range(BTree *tree, int min, int max) {
   if (data < min || data > max)
     return false;
 
-  return btree_in_range(tree->left, min, data) &&
-    btree_in_range(tree->right, data, max);
+  return in_range(tree->left, min, data) &&
+    in_range(tree->right, data, max);
 }
 
 BTree *btree_init(int data) {
@@ -36,5 +35,5 @@ BTree *btree_init(int data) {
 }
 
 bool btree_is_bst(BTree *tree) {
-  return btree_in_range(tree, INT_MIN, INT_MAX);
+  return in_range(tree, INT_MIN, INT_MAX);
 }
