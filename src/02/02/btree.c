@@ -1,5 +1,31 @@
+#include <stdio.h>
 #include "btree.h"
-#include "queue.h"
+#include <limits.h>
+
+static void inspect(BTree *tree, int level) {
+  if (!tree)
+    return;
+
+  BTree *current = tree;
+
+  for (int i = 0; i < level; i++)
+    printf("  ");
+  printf("%2d\n", tree->data);
+  inspect(tree->left, level + 1);
+  inspect(tree->right, level + 1);
+}
+
+static bool btree_in_range(BTree *tree, int min, int max) {
+  if (!tree)
+    return true;
+
+  int data = tree->data;
+  if (data < min || data > max)
+    return false;
+
+  return btree_in_range(tree->left, min, data) &&
+    btree_in_range(tree->right, data, max);
+}
 
 BTree *btree_init(int data) {
   BTree *tree = malloc(sizeof(BTree));
@@ -10,28 +36,5 @@ BTree *btree_init(int data) {
 }
 
 bool btree_is_bst(BTree *tree) {
-  if (!tree) {
-    return false;
-  }
-
-  Queue *queue = queue_init();
-  queue_enq(queue, tree->left);
-  queue_enq(queue, tree);
-  queue_enq(queue, tree->right);
-
-  // in order traversal
-  // fill queue
-  // iterate through queue and
-  // check if last is less than next
-  while (queue_size(queue) > 0) {
-    BTree *item = queue_deq(queue);
-    if (!item)
-      continue;
-
-    queue_enq(queue, item->left);
-    queue_enq(queue, item);
-    queue_enq(queue, item->right);
-  }
-
-  return false;
+  return btree_in_range(tree, INT_MIN, INT_MAX);
 }
