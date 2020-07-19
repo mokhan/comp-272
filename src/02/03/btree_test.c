@@ -70,6 +70,19 @@ Ensure(BinaryTree, when_inserting_multiple_items_into_a_tree_it_inserts_in_the_c
   assert_that(tree->left->right->left->data, is_equal_to(6));
 }
 
+// 1, 5, 2, 4, 3 is
+Ensure(BinaryTree, when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree) {
+  BTree *tree = btree_insert(NULL, 1);
+  tree = btree_insert(tree, 5);
+  tree = btree_insert(tree, 2);
+  tree = btree_insert(tree, 4);
+  tree = btree_insert(tree, 3);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  btree_inspect(tree);
+}
+
+
 TestSuite *binary_search_tree_tests() {
   TestSuite *suite = create_test_suite();
 
@@ -78,6 +91,7 @@ TestSuite *binary_search_tree_tests() {
   add_test_with_context(suite, BinaryTree, when_inserting_an_item_greater_than_the_root_in_a_tree_it_creates_a_node_on_the_right_side);
   add_test_with_context(suite, BinaryTree, when_inserting_an_item_equal_to_the_root_in_a_tree_it_creates_a_node_on_the_left_side);
   add_test_with_context(suite, BinaryTree, when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position);
+  add_test_with_context(suite, BinaryTree, when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);
 
   return suite;
 }
