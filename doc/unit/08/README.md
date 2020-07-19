@@ -1,4 +1,4 @@
-Chapter 8: Scapegoat Trees
+# Chapter 8: Scapegoat Trees
 
 > when something goes wrong, the first thing people tend to do is find someone to blame (the scapegoat).
 
@@ -21,3 +21,7 @@ At all times, `n` and `q` obey the following inequalities:
 > q/2 <= n <= q
 
 credit schema: Each node stores a number of credits.
+
+## Resources
+
+* http://people.csail.mit.edu/rivest/pubs/GR93.pdf

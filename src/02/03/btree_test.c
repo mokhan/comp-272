@@ -70,7 +70,6 @@ Ensure(BinaryTree, when_inserting_multiple_items_into_a_tree_it_inserts_in_the_c
   assert_that(tree->left->right->left->data, is_equal_to(6));
 }
 
-// 1, 5, 2, 4, 3 is
 Ensure(BinaryTree, when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree) {
   BTree *tree = btree_insert(NULL, 1);
   tree = btree_insert(tree, 5);
