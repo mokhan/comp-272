@@ -33,7 +33,7 @@ void node_inspect(Node *node)
 
   int i = 0;
   while (node) {
-    printf("[%d: %3d]", i, node->value);
+    printf("[%d: %3p]", i, node->value);
     node = node->next;
     i++;
   }
@@ -63,9 +63,7 @@ void *hash_get(Hash *hash, int key)
 
 void hash_set(Hash *hash, int key, void **value)
 {
-  node_inspect(hash->head);
   int bucket = to_hash(key);
   Node *node = node_at(hash->head, bucket);
   node->value = value;
-  node_inspect(hash->head);
 }
