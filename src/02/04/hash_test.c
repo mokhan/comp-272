@@ -23,7 +23,7 @@ Ensure(HashTable, when_getting_a_values_for_a_key_that_has_been_inserted) {
   int value = 100;
   Hash *hash = hash_init(13);
 
-  hash_set(hash, key, &value);
+  hash_set(hash, key, value);
   assert_that(*(int *)hash_get(hash, key), is_equal_to(value));
 }
 

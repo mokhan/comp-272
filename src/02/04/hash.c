@@ -61,7 +61,7 @@ void *hash_get(Hash *hash, int key)
   return node->value;
 }
 
-void hash_set(Hash *hash, int key, void *value)
+void hash_set(Hash *hash, int key, void **value)
 {
   node_inspect(hash->head);
   int bucket = to_hash(key);
