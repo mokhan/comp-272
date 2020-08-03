@@ -1,7 +1,4 @@
-typedef struct node {
-  struct node *next;
-  void *value;
-} Node;
+#include "list.h"
 
 typedef struct {
   int key;
