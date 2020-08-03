@@ -36,6 +36,22 @@ Ensure(HashTable, when_a_hash_collision_occurs) {
   assert_that(hash_get(hash, 21), is_equal_to(210));
 }
 
+Ensure(HashTable, when_inserting_multiple_items_into_the_hash_table) {
+  Hash *hash = hash_init(13);
+
+  int items[] = {1, 5, 21, 26, 39, 14, 15, 16, 17, 18, 19, 20, 111, 145, 146};
+
+  for (int i = 0; i < sizeof(items); i++) {
+    int value = i * 10;
+    hash_set(hash, items[i], &value);
+  }
+
+  for (int i = 0; i < sizeof(items); i++) {
+    int key = items[i];
+    assert_that(hash_get(hash, key), is_equal_to(key * 10));
+  }
+}
+
 TestSuite *hash_table_tests() {
   TestSuite *suite = create_test_suite();
 
