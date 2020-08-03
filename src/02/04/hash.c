@@ -11,7 +11,7 @@ Hash *hash_init(int size) {
   return hash;
 }
 
-int hash_index(Hash *hash, int key) { return key % hash->size; }
+unsigned int hash_index(Hash *hash, int key) { return key % hash->size; }
 
 void *search(Node *list, int key) {
   Node *current = list;
@@ -27,13 +27,13 @@ void *search(Node *list, int key) {
 }
 
 void *hash_get(Hash *hash, int key) {
-  int bucket = hash_index(hash, key);
+  unsigned int bucket = hash_index(hash, key);
   Node *n = hash->buckets + bucket;
   return (n->data) ? search(n, key) : NULL;
 }
 
 void hash_set(Hash *hash, int key, void *value) {
-  int bucket = hash_index(hash, key);
+  unsigned int bucket = hash_index(hash, key);
   Tuple *tuple = tuple_initialize(key, value);
   Node *n = hash->buckets + bucket;
 
