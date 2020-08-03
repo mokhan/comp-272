@@ -6,8 +6,8 @@ CFLAGS=-std=c99
 TEST_LIBS = -lcgreen
 
 BUILDDIR := build
-OBJS := $(addprefix $(BUILDDIR)/,hash.o list.o)
-TEST_OBJS := $(addprefix $(BUILDDIR)/,hash_test.o list_test.o)
+OBJS := $(addprefix $(BUILDDIR)/,hash.o list.o tuple.o)
+TEST_OBJS := $(addprefix $(BUILDDIR)/,hash_test.o list_test.o tuple_test.o)
 
 $(BUILDDIR)/%.o : %.c
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
