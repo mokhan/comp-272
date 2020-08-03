@@ -43,9 +43,18 @@ void hash_set(Hash *hash, int key, void *value) {
     hash->buckets[bucket] = *list_initialize(tuple);
 }
 
+void print_tuple(void *data) {
+  Tuple *t = data;
+
+  if (t)
+    printf("(%d:%d)", t->key, t->value);
+  else
+    printf("(nil)");
+}
+
 void hash_inspect(Hash *hash) {
   for (int i = 0; i < hash->size; i++) {
     printf("%2d: ", i);
-    list_inspect(hash->buckets + i);
+    list_inspect(hash->buckets + i, print_tuple);
   }
 }
