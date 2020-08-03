@@ -1,7 +1,7 @@
 typedef struct {
   int key;
-  int value;
+  void *value;
 } Tuple;
 
-Tuple *tuple_initialize(int key, int value);
+Tuple *tuple_initialize(int key, void *value);
 void tuple_destroy(Tuple *tuple);

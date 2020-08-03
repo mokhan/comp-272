@@ -41,7 +41,7 @@ int list_size(Node *head) {
   return i;
 }
 
-void inspect(Node *self) {
+void list_inspect(Node *self) {
   if (!self)
     return;
 

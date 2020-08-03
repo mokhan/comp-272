@@ -1,53 +1,44 @@
 #include "hash.h"
+#include "tuple.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-static int to_hash(int key)
-{
-  return key % 13;
-}
-
-Hash *hash_init(int buckets)
+Hash *hash_init(int size)
 {
   Hash *hash = malloc(sizeof(Hash));
-  /*hash->head = node_initialize(NULL);*/
-  /*Node *current = hash->head;*/
-
-  /*for (int i = 1; i < buckets; i++) {*/
-    /*current->next = node_initialize(NULL);*/
-    /*current = current->next;*/
-  /*}*/
+  hash->size = size;
+  hash->buckets = calloc(size, sizeof(Node));
   return hash;
+}
+
+int hash_index(Hash *hash, int key)
+{
+  return key % hash->size;
 }
 
 void *hash_get(Hash *hash, int key)
 {
-  /*int bucket = to_hash(key);*/
-  /*Node *node = node_at(hash->head, bucket);*/
-  /*node_inspect(hash->head);*/
-  /*printf("  ");*/
-  /*node_inspect(node);*/
-
-  /*if (!node->value) {*/
-    /*return NULL;*/
-  /*}*/
-
-  /*Tuple *t = (Tuple *)node->value;*/
-  /*if (t->key == key) {*/
-    /*return node->value;*/
-  /*}*/
-
-  /*return node->value;*/
-  return NULL;
+  int bucket = hash_index(hash, key);
+  Node *list = hash->buckets + bucket;
+  if (list && list->data)
+    return ((Tuple *)list->data)->value;
+  else
+    return NULL;
 }
 
-void hash_set(Hash *hash, int key, void **value)
+void hash_set(Hash *hash, int key, void *value)
 {
-  int bucket = to_hash(key);
-  /*Node *node = node_at(hash->head, bucket);*/
-  /*Tuple *tuple = malloc(sizeof(Tuple));*/
-  /*tuple->key = key;*/
-  /*tuple->value = value;*/
-  /*list_add(node, tuple);*/
+  int bucket = hash_index(hash, key);
+  Node *node = list_initialize(tuple_initialize(key, value));
+  hash->buckets[bucket] = *node;
+  hash_inspect(hash);
+}
+
+void hash_inspect(Hash *hash)
+{
+  for (int i = 0; i < hash->size; i++) {
+    printf("%2d: ", i);
+    list_inspect(hash->buckets + i);
+  }
 }

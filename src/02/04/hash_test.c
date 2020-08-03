@@ -21,10 +21,10 @@ Ensure(HashTable, when_getting_a_value_for_a_key_that_has_not_been_inserted) {
 Ensure(HashTable, when_getting_a_values_for_a_key_that_has_been_inserted) {
   int key = 7;
   int value = 100;
-  /*Hash *hash = hash_init(13);*/
+  Hash *hash = hash_init(13);
 
-  /*hash_set(hash, key, value);*/
-  /*assert_that(hash_get(hash, key), is_equal_to(value));*/
+  hash_set(hash, key, value);
+  assert_that(hash_get(hash, key), is_equal_to(value));
 }
 
 Ensure(HashTable, when_a_hash_collision_occurs) {
@@ -40,14 +40,15 @@ Ensure(HashTable, when_a_hash_collision_occurs) {
 TestSuite *hash_table_tests() {
   TestSuite *suite = create_test_suite();
 
-  /*add_test_with_context(suite, HashTable, when_initializing_a_hash);*/
-  /*add_test_with_context(suite, HashTable, when_getting_a_value_for_a_key_that_has_not_been_inserted);*/
-  /*add_test_with_context(suite, HashTable, when_getting_a_values_for_a_key_that_has_been_inserted);*/
+  add_test_with_context(suite, HashTable, when_initializing_a_hash);
+  add_test_with_context(suite, HashTable, when_getting_a_value_for_a_key_that_has_not_been_inserted);
+  add_test_with_context(suite, HashTable, when_getting_a_values_for_a_key_that_has_been_inserted);
   /*add_test_with_context(suite, HashTable, when_a_hash_collision_occurs);*/
   return suite;
 }
 
 extern TestSuite *list_tests();
+extern TestSuite *tuple_tests();
 
 int main(int argc, char **argv) {
   TestSuite *suite = create_test_suite();

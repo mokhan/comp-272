@@ -1,7 +1,7 @@
 #include "stdlib.h"
 #include "tuple.h"
 
-Tuple *tuple_initialize(int key, int value)
+Tuple *tuple_initialize(int key, void *value)
 {
   Tuple *tuple = malloc(sizeof(Tuple));
   tuple->key = key;
