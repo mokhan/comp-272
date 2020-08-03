@@ -7,7 +7,7 @@ BeforeEach(Tuple) {}
 AfterEach(Tuple) {}
 
 Ensure(Tuple, when_initializing_a_tuple) {
-  Tuple *subject = tuple_initialize(21, 100);
+  Tuple *subject = tuple_initialize(21, (void *)100);
 
   assert_that(subject->key, is_equal_to(21));
   assert_that(subject->value, is_equal_to(100));

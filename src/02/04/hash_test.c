@@ -19,12 +19,11 @@ Ensure(HashTable, when_getting_a_value_for_a_key_that_has_not_been_inserted) {
 }
 
 Ensure(HashTable, when_getting_a_values_for_a_key_that_has_been_inserted) {
-  int key = 7;
-  int value = 100;
   Hash *hash = hash_init(13);
+  int key = 7;
 
-  hash_set(hash, key, value);
-  assert_that(hash_get(hash, key), is_equal_to(value));
+  hash_set(hash, key, (void *)100);
+  assert_that(hash_get(hash, key), is_equal_to(100));
 }
 
 Ensure(HashTable, when_a_hash_collision_occurs) {
@@ -54,5 +53,6 @@ int main(int argc, char **argv) {
   TestSuite *suite = create_test_suite();
   add_suite(suite, hash_table_tests());
   add_suite(suite, list_tests());
+  add_suite(suite, tuple_tests());
   return run_test_suite(suite, create_text_reporter());
 }

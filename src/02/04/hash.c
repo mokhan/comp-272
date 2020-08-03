@@ -17,22 +17,37 @@ int hash_index(Hash *hash, int key)
   return key % hash->size;
 }
 
+void *search(Node *list, int key)
+{
+  Node *current = list;
+
+  while (current) {
+    Tuple *t = current->data;
+    if (t->key == key)
+      return t->value;
+    current = current->next;
+  }
+
+  return NULL;
+}
+
 void *hash_get(Hash *hash, int key)
 {
   int bucket = hash_index(hash, key);
-  Node *list = hash->buckets + bucket;
-  if (list && list->data)
-    return ((Tuple *)list->data)->value;
-  else
-    return NULL;
+  Node *n = hash->buckets + bucket;
+  return (n->data) ? search(n, key) : NULL;
 }
 
 void hash_set(Hash *hash, int key, void *value)
 {
   int bucket = hash_index(hash, key);
-  Node *node = list_initialize(tuple_initialize(key, value));
-  hash->buckets[bucket] = *node;
-  hash_inspect(hash);
+  Tuple *tuple = tuple_initialize(key, value);
+  Node *n = hash->buckets + bucket;
+
+  if (n->data)
+    list_add(n, tuple);
+  else
+    hash->buckets[bucket] = *list_initialize(tuple);
 }
 
 void hash_inspect(Hash *hash)
