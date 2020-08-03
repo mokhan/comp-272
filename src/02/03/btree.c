@@ -42,6 +42,4 @@ BTree *btree_insert(BTree *tree, int data) {
   return tree;
 }
 
-void btree_inspect(BTree *tree) {
-  inspect(tree, 0);
-}
+void btree_inspect(BTree *tree) { inspect(tree, 0); }

@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "btree.h"
 #include <limits.h>
+#include <stdio.h>
 
 static void inspect(BTree *tree, int level) {
   if (!tree)
@@ -22,8 +22,7 @@ static bool in_range(BTree *tree, int min, int max) {
   if (data < min || data > max)
     return false;
 
-  return in_range(tree->left, min, data) &&
-    in_range(tree->right, data, max);
+  return in_range(tree->left, min, data) && in_range(tree->right, data, max);
 }
 
 BTree *btree_init(int data) {
@@ -34,10 +33,6 @@ BTree *btree_init(int data) {
   return tree;
 }
 
-bool btree_is_bst(BTree *tree) {
-  return in_range(tree, INT_MIN, INT_MAX);
-}
+bool btree_is_bst(BTree *tree) { return in_range(tree, INT_MIN, INT_MAX); }
 
-void btree_inspect(BTree *tree) {
-  inspect(tree, 0);
-}
+void btree_inspect(BTree *tree) { inspect(tree, 0); }

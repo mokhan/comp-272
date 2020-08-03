@@ -4,21 +4,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-Hash *hash_init(int size)
-{
+Hash *hash_init(int size) {
   Hash *hash = malloc(sizeof(Hash));
   hash->size = size;
   hash->buckets = calloc(size, sizeof(Node));
   return hash;
 }
 
-int hash_index(Hash *hash, int key)
-{
-  return key % hash->size;
-}
+int hash_index(Hash *hash, int key) { return key % hash->size; }
 
-void *search(Node *list, int key)
-{
+void *search(Node *list, int key) {
   Node *current = list;
 
   while (current) {
@@ -31,15 +26,13 @@ void *search(Node *list, int key)
   return NULL;
 }
 
-void *hash_get(Hash *hash, int key)
-{
+void *hash_get(Hash *hash, int key) {
   int bucket = hash_index(hash, key);
   Node *n = hash->buckets + bucket;
   return (n->data) ? search(n, key) : NULL;
 }
 
-void hash_set(Hash *hash, int key, void *value)
-{
+void hash_set(Hash *hash, int key, void *value) {
   int bucket = hash_index(hash, key);
   Tuple *tuple = tuple_initialize(key, value);
   Node *n = hash->buckets + bucket;
@@ -50,8 +43,7 @@ void hash_set(Hash *hash, int key, void *value)
     hash->buckets[bucket] = *list_initialize(tuple);
 }
 
-void hash_inspect(Hash *hash)
-{
+void hash_inspect(Hash *hash) {
   for (int i = 0; i < hash->size; i++) {
     printf("%2d: ", i);
     list_inspect(hash->buckets + i);

@@ -13,7 +13,9 @@ Ensure(BinaryTree, when_the_tree_is_NULL) {
   assert_that(tree->data, is_equal_to(10));
 }
 
-Ensure(BinaryTree, when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side) {
+Ensure(
+    BinaryTree,
+    when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side) {
   BTree *tree = btree_init(10);
   btree_insert(tree, -5);
 
@@ -21,7 +23,9 @@ Ensure(BinaryTree, when_inserting_an_item_less_than_the_root_in_a_tree_it_create
   assert_that(tree->left->data, is_equal_to(-5));
 }
 
-Ensure(BinaryTree, when_inserting_an_item_greater_than_the_root_in_a_tree_it_creates_a_node_on_the_right_side) {
+Ensure(
+    BinaryTree,
+    when_inserting_an_item_greater_than_the_root_in_a_tree_it_creates_a_node_on_the_right_side) {
   BTree *tree = btree_init(10);
 
   btree_insert(tree, 16);
@@ -30,7 +34,9 @@ Ensure(BinaryTree, when_inserting_an_item_greater_than_the_root_in_a_tree_it_cre
   assert_that(tree->right->data, is_equal_to(16));
 }
 
-Ensure(BinaryTree, when_inserting_an_item_equal_to_the_root_in_a_tree_it_creates_a_node_on_the_left_side) {
+Ensure(
+    BinaryTree,
+    when_inserting_an_item_equal_to_the_root_in_a_tree_it_creates_a_node_on_the_left_side) {
   BTree *tree = btree_init(10);
 
   btree_insert(tree, 10);
@@ -39,7 +45,9 @@ Ensure(BinaryTree, when_inserting_an_item_equal_to_the_root_in_a_tree_it_creates
   assert_that(tree->left->data, is_equal_to(10));
 }
 
-Ensure(BinaryTree, when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position) {
+Ensure(
+    BinaryTree,
+    when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position) {
   BTree *tree = btree_insert(NULL, 10);
 
   btree_insert(tree, -5);
@@ -70,7 +78,9 @@ Ensure(BinaryTree, when_inserting_multiple_items_into_a_tree_it_inserts_in_the_c
   assert_that(tree->left->right->left->data, is_equal_to(6));
 }
 
-Ensure(BinaryTree, when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree) {
+Ensure(
+    BinaryTree,
+    when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree) {
   BTree *tree = btree_insert(NULL, 1);
   tree = btree_insert(tree, 5);
   tree = btree_insert(tree, 2);
@@ -81,16 +91,25 @@ Ensure(BinaryTree, when_inserting_items_described_in_the_assignment_it_inserts_i
   btree_inspect(tree);
 }
 
-
 TestSuite *binary_search_tree_tests() {
   TestSuite *suite = create_test_suite();
 
   add_test_with_context(suite, BinaryTree, when_the_tree_is_NULL);
-  add_test_with_context(suite, BinaryTree, when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side);
-  add_test_with_context(suite, BinaryTree, when_inserting_an_item_greater_than_the_root_in_a_tree_it_creates_a_node_on_the_right_side);
-  add_test_with_context(suite, BinaryTree, when_inserting_an_item_equal_to_the_root_in_a_tree_it_creates_a_node_on_the_left_side);
-  add_test_with_context(suite, BinaryTree, when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position);
-  add_test_with_context(suite, BinaryTree, when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_inserting_an_item_greater_than_the_root_in_a_tree_it_creates_a_node_on_the_right_side);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_inserting_an_item_equal_to_the_root_in_a_tree_it_creates_a_node_on_the_left_side);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);
 
   return suite;
 }

@@ -13,7 +13,7 @@ Ensure(List, when_getting_head) {
 }
 
 Ensure(List, when_getting_mid) {
-  Node *head = list_initialize((void*)100);
+  Node *head = list_initialize((void *)100);
 
   Node *mid = list_add(head, (void *)200);
   list_add(head, (void *)300);
