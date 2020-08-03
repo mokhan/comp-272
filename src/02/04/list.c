@@ -48,7 +48,6 @@ void list_inspect(Node *self, Printer printer) {
   printf("[");
   while (self) {
     printer(self->data);
-    /*printf(" %p ", self->data);*/
     self = self->next;
   }
   printf("]\n");

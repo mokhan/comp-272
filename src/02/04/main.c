@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "hash.h"
+#include <stdio.h>
 
 int main(int argc, char *argv[]) {
   printf("=== COMP-272 - Assignment 02 - Question 04 ===\n");

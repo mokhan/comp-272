@@ -63,7 +63,8 @@ TestSuite *hash_table_tests() {
   add_test_with_context(suite, HashTable,
                         when_getting_a_values_for_a_key_that_has_been_inserted);
   add_test_with_context(suite, HashTable, when_a_hash_collision_occurs);
-  add_test_with_context(suite, HashTable, when_inserting_multiple_items_into_the_hash_table);
+  add_test_with_context(suite, HashTable,
+                        when_inserting_multiple_items_into_the_hash_table);
   return suite;
 }
 
