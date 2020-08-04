@@ -1,8 +1,8 @@
 # Hashing
 
-https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/
+[video][mit-ocw]
 
-movitation
+## Motivation
 
 * database
 * compilers and interpreters
@@ -15,16 +15,23 @@ Direct Access table:
 
   ----------
 0 |        |
+  ----------
 1 |        |
+  ----------
 2 |        |
+  ----------
 3 |        |
+  ----------
 4 |        |
+  ----------
   | ...    |
+  ----------
   | ...    |
+  ----------
   | ...    |
   ----------
 
-Hash requires mapping to an integer.
+> Hash requires mapping to an integer.
 
 ideally:
 
@@ -116,8 +123,40 @@ Analysis:
 2. multiplication method:
   * `h(k) = [(a*k) mod 2^w] >> (w - r)`
 3. Universal hasing:
-  * `h(k) = [(ak+b) mod p] mod m
+  * `h(k) = [(ak+b) mod p] mod m`
     * `a`, `b` are random between 0 and `p-1`. p is a big prime number larger than the universe.
-    * {0, ..,p-1}
+    * `{0, ..,p-1}`
   * worst case keys: k1 != k2
     * `1/m`
+
+## How to choose m?
+
+* Want `m = theta(n)`
+  * `0(1)`
+
+Idea:
+
+> Start small; grow/shrink as necessary
+
+E.g.
+
+* If n > m: grow table
+
+* grow table:
+  * m -> m'
+    * make table of size `m'`
+    * build new hash function `h'`
+    * rehash
+      * for item in T:
+        * t:insert(item)
+    * `m' = 2m` table doubling
+
+Amortization:
+* operation takes `T(n) amortized`
+  * if `k` operations take <= `k*T(n)` time
+* spread out the high cost so you pay a little bit, but more often.
+* ~ Think of meaning `T(n)` on average, where average is taken over all the oeprations.
+
+> spread out the high cost so that it's cheap on average all the time.
+
+[mit-ocw]: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/
