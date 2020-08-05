@@ -1,4 +1,5 @@
 #include "binary_tree.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 Node *initialize(int data) {
@@ -38,3 +39,14 @@ void traverse(Node *node, Visitor visitor, enum Traversal traversal) {
 static void destructor(Node *node) { free(node); }
 
 void destroy(Node *head) { traverse(head, destructor, POSTORDER); }
+
+void inspect(Node *node, int level) {
+  if (!node)
+    return;
+
+  for (int i = 0; i < level; i++)
+    printf("  ");
+  printf("(%d)\n", node->data);
+  inspect(node->left, level + 1);
+  inspect(node->right, level + 1);
+}

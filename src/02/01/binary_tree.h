@@ -11,3 +11,4 @@ enum Traversal { INORDER = 1, PREORDER = 2, POSTORDER = 4 };
 Node *initialize(int data);
 void traverse(Node *node, Visitor visitor, enum Traversal traversal);
 void destroy(Node *head);
+void inspect(Node *head, int level);

@@ -331,7 +331,6 @@ Ensure(BinaryTree, when_finding_the_next_node_in_a_postorder_traversal) {
   destroy(a);
 }
 
-
 TestSuite *binary_tree_tests() {
   TestSuite *suite = create_test_suite();
 
