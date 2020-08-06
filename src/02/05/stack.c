@@ -8,19 +8,9 @@ Node *node_init(int data) {
   return node;
 }
 
-Node *node_tail(Node *self) {
-  Node *current = self;
-  while (current) {
-    if (current->next == NULL)
-      return current;
-    current = current->next;
-  }
-  return NULL;
-}
-
-Stack *stack_init(int data) {
+Stack *stack_init() {
   Stack *stack = malloc(sizeof(Stack));
-  stack->head = node_init(data);
+  stack->head = NULL;
   return stack;
 }
 
@@ -39,8 +29,24 @@ int stack_size(Stack *self) {
 }
 
 int stack_peek(Stack *self) {
-  Node *tail = node_tail(self->head);
-  if (tail)
-    return tail->data;
+  if (self->head)
+    return self->head->data;
+  return -1;
+}
+
+void stack_push(Stack *stack, int data) {
+  Node *node = node_init(data);
+  node->next = stack->head;
+  stack->head = node;
+}
+
+int stack_pop(Stack *self) {
+  if (self->head) {
+    Node *tmp = self->head;
+    int data = tmp->data;
+    self->head = self->head->next;
+    free(tmp);
+    return data;
+  }
   return -1;
 }
