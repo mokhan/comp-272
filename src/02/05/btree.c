@@ -23,11 +23,14 @@ BTree *btree_init(int data) {
 }
 
 void btree_pre_order_number(BTree *tree) {
+  //use a stack
   //self
   //left
   //right
 }
 void btree_in_order_number(BTree *tree) {
+  //use a stack
+  //
   // left
   // self
   // right
