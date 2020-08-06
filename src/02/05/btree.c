@@ -1,5 +1,5 @@
 #include "btree.h"
-#include <limits.h>
+#include "stack.h"
 #include <stdio.h>
 
 static void inspect(BTree *tree, int level) {

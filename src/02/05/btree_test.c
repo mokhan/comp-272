@@ -18,7 +18,7 @@ Ensure(BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order
 
   btree_in_order_number(tree);
 
-  /*assert_that(tree->in_order[0], is_equal_to(10));*/
+  assert_that(tree->in_order[0], is_equal_to(10));
 }
 
 Ensure(
