@@ -22,6 +22,22 @@ BTree *btree_init(int data) {
   return tree;
 }
 
+void btree_pre_order_number(BTree *tree) {
+  //self
+  //left
+  //right
+}
+void btree_in_order_number(BTree *tree) {
+  // left
+  // self
+  // right
+}
+void btree_post_order_number(BTree *tree) {
+  // left
+  // right
+  // self
+}
+
 BTree *btree_insert(BTree *tree, int data) {
   if (!tree)
     return btree_init(data);

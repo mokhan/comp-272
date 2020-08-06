@@ -13,6 +13,14 @@ Ensure(BinaryTree, when_the_tree_is_NULL) {
   assert_that(tree->data, is_equal_to(10));
 }
 
+Ensure(BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order) {
+  BTree *tree = btree_insert(NULL, 10);
+
+  btree_in_order_number(tree);
+
+  assert_that(tree->in_order[0], is_equal_to(10));
+}
+
 Ensure(
     BinaryTree,
     when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side) {
@@ -93,6 +101,8 @@ Ensure(
 TestSuite *btree_tests() {
   TestSuite *suite = create_test_suite();
   add_test_with_context(suite, BinaryTree, when_the_tree_is_NULL);
+  add_test_with_context(suite, BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order);
+
   add_test_with_context(
       suite, BinaryTree,
       when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side);
