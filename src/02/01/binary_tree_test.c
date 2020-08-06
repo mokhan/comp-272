@@ -29,17 +29,11 @@ Node *next(Node *self, Node *x, enum Traversal traversal) {
   return NULL;
 }
 
-Node *preorder_next(Node *self, Node *x) {
-  return next(self, x, PREORDER);
-}
+Node *preorder_next(Node *self, Node *x) { return next(self, x, PREORDER); }
 
-Node *inorder_next(Node *self, Node *x) {
-  return next(self, x, INORDER);
-}
+Node *inorder_next(Node *self, Node *x) { return next(self, x, INORDER); }
 
-Node *postorder_next(Node *self, Node *x) {
-  return next(self, x, POSTORDER);
-}
+Node *postorder_next(Node *self, Node *x) { return next(self, x, POSTORDER); }
 
 Ensure(BinaryTree, when_traversing_in_preorder_when_the_tree_is_empty) {
   traverse(NULL, visitor, PREORDER);
@@ -334,30 +328,64 @@ Ensure(BinaryTree, when_finding_the_next_node_in_a_postorder_traversal) {
 TestSuite *binary_tree_tests() {
   TestSuite *suite = create_test_suite();
 
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_is_empty);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_single_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_preorder_when_the_tree_has_multiple_levels);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_in_preorder_when_the_tree_is_empty);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_single_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_left_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_a_left_and_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_preorder_when_the_tree_has_multiple_levels);
 
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_is_empty);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_single_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_in_postorder_when_the_tree_has_multiple_levels);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_in_postorder_when_the_tree_is_empty);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_single_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_left_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_a_left_and_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_in_postorder_when_the_tree_has_multiple_levels);
 
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_is_empty);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_single_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_left_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_a_left_and_right_node);
-  add_test_with_context(suite, BinaryTree, when_traversing_inorder_when_the_tree_has_multiple_levels);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_inorder_when_the_tree_is_empty);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_inorder_when_the_tree_has_a_single_node);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_inorder_when_the_tree_has_a_left_node);
+  add_test_with_context(suite, BinaryTree,
+                        when_traversing_inorder_when_the_tree_has_a_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_inorder_when_the_tree_has_a_left_and_right_node);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_traversing_inorder_when_the_tree_has_multiple_levels);
 
-  add_test_with_context(suite, BinaryTree, when_finding_the_next_node_in_a_preorder_traversal);
-  add_test_with_context(suite, BinaryTree, when_finding_the_next_node_in_a_inorder_traversal);
-  add_test_with_context(suite, BinaryTree, when_finding_the_next_node_in_a_postorder_traversal);
+  add_test_with_context(suite, BinaryTree,
+                        when_finding_the_next_node_in_a_preorder_traversal);
+  add_test_with_context(suite, BinaryTree,
+                        when_finding_the_next_node_in_a_inorder_traversal);
+  add_test_with_context(suite, BinaryTree,
+                        when_finding_the_next_node_in_a_postorder_traversal);
 
   return suite;
 }
