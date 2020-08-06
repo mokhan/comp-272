@@ -10,6 +10,7 @@ Ensure(Stack, when_pushing_an_item_on_to_a_stack) {
   Stack *stack = stack_init(10);
 
   assert_that(stack_size(stack), is_equal_to(1));
+  assert_that(stack_peek(stack), is_equal_to(10));
 }
 
 TestSuite *stack_tests() {

@@ -8,6 +8,16 @@ Node *node_init(int data) {
   return node;
 }
 
+Node *node_tail(Node *self) {
+  Node *current = self;
+  while (current) {
+    if (current->next == NULL)
+      return current;
+    current = current->next;
+  }
+  return NULL;
+}
+
 Stack *stack_init(int data) {
   Stack *stack = malloc(sizeof(Stack));
   stack->head = node_init(data);
@@ -26,4 +36,11 @@ int stack_size(Stack *self) {
   }
 
   return count;
+}
+
+int stack_peek(Stack *self) {
+  Node *tail = node_tail(self->head);
+  if (tail)
+    return tail->data;
+  return -1;
 }

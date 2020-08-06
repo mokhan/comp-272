@@ -9,3 +9,4 @@ typedef struct {
 
 Stack *stack_init(int data);
 int stack_size(Stack *self);
+int stack_peek(Stack *self);
