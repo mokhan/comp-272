@@ -1,7 +1,7 @@
 #include "stack.h"
 #include <stdlib.h>
 
-Node *node_init(int data) {
+Node *node_init(void *data) {
   Node *node = malloc(sizeof(Node));
   node->next = NULL;
   node->data = data;
@@ -18,7 +18,7 @@ int stack_size(Stack *self) {
   if (!self || !self->head)
     return 0;
 
-  int count;
+  int count = 0;
   Node *current = self->head;
   while (current) {
     ++count;
@@ -28,25 +28,25 @@ int stack_size(Stack *self) {
   return count;
 }
 
-int stack_peek(Stack *self) {
+void *stack_peek(Stack *self) {
   if (self->head)
     return self->head->data;
-  return -1;
+  return NULL;
 }
 
-void stack_push(Stack *stack, int data) {
+void stack_push(Stack *stack, void *data) {
   Node *node = node_init(data);
   node->next = stack->head;
   stack->head = node;
 }
 
-int stack_pop(Stack *self) {
+void *stack_pop(Stack *self) {
   if (self->head) {
     Node *tmp = self->head;
-    int data = tmp->data;
+    void *data = tmp->data;
     self->head = self->head->next;
     free(tmp);
     return data;
   }
-  return -1;
+  return NULL;
 }

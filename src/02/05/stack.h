@@ -1,6 +1,6 @@
 typedef struct node {
   struct node *next;
-  int data;
+  void *data;
 } Node;
 
 typedef struct {
@@ -8,7 +8,7 @@ typedef struct {
 } Stack;
 
 Stack *stack_init();
-int stack_peek(Stack *self);
+void *stack_peek(Stack *self);
 int stack_size(Stack *self);
-void stack_push(Stack *self, int data);
-int stack_pop(Stack *self);
+void stack_push(Stack *self, void *data);
+void *stack_pop(Stack *self);
