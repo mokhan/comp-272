@@ -46,9 +46,9 @@ void btree_in_order_number(BTree *root) {
     else {
       if (stack_size(stack) == 0)
         break;
+
       root = stack_pop(stack);
-      original->in_order[i] = root->data;
-      ++i;
+      original->in_order[i++] = root->data;
       root = root->right;
     }
   }
