@@ -159,4 +159,68 @@ Amortization:
 
 > spread out the high cost so that it's cheap on average all the time.
 
+## Open Adressing
+
+* no chaining
+* use arrays
+* m: # of slots in the table
+* m >= # of elements
+
+```plaintext
+----------
+| item 1 |
+----------
+| item 2 |
+----------
+|        |
+----------
+|        |
+----------
+```
+
+probing: try to see if we can insert something into the hashtable.
+if we fail, we will compute a slightly different hash until we
+find an empty slot that we can insert into this table.
+
+Hash function specifies the order of slots to probe
+for a key. (for insert/search/delete)
+
+hash function `h(U, trial_count)`
+
+* U: universe of keys
+* trial_count: integer between 0 -> m-1
+
+`h(k,1)`
+arbitrary key k
+
+h(k,1), h(k,2), ... h(k, m-1)
+
+to be a permutation of 0,1 ... m-1
+
+```plaintext
+  ----------
+0 |        |
+  ----------
+1 |        |
+  ----------
+2 |        |
+  ----------
+3 |        |
+  ----------
+4 |        |
+  ----------
+5 |        |
+  ----------
+6 |        |
+  ----------
+7 |        |
+  ----------
+```
+
+* `insert(k,v)`: keep probing until an empty slot is found. insert item when found.
+* `search(k)`: As long as the slots encountered are occupied by keys != k. keep probing until you either encounter k or find an empty slot.
+
+## Cryptographic Hash
+
+
 [mit-ocw]: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining/
