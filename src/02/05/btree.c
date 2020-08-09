@@ -22,13 +22,28 @@ BTree *btree_init(int data) {
   return tree;
 }
 
-void btree_pre_order_number(BTree *tree) {
+void btree_pre_order_number(BTree *root) {
+  BTree *original = root;
+  if (root == NULL) return;
+
   Stack *stack = stack_init();
-  /*stack_push(stack, tree);*/
-  //use a stack
-  //self
-  //left
-  //right
+  int i = 0;
+
+  stack_push(stack, root);
+  printf("[ ");
+  while (stack_size(stack) > 0) {
+    root = stack_pop(stack);
+    original->pre_order[i++] = root->data;
+    printf("%d ", root->data);
+
+    if (root->right != NULL) {
+      stack_push(stack, root->right);
+    }
+    if (root->left != NULL) {
+      stack_push(stack, root->left);
+    }
+  }
+  printf("]\n");
 }
 
 void btree_in_order_number(BTree *root) {
