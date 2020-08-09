@@ -31,12 +31,27 @@ void btree_pre_order_number(BTree *tree) {
   //right
 }
 
-void btree_in_order_number(BTree *tree) {
-  //use a stack
-  //
-  // left
-  // self
-  // right
+void btree_in_order_number(BTree *root) {
+  BTree *original = root;
+  if (root == NULL) return;
+
+  Stack *stack = stack_init();
+  int i = 0;
+
+  while (true) {
+    if (root) {
+      stack_push(stack, root);
+      root = root->left;
+    }
+    else {
+      if (stack_size(stack) == 0)
+        break;
+      root = stack_pop(stack);
+      original->in_order[i] = root->data;
+      ++i;
+      root = root->right;
+    }
+  }
 }
 
 void btree_post_order_number(BTree *tree) {
