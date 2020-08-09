@@ -23,11 +23,14 @@ BTree *btree_init(int data) {
 }
 
 void btree_pre_order_number(BTree *tree) {
+  Stack *stack = stack_init();
+  /*stack_push(stack, tree);*/
   //use a stack
   //self
   //left
   //right
 }
+
 void btree_in_order_number(BTree *tree) {
   //use a stack
   //
@@ -35,6 +38,7 @@ void btree_in_order_number(BTree *tree) {
   // self
   // right
 }
+
 void btree_post_order_number(BTree *tree) {
   // left
   // right
