@@ -70,6 +70,34 @@ Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_pre
   assert_that(tree->pre_order[6], is_equal_to(18));
 }
 
+Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_post_order) {
+  BTree *tree = btree_insert(NULL, 10);
+
+  btree_insert(tree, 5);
+  btree_insert(tree, 15);
+  btree_insert(tree, 7);
+  btree_insert(tree, 12);
+  btree_insert(tree, 18);
+  btree_insert(tree, 3);
+  /*
+      10
+    /    \
+  5      15
+ /  \    /  \
+3    7  12   18
+   */
+
+  btree_post_order_number(tree);
+
+  assert_that(tree->post_order[0], is_equal_to(3));
+  assert_that(tree->post_order[1], is_equal_to(7));
+  assert_that(tree->post_order[2], is_equal_to(5));
+  assert_that(tree->post_order[3], is_equal_to(12));
+  assert_that(tree->post_order[4], is_equal_to(18));
+  assert_that(tree->post_order[5], is_equal_to(15));
+  assert_that(tree->post_order[6], is_equal_to(10));
+}
+
 Ensure(
     BinaryTree,
     when_inserting_an_item_less_than_the_root_in_a_tree_it_creates_a_node_on_the_left_side) {
@@ -153,6 +181,7 @@ TestSuite *btree_tests() {
   add_test_with_context(suite, BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order);
   add_test_with_context(suite, BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_order);
   add_test_with_context(suite, BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_pre_order);
+  add_test_with_context(suite, BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_post_order);
 
   add_test_with_context(
       suite, BinaryTree,
