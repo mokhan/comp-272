@@ -13,7 +13,8 @@ Ensure(BinaryTree, when_the_tree_is_NULL) {
   assert_that(tree->data, is_equal_to(10));
 }
 
-Ensure(BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order) {
+Ensure(BinaryTree,
+       when_the_tree_has_a_single_node_it_returns_the_items_in_order) {
   BTree *tree = btree_insert(NULL, 10);
 
   btree_in_order_number(tree);
@@ -21,7 +22,8 @@ Ensure(BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order
   assert_that(tree->in_order[0], is_equal_to(10));
 }
 
-Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_order) {
+Ensure(BinaryTree,
+       when_the_tree_has_multiple_levels_it_returns_the_items_in_order) {
   BTree *tree = btree_insert(NULL, 10);
 
   btree_insert(tree, 5);
@@ -42,7 +44,8 @@ Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_ord
   assert_that(tree->in_order[6], is_equal_to(18));
 }
 
-Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_pre_order) {
+Ensure(BinaryTree,
+       when_the_tree_has_multiple_levels_it_returns_the_items_in_pre_order) {
   BTree *tree = btree_insert(NULL, 10);
 
   btree_insert(tree, 5);
@@ -70,7 +73,8 @@ Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_pre
   assert_that(tree->pre_order[6], is_equal_to(18));
 }
 
-Ensure(BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_post_order) {
+Ensure(BinaryTree,
+       when_the_tree_has_multiple_levels_it_returns_the_items_in_post_order) {
   BTree *tree = btree_insert(NULL, 10);
 
   btree_insert(tree, 5);
@@ -178,10 +182,18 @@ Ensure(
 TestSuite *btree_tests() {
   TestSuite *suite = create_test_suite();
   add_test_with_context(suite, BinaryTree, when_the_tree_is_NULL);
-  add_test_with_context(suite, BinaryTree, when_the_tree_has_a_single_node_it_returns_the_items_in_order);
-  add_test_with_context(suite, BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_order);
-  add_test_with_context(suite, BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_pre_order);
-  add_test_with_context(suite, BinaryTree, when_the_tree_has_multiple_levels_it_returns_the_items_in_post_order);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_the_tree_has_a_single_node_it_returns_the_items_in_order);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_the_tree_has_multiple_levels_it_returns_the_items_in_order);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_the_tree_has_multiple_levels_it_returns_the_items_in_pre_order);
+  add_test_with_context(
+      suite, BinaryTree,
+      when_the_tree_has_multiple_levels_it_returns_the_items_in_post_order);
 
   add_test_with_context(
       suite, BinaryTree,

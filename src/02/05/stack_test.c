@@ -57,7 +57,8 @@ Ensure(Stack, when_popping_an_item_off_of_a_stack) {
 TestSuite *stack_tests() {
   TestSuite *suite = create_test_suite();
   add_test_with_context(suite, Stack, when_pushing_an_item_on_to_a_stack);
-  add_test_with_context(suite, Stack, when_pushing_multiple_items_on_to_a_stack);
+  add_test_with_context(suite, Stack,
+                        when_pushing_multiple_items_on_to_a_stack);
   add_test_with_context(suite, Stack, when_pushing_a_custom_type_on_to_a_stack);
   add_test_with_context(suite, Stack, when_popping_an_item_off_of_a_stack);
   return suite;

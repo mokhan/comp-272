@@ -24,7 +24,8 @@ BTree *btree_init(int data) {
 
 void btree_pre_order_number(BTree *root) {
   BTree *original = root;
-  if (root == NULL) return;
+  if (root == NULL)
+    return;
 
   Stack *stack = stack_init();
   int i = 0;
@@ -45,7 +46,8 @@ void btree_pre_order_number(BTree *root) {
 
 void btree_in_order_number(BTree *root) {
   BTree *original = root;
-  if (root == NULL) return;
+  if (root == NULL)
+    return;
 
   Stack *stack = stack_init();
   int i = 0;
@@ -54,8 +56,7 @@ void btree_in_order_number(BTree *root) {
     if (root) {
       stack_push(stack, root);
       root = root->left;
-    }
-    else {
+    } else {
       if (stack_size(stack) == 0)
         break;
 
@@ -80,8 +81,10 @@ void btree_post_order_number(BTree *root) {
     root = stack_pop(s1);
     stack_push(s2, root);
 
-    if (root->left) stack_push(s1, root->left);
-    if (root->right) stack_push(s1, root->right);
+    if (root->left)
+      stack_push(s1, root->left);
+    if (root->right)
+      stack_push(s1, root->right);
   }
 
   int i = 0;
@@ -100,11 +103,10 @@ BTree *btree_insert(BTree *tree, int data) {
       btree_insert(tree->left, data);
     else
       tree->left = btree_init(data);
+  else if (tree->right)
+    btree_insert(tree->right, data);
   else
-    if (tree->right)
-      btree_insert(tree->right, data);
-    else
-      tree->right = btree_init(data);
+    tree->right = btree_init(data);
 
   return tree;
 }
