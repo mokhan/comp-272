@@ -35,12 +35,10 @@ void btree_pre_order_number(BTree *root) {
     root = stack_pop(stack);
     original->pre_order[i++] = root->data;
 
-    if (root->right != NULL) {
+    if (root->right != NULL)
       stack_push(stack, root->right);
-    }
-    if (root->left != NULL) {
+    if (root->left != NULL)
       stack_push(stack, root->left);
-    }
   }
 }
 
