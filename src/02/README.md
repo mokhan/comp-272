@@ -382,9 +382,92 @@ Using (K mod 13) as the hash function, store the following elements in the table
 {1, 5, 21, 26, 39, 14, 15, 16, 17, 18, 19, 20, 111, 145, 146}.
 
 ### Description of the Code
+
+To implement a hash table I chose to store
+a linked list in each bucket and perform a
+linear, `O(n)`, scan to find the correct node.
+
+This could have been optimized further by using
+a balanced binary search tree and performing
+a binary search to find the correct node
+when a collision occurs.
+
+Each node in the linked list is stored as a
+2-Tuple (two-ple) to store the key and associated
+value.
+
 ### Errors and Warnings
+
+Unit tests for the Tuple, List and Btree can
+be found in the corresponding files with a `04/*_test.c`
+suffix.
+
+```bash
+モ cd 04 && make clean && make test && ./build/test
+rm -fr build
+mkdir build
+clang -std=c99   -c -o build/hash.o hash.c
+clang -std=c99   -c -o build/list.o list.c
+clang -std=c99   -c -o build/tuple.o tuple.c
+clang -std=c99   -c -o build/hash_test.o hash_test.c
+clang -std=c99   -c -o build/list_test.o list_test.c
+clang -std=c99   -c -o build/tuple_test.o tuple_test.c
+clang build/hash.o build/list.o build/tuple.o build/hash_test.o build/list_test.o build/tuple_test.o -lcgreen -o build/test
+Running "main" (13 tests)...
+  "hash_table_tests": 20 passes in 2ms.
+  "list_tests": 15 passes in 3ms.
+  "tuple_tests": 2 passes in 1ms.
+Completed "main": 37 passes in 6ms.
+```
+
 ### Sample Input and Output
+
+An example program is included in `04/main.c`
+that prints a visual representation of the
+content of the hash table.
+
+```bash
+モ cd 04 && make clean && make && ./build/program
+rm -fr build
+mkdir build
+clang -std=c99   -c -o build/hash.o hash.c
+clang -std=c99   -c -o build/list.o list.c
+clang -std=c99   -c -o build/tuple.o tuple.c
+clang -std=c99   -c -o build/main.o main.c
+clang build/hash.o build/list.o build/tuple.o build/main.o -o build/program
+=== COMP-272 - Assignment 02 - Question 04 ===
+Insert items into hash
+(1:10) (5:50) (21:210) (26:260) (39:390) (14:140) (15:150) (16:160) (17:170) (18:180) (19:190) (20:200) (111:1110) (145:1450) (146:1460)
+Inspect hash table
+ 0: [(26:260)(39:390)]
+ 1: [(1:10)(14:140)]
+ 2: [(15:150)(145:1450)]
+ 3: [(16:160)(146:1460)]
+ 4: [(17:170)]
+ 5: [(5:50)(18:180)]
+ 6: [(19:190)]
+ 7: [(20:200)(111:1110)]
+ 8: [(21:210)]
+ 9: [(nil)]
+10: [(nil)]
+11: [(nil)]
+12: [(nil)]
+Retrieve each item from the table
+(1:10) (5:50) (21:210) (26:260) (39:390) (14:140) (15:150) (16:160) (17:170) (18:180) (19:190) (20:200) (111:1110) (145:1450) (146:1460)
+Bye
+```
+
 ### Discussion
+
+Choosing to back the hash table with a linked
+list made it easier to implement the code but
+it does come with the cost of time complexity.
+
+By using a balanced binary search tree the
+time to look up a key would have been
+`O(1)` (compute hash) + `O(logn)` i.e. `O(logn)`.
+Using, a linked list changes the time
+complexity to `O(1)` + `O(n)` i.e. `O(n)`.
 
 ## Question 5
 ### Problem Statement
