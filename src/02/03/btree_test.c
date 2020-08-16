@@ -87,8 +87,15 @@ Ensure(
   tree = btree_insert(tree, 4);
   tree = btree_insert(tree, 3);
 
-  assert_that(tree, is_not_equal_to(NULL));
   btree_inspect(tree);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->data, is_equal_to(3));
+  assert_that(tree->left->data, is_equal_to(2));
+  assert_that(tree->left->left->data, is_equal_to(1));
+
+  assert_that(tree->right->data, is_equal_to(4));
+  assert_that(tree->right->right->data, is_equal_to(5));
 }
 
 TestSuite *binary_search_tree_tests() {
