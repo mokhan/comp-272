@@ -19,7 +19,7 @@ Node *initialize(int data) {
 /*
  * Traverses a binary tree using the traversal algorithm specified.
  * Time: O(n)
- * Space: O(1)
+ * Space: O(n) for each recursive stack frame
  *
  * @param node The root of the binary tree
  * @param vistior A callback function to invoke on each node during the tree

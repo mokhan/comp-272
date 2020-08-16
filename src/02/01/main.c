@@ -11,6 +11,18 @@ static void visitor(Node *node) {
   visited_count++;
 }
 
+void print_traversal(Node *tree, enum Traversal direction)
+{
+  visited_count = 0;
+  memset(nodes, 0, sizeof(nodes));
+
+  traverse(tree, visitor, direction);
+
+  for (int i = 0; i < visited_count; i++)
+    printf("%d ", nodes[i]->data);
+  printf("\n");
+}
+
 int main(int argc, char *argv[]) {
   printf("=== COMP-272 - Assignment 02 - Question 01 ===\n");
 
@@ -26,15 +38,14 @@ int main(int argc, char *argv[]) {
   b->right = e;
   inspect(a, 0);
 
-  printf("\n=== Preorder traversal ===\n");
-  int visited_count = 0;
-  memset(nodes, 0, sizeof(nodes));
+  printf("\n=== Pre order traversal ===\n");
+  print_traversal(a, PREORDER);
 
-  traverse(a, visitor, PREORDER);
+  printf("\n=== In order traversal ===\n");
+  print_traversal(a, INORDER);
 
-  for (int i = 0; i < visited_count; i++) {
-    printf("%d", nodes[i]->data);
-  }
+  printf("\n=== Post order traversal ===\n");
+  print_traversal(a, POSTORDER);
 
   return 0;
 }
