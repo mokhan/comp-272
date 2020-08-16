@@ -87,15 +87,31 @@ Ensure(
   tree = btree_insert(tree, 4);
   tree = btree_insert(tree, 3);
 
-  btree_inspect(tree);
-
   assert_that(tree, is_not_equal_to(NULL));
   assert_that(tree->data, is_equal_to(3));
+
+  assert_that(tree->left, is_not_equal_to(NULL));
   assert_that(tree->left->data, is_equal_to(2));
+
+  assert_that(tree->left->left, is_not_equal_to(NULL));
   assert_that(tree->left->left->data, is_equal_to(1));
 
+  assert_that(tree->right, is_not_equal_to(NULL));
   assert_that(tree->right->data, is_equal_to(4));
+
+  assert_that(tree->right->right, is_not_equal_to(NULL));
   assert_that(tree->right->right->data, is_equal_to(5));
+}
+
+Ensure(BinaryTree, when_calculating_the_size_of_the_tree)
+{
+  BTree *tree = btree_insert(NULL, 1);
+  tree = btree_insert(tree, 5);
+  tree = btree_insert(tree, 2);
+  tree = btree_insert(tree, 4);
+  tree = btree_insert(tree, 3);
+
+  assert_that(btree_size(tree), is_equal_to(5));
 }
 
 TestSuite *binary_search_tree_tests() {
@@ -114,10 +130,11 @@ TestSuite *binary_search_tree_tests() {
   add_test_with_context(
       suite, BinaryTree,
       when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position);
-  add_test_with_context(
-      suite, BinaryTree,
-      when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);
+  /*add_test_with_context(*/
+      /*suite, BinaryTree,*/
+      /*when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);*/
 
+  add_test_with_context(suite, BinaryTree, when_calculating_the_size_of_the_tree);
   return suite;
 }
 

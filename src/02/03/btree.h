@@ -10,3 +10,4 @@ typedef struct btree_node {
 BTree *btree_init(int data);
 BTree *btree_insert(BTree *root, int data);
 void btree_inspect(BTree *tree);
+int btree_size(BTree *tree);

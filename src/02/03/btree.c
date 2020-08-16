@@ -1,4 +1,6 @@
 #include "btree.h"
+#include "list.h"
+#include "stack.h"
 #include <stdio.h>
 
 /**
@@ -32,6 +34,39 @@ BTree *btree_init(int data) {
   tree->right = NULL;
   tree->data = data;
   return tree;
+}
+
+List *btree_to_list(BTree *tree)
+{
+  if (tree == NULL)
+    return NULL;
+
+  List *list = NULL;
+  Stack *stack = stack_init();
+  BTree *tmp = tree;
+
+  while (true) {
+    if (tmp) {
+      stack_push(stack, tmp);
+      tmp = tmp->left;
+    } else if (stack_size(stack) == 0) {
+      break;
+    } else {
+      tmp = stack_pop(stack);
+      if (list)
+        list_add(list, tmp->data);
+      else
+        list = list_initialize(tree->data);
+      tmp = tmp->right;
+    }
+  }
+
+  return list;
+}
+
+int btree_size(BTree *tree) {
+  List *list = btree_to_list(tree);
+  return list_size(list);
 }
 
 /**
