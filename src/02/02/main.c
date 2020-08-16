@@ -3,13 +3,11 @@
 #include <stdlib.h>
 
 void investigate(BTree *tree) {
-  printf("Tree\n");
-  printf("---------\n");
   btree_inspect(tree);
-  printf("Is a BST? %c\n\n", btree_is_bst(tree) ? 'y' : 'n');
+  printf("Is a binary search tree? %c\n\n", btree_is_bst(tree) ? 'y' : 'n');
 }
 
-BTree *build_bst() {
+BTree *build_binary_search_tree() {
   BTree *tree = btree_init(10);
   tree->left = btree_init(-5);
   tree->left->left = btree_init(-10);
@@ -21,7 +19,7 @@ BTree *build_bst() {
   return tree;
 }
 
-BTree *build_tree() {
+BTree *build_binary_tree() {
   BTree *tree = btree_init(10);
   tree->left = btree_init(0);
   tree->left->left = btree_init(-1);
@@ -37,8 +35,13 @@ BTree *build_tree() {
 int main(int argc, char *argv[]) {
   printf("=== COMP-272 - Assignment 02 - Question 02 ===\n");
 
-  investigate(build_bst());
-  investigate(build_tree());
+  printf("Binary Search Tree\n");
+  printf("---------\n");
+  investigate(build_binary_search_tree());
+
+  printf("Binary Tree\n");
+  printf("---------\n");
+  investigate(build_binary_tree());
 
   printf("Bye\n");
   return 0;
