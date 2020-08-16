@@ -2,6 +2,12 @@
 #include "stack.h"
 #include <stdio.h>
 
+/**
+ * Prints a visual representation of a binary tree
+ *
+ * @param tree The tree or subtree to print
+ * @param level The level in the tree that the subtree belongs to
+ */
 static void inspect(BTree *tree, int level) {
   if (!tree)
     return;
@@ -14,6 +20,12 @@ static void inspect(BTree *tree, int level) {
   inspect(tree->right, level + 1);
 }
 
+/**
+ * Initializes a new instance of a binary tree.
+ *
+ * @param data The data to bind to the root of the new subtree.
+ * @return Returns the new subtree.
+ */
 BTree *btree_init(int data) {
   BTree *tree = malloc(sizeof(BTree));
   tree->left = NULL;
@@ -22,26 +34,40 @@ BTree *btree_init(int data) {
   return tree;
 }
 
-void btree_pre_order_number(BTree *root) {
-  BTree *original = root;
-  if (root == NULL)
+/**
+ * Performs and caches the result of a pre order traversal
+ * on a binary tree. Cached results are stored in the root of
+ * the tree and not on each node of the tree.
+ *
+ * @param tree The subtree to perform the traversal on
+ */
+void btree_pre_order_number(BTree *tree) {
+  BTree *original = tree;
+  if (tree == NULL)
     return;
 
   Stack *stack = stack_init();
   int i = 0;
 
-  stack_push(stack, root);
+  stack_push(stack, tree);
   while (stack_size(stack) > 0) {
-    root = stack_pop(stack);
-    original->pre_order[i++] = root->data;
+    tree = stack_pop(stack);
+    original->pre_order[i++] = tree->data;
 
-    if (root->right != NULL)
-      stack_push(stack, root->right);
-    if (root->left != NULL)
-      stack_push(stack, root->left);
+    if (tree->right != NULL)
+      stack_push(stack, tree->right);
+    if (tree->left != NULL)
+      stack_push(stack, tree->left);
   }
 }
 
+/**
+ * Performs and caches the result of an in order traversal
+ * on a binary tree. Cached results are stored in the root of
+ * the tree and not on each node of the tree.
+ *
+ * @param root The subtree to perform the traversal on
+ */
 void btree_in_order_number(BTree *root) {
   BTree *original = root;
   if (root == NULL)
@@ -65,6 +91,13 @@ void btree_in_order_number(BTree *root) {
   }
 }
 
+/**
+ * Performs and caches the result of an post order traversal
+ * on a binary tree. Cached results are stored in the root of
+ * the tree and not on each node of the tree.
+ *
+ * @param root The subtree to perform the traversal on
+ */
 void btree_post_order_number(BTree *root) {
   BTree *original = root;
   if (root == NULL)
@@ -92,6 +125,13 @@ void btree_post_order_number(BTree *root) {
   }
 }
 
+/**
+ * Insert a new items into a binary tree.
+ *
+ * @param tree The tree to insert the data into.
+ * @param data The data to insert into the tree.
+ * @return Returns the new root of the tree.
+ */
 BTree *btree_insert(BTree *tree, int data) {
   if (!tree)
     return btree_init(data);
@@ -109,4 +149,9 @@ BTree *btree_insert(BTree *tree, int data) {
   return tree;
 }
 
+/**
+ * Prints a visual representation of a binary tree.
+ *
+ * @param tree The subtree to inspect.
+ */
 void btree_inspect(BTree *tree) { inspect(tree, 0); }
