@@ -194,10 +194,183 @@ Illustrate what happens when the sequence 1, 5, 2, 4, 3 is added to an empty
 ScapegoatTree, and show where the credits described in the proof of Lemma 8.3 go,
 and how they are used during this sequence of additions.
 
+In an unbalanced binary tree the insertion of `1,5,2,4,3` would
+look like the following:
+
+```plaintext
+Insert 1:
+           (1)
+
+Insert 5:
+           (1)
+              \
+              (5)
+
+Insert 2:
+           (1)
+          /   \
+        (2)   (5)
+
+Insert 4:
+           (1)
+          /   \
+        (2)   (5)
+             /
+           (4)
+
+Insert 3:
+
+           (1)
+          /   \
+        (2)   (5)
+             /
+           (4)
+          /
+        (3)
+```
+
+The above diagram illustrates some negative consequences
+for having an unbalanced binary tree. This includes needing
+to visit more nodes than necessary to perform a search and
+can lead to worst case searches of `O(n)` time.
+
+For example:
+
+```plaintext
+  (1)
+    \
+    (2)
+      \
+      (3)
+        \
+        (4)
+          \
+          (5)
+```
+
+The scapegoat tree allows the binary tree to remain
+balanced so that searches can operate in `O(logn)` time.
+It also does this by maintaining constant space `O(1)`.
+Other, balanced binary search tree algorithms like the
+AVL tree or Red-Black tree typically require adding additional
+data to each node in the tree in order to keep the tree balanced.
+
+The insertion of `1,5,2,4,3` into a scapegoat tree would look 
+like the following:
+
+```plaintext
+Insert 1:
+           (1)     0/1 > 2/3: false
+
+Insert 5:
+           (1)     1/2 > 2/3: false
+              \
+              (5)  0/1 > 2/3: false
+
+Insert 2:
+           (1)     1/2 > 2/3: false
+          /   \
+        (2)   (5)  0/1 > 2/3: false
+
+Insert 4:
+           (1)     2/3 > 2/3: false
+          /   \
+        (2)   (5)  1/2 > 2/3: false
+             /
+           (4)     0/1 > 2/3: false
+
+Insert 3:
+
+           (1)     3/4 > 2/3: true (scapegoat)
+          /   \
+        (2)   (5)  2/3 > 2/3: false
+             /
+           (4)     1/2 > 2/3: false
+          /
+        (3)        0/1 > 2/3: false
+```
+
+The next step is to rebalance from the scapegoat node.
+
+Rebalance:
+
+1. collect nodes in sorted order: [1,3,4,5]
+1. find new root: size/2 = 4/2 = 2
+1. 3 is the second node and is selected as the new root
+1. [1] is moved to the left subtree
+1. [4,5] are moved to the right subtree
+
+The final result is a balanced binary search tree.
+
+```plaintext
+          (3)
+         /   \
+       (2)   (4)
+      /        \
+    (1)        (5)
+```
+
 ### Description of the Code
+
+The code implements the regular binary tree insertion
+but it does not implement the rebalancing.
+
 ### Errors and Warnings
+
+The tests can be viewed in `03/*_test.c`.
+
+```bash
+モ make clean && make test && ./build/test
+rm -fr build
+mkdir build
+clang    -c -o build/btree.o btree.c
+clang    -c -o build/btree_test.o btree_test.c
+clang build/btree.o build/btree_test.o -lcgreen -o build/test
+Running "main" (6 tests)...
+ 1
+   5
+     2
+       4
+         3
+  "binary_search_tree_tests": 20 passes in 3ms.
+Completed "main": 20 passes in 3ms.
+```
+
 ### Sample Input and Output
+
+The example program in `03/main.c` displays
+a visual representation of an unbalanced and
+a balanced binary search tree.
+
+```bash
+モ cd 03/ && make clean && make && ./build/program
+rm -fr build
+mkdir build
+clang    -c -o build/btree.o btree.c
+clang    -c -o build/main.o main.c
+clang build/btree.o build/main.o -o build/program
+=== COMP-272 - Assignment 02 - Question 03 ===
+Tree 1: unbalanced tree
+ 1
+   5
+     2
+       4
+         3
+Tree 2: balanced tree
+ 3
+   2
+     1
+   4
+     5
+Bye
+```
+
 ### Discussion
+
+Rebalancing a tree can be a tricky operation and
+it can slow down insertions into the tree.
+During rebalancing it is important to choose
+a new root to reduce too much rebalancing operations.
 
 ## Question 4
 ### Problem Statement
