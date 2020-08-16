@@ -472,11 +472,90 @@ complexity to `O(1)` + `O(n)` i.e. `O(n)`.
 ## Question 5
 ### Problem Statement
 
-Create a subclass of `BinaryTree` whose nodes have fields for storing preorder, post-order, and in-order numbers.
-Write methods `preOrderNumber()`, `inOrderNumber()`, and `postOrderNumbers()` that assign these numbers correctly.
+Create a subclass of `BinaryTree` whose nodes have fields for storing preorder,
+post-order, and in-order numbers.
+Write methods `preOrderNumber()`, `inOrderNumber()`, and `postOrderNumbers()`
+that assign these numbers correctly.
 These methods should each run in `O(n)` time.
 
 ### Description of the Code
+
+I chose to write this assignment in `C`, so the notion
+of subclassing and inheritance does not apply.
+
+To accommodate the problem statement, I updated the
+binary tree struct to include an integer array
+that can store up to 32 entries. Each array
+includes a cached copy of the traversal order
+for pre order, in order and post order traversals.
+
+To fill the cache, the function `btree_(pre|in|post)_order_number`
+must be called. The cached traversal is stored
+in the root of the tree that is provided.
+
+I chose to use a Stack to perform the traversal in
+an iterative way. In previous implementations of the
+traversal algorithm for the other questsions in this
+assignment I chose to use recursion. This implementation
+explicitly uses a stack instead of implicitly through
+stack frames in the call stack.
+
 ### Errors and Warnings
+
+Unit tests for this can be found in `05/*_test.c`.
+
+```bash
+モ make clean && make test && ./build/test
+rm -fr build
+mkdir build
+clang -std=c99   -c -o build/btree.o btree.c
+clang -std=c99   -c -o build/stack.o stack.c
+clang -std=c99   -c -o build/btree_test.o btree_test.c
+clang -std=c99   -c -o build/stack_test.o stack_test.c
+clang build/btree.o build/stack.o build/btree_test.o build/stack_test.o -lcgreen -o build/test
+Running "main" (14 tests)...
+  "btree_tests": 42 passes in 5ms.
+  "stack_tests": 10 passes in 2ms.
+Completed "main": 52 passes in 7ms.
+```
+
 ### Sample Input and Output
+
+A sample program can be found in `05/main.c` that
+prints out the traversal for an example tree.
+
+```bash
+モ cd 05 && make clean && make && ./build/program
+rm -fr build
+mkdir build
+clang -std=c99   -c -o build/btree.o btree.c
+clang -std=c99   -c -o build/stack.o stack.c
+clang -std=c99   -c -o build/main.o main.c
+clang build/btree.o build/stack.o build/main.o -o build/program
+=== COMP-272 - Assignment 02 - Question 05 ===
+10
+   5
+     3
+     7
+  15
+    12
+    18
+Pre order traversal:
+10 5 3 7 15 12 18 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+In order traversal:
+3 5 7 10 12 15 18 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+Post order traversal:
+3 7 5 12 18 15 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+Bye
+```
+
 ### Discussion
+
+Allocating space for 32 values for the pre order, in order and post order
+representation for each node in a binary tree is quite wasteful.
+
+An alternative implementation might have returned a linked list
+instead of storing this data in an array on each node.
