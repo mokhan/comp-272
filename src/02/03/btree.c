@@ -56,9 +56,9 @@ List *btree_to_list(BTree *tree)
     } else {
       tmp = stack_pop(stack);
       if (list)
-        list_add(list, tmp->data);
+        list_add(list, tmp);
       else
-        list = list_initialize(tree->data);
+        list = list_initialize(tree);
       tmp = tmp->right;
     }
   }
@@ -71,18 +71,40 @@ int btree_size(BTree *tree) {
   return list ? list_size(list) : 0;
 }
 
+bool btree_is_scapegoat(BTree *tree)
+{
+  int size = btree_size(tree);
+  int parent_size = btree_size(tree->parent);
+
+  return ((size * 3) > (parent_size * 2));
+}
+
+BTree *btree_rebuild(BTree *tree)
+{
+  List *list = btree_to_list(tree->parent);
+  int mid = (list_size(list) / 2) - 1;
+  List *new_root = list_get(list, mid);
+  int data = ((BTree*)new_root->data)->data;
+  BTree *new_broot = btree_initialize(NULL, data);
+
+  for (int i = 0; i < list_size(list); i++) {
+    if (i == mid) continue;
+
+    int data = ((BTree*)list_get(list, i)->data)->data;
+    btree_insert(new_broot, data);
+  }
+  return new_broot;
+}
+
 BTree *btree_rebalance(BTree *tree)
 {
   if (!tree->parent)
     return tree;
 
-  int size = btree_size(tree);
-  int parent_size = btree_size(tree->parent);
-  /*float ratio = size / parent_size;*/
-  float ratio = 0.0;
-  printf("%d / %d = %f\n", size, parent_size, ratio);
+  if (btree_is_scapegoat(tree))
+    return btree_rebuild(tree);
 
-  return tree;
+  return btree_rebalance(tree->parent);
 }
 
 /**
@@ -98,14 +120,15 @@ BTree *btree_insert(BTree *tree, int data) {
   if (data <= tree->data)
     if (tree->left)
       btree_insert(tree->left, data);
-    else
+    else {
       tree->left = btree_initialize(tree, data);
+    }
   else if (tree->right)
     btree_insert(tree->right, data);
-  else
+  else {
     tree->right = btree_initialize(tree, data);
+  }
 
-  /*return btree_rebalance(tree);*/
   return tree;
 }
 

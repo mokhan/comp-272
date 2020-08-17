@@ -20,7 +20,7 @@ List *list_initialize(void *data) {
  *
  * @param head The head of a linked list
  * @param data The data to add to the tail of a linked list
- * @return Returns the new node tail node
+ * @return Returns the new tail node
  */
 List *list_add(List *head, void *data) {
   List *tail;
