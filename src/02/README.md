@@ -208,25 +208,32 @@ Insert 5:
 
 Insert 2:
            (1)
-          /   \
-        (2)   (5)
+              \
+              (5)
+              /
+            (2)
+
 
 Insert 4:
            (1)
-          /   \
-        (2)   (5)
-             /
-           (4)
+              \
+              (5)
+              /
+            (2)
+              \
+              (4)
 
 Insert 3:
 
            (1)
-          /   \
-        (2)   (5)
-             /
-           (4)
-          /
-        (3)
+              \
+              (5)
+              /
+            (2)
+              \
+              (4)
+              /
+            (3)
 ```
 
 The above diagram illustrates some negative consequences
@@ -255,59 +262,59 @@ Other, balanced binary search tree algorithms like the
 AVL tree or Red-Black tree typically require adding additional
 data to each node in the tree in order to keep the tree balanced.
 
-The insertion of `1,5,2,4,3` into a scapegoat tree would look 
+The insertion of `1,5,2,4,3` into a scapegoat tree would look
 like the following:
 
 ```plaintext
 Insert 1:
-           (1)     0/1 > 2/3: false
+           (1)
 
 Insert 5:
-           (1)     1/2 > 2/3: false
+           (1)     1/2
               \
-              (5)  0/1 > 2/3: false
+              (5)
 
 Insert 2:
-           (1)     1/2 > 2/3: false
-          /   \
-        (2)   (5)  0/1 > 2/3: false
+           (1)     2/3 > 2/3: false
+              \
+              (5)  1/2 > 2/3: false
+              /
+            (2)
 
 Insert 4:
-           (1)     2/3 > 2/3: false
-          /   \
-        (2)   (5)  1/2 > 2/3: false
-             /
-           (4)     0/1 > 2/3: false
-
-Insert 3:
-
            (1)     3/4 > 2/3: true (scapegoat)
-          /   \
-        (2)   (5)  2/3 > 2/3: false
-             /
-           (4)     1/2 > 2/3: false
-          /
-        (3)        0/1 > 2/3: false
+              \
+              (5)  2/3 > 2/3: false
+              /
+            (2)    1/2 > 2/3: false
+              \
+              (4)
 ```
 
 The next step is to rebalance from the scapegoat node.
 
 Rebalance:
 
-1. collect nodes in sorted order: [1,3,4,5]
+1. collect nodes in sorted order: [1,2,4,5]
 1. find new root: size/2 = 4/2 = 2
-1. 3 is the second node and is selected as the new root
+1. 2 is the second node and is selected as the new root
 1. [1] is moved to the left subtree
 1. [4,5] are moved to the right subtree
 
-The final result is a balanced binary search tree.
-
 ```plaintext
-          (3)
+          (2)
          /   \
-       (2)   (4)
-      /        \
-    (1)        (5)
+       (1)   (4)
+               \
+               (5)
+
+Insert 3:
+
+          (2)       3/5 > 2/3: false
+         /   \
+       (1)   (4)    1/3 > 2/3: false
+            /   \
+          (3)   (5)
 ```
 
 ### Description of the Code
