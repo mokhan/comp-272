@@ -38,6 +38,13 @@ BTree *btree_initialize(BTree *parent, int data) {
   return tree;
 }
 
+/**
+ * Converts a binary tree into a linked list
+ * using an in order traversal.
+ *
+ * @param tree The binary tree to convert
+ * @return Returns the head of a linked list.
+ */
 List *btree_to_list(BTree *tree)
 {
   if (tree == NULL)
@@ -66,11 +73,25 @@ List *btree_to_list(BTree *tree)
   return list;
 }
 
+/**
+ * Calculates the size of a binary tree
+ *
+ * @param tree the tree to inspect
+ * @return Returns the # of nodes in the binary tree.
+ */
 int btree_size(BTree *tree) {
   List *list = btree_to_list(tree);
   return list ? list_size(list) : 0;
 }
 
+/**
+ * Determines if a subtree in a binary tree
+ * can be used as a scapegoat to rebalance
+ * the tree.
+ *
+ * @param tree the subtree to investigate
+ * @return Returns true then subtree can be used as a scapegoat.
+ */
 bool btree_is_scapegoat(BTree *tree)
 {
   int size = btree_size(tree);
@@ -79,6 +100,13 @@ bool btree_is_scapegoat(BTree *tree)
   return ((size * 3) > (parent_size * 2));
 }
 
+/**
+ * Rebuilds a subtree by converting it
+ * to a list then rebuilding a binary tree.
+ *
+ * @param tree The tree to rebuild
+ * @return Returns the new binary tree.
+ */
 BTree *btree_rebuild(BTree *tree)
 {
   List *list = btree_to_list(tree->parent);
@@ -96,6 +124,13 @@ BTree *btree_rebuild(BTree *tree)
   return new_broot;
 }
 
+/**
+ * Rebalances a binary tree starting from
+ * the bottom up.
+ *
+ * @param tree the subtree to rebalance
+ * @return Returns the new root of the binary tree.
+ */
 BTree *btree_rebalance(BTree *tree)
 {
   if (!tree->parent)
@@ -119,14 +154,16 @@ BTree *btree_insert(BTree *tree, int data) {
 
   if (data <= tree->data)
     if (tree->left)
-      btree_insert(tree->left, data);
+      return btree_insert(tree->left, data);
     else {
       tree->left = btree_initialize(tree, data);
+      return btree_rebalance(tree->left);
     }
   else if (tree->right)
-    btree_insert(tree->right, data);
+    return btree_insert(tree->right, data);
   else {
     tree->right = btree_initialize(tree, data);
+    return btree_rebalance(tree->right);
   }
 
   return tree;

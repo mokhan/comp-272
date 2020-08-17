@@ -138,9 +138,9 @@ TestSuite *binary_search_tree_tests() {
       suite, BinaryTree,
       when_inserting_multiple_items_into_a_tree_it_inserts_in_the_correct_position);
   add_test_with_context(suite, BinaryTree, when_rebalancing_a_tree);
-  /*add_test_with_context(*/
-      /*suite, BinaryTree,*/
-      /*when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);*/
+  add_test_with_context(
+      suite, BinaryTree,
+      when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);
 
   add_test_with_context(suite, BinaryTree, when_calculating_the_size_of_the_tree);
   return suite;
