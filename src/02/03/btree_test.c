@@ -110,8 +110,7 @@ Ensure(
   assert_that(tree->right->right->data, is_equal_to(5));
 }
 
-Ensure(BinaryTree, when_calculating_the_size_of_the_tree)
-{
+Ensure(BinaryTree, when_calculating_the_size_of_the_tree) {
   BTree *tree = btree_insert(NULL, 1);
   tree = btree_insert(tree, 5);
   tree = btree_insert(tree, 2);
@@ -142,7 +141,8 @@ TestSuite *binary_search_tree_tests() {
       suite, BinaryTree,
       when_inserting_items_described_in_the_assignment_it_inserts_in_the_expected_position_in_the_tree);
 
-  add_test_with_context(suite, BinaryTree, when_calculating_the_size_of_the_tree);
+  add_test_with_context(suite, BinaryTree,
+                        when_calculating_the_size_of_the_tree);
   return suite;
 }
 

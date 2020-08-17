@@ -11,8 +11,7 @@ static void visitor(Node *node) {
   visited_count++;
 }
 
-void print_traversal(Node *tree, enum Traversal direction)
-{
+void print_traversal(Node *tree, enum Traversal direction) {
   visited_count = 0;
   memset(nodes, 0, sizeof(nodes));
 

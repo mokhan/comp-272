@@ -45,8 +45,7 @@ BTree *btree_initialize(BTree *parent, int data) {
  * @param tree The binary tree to convert
  * @return Returns the head of a linked list.
  */
-List *btree_to_list(BTree *tree)
-{
+List *btree_to_list(BTree *tree) {
   if (tree == NULL)
     return NULL;
 
@@ -92,8 +91,7 @@ int btree_size(BTree *tree) {
  * @param tree the subtree to investigate
  * @return Returns true then subtree can be used as a scapegoat.
  */
-bool btree_is_scapegoat(BTree *tree)
-{
+bool btree_is_scapegoat(BTree *tree) {
   int size = btree_size(tree);
   int parent_size = btree_size(tree->parent);
 
@@ -107,18 +105,18 @@ bool btree_is_scapegoat(BTree *tree)
  * @param tree The tree to rebuild
  * @return Returns the new binary tree.
  */
-BTree *btree_rebuild(BTree *tree)
-{
+BTree *btree_rebuild(BTree *tree) {
   List *list = btree_to_list(tree->parent);
   int mid = (list_size(list) / 2) - 1;
   List *new_root = list_get(list, mid);
-  int data = ((BTree*)new_root->data)->data;
+  int data = ((BTree *)new_root->data)->data;
   BTree *new_broot = btree_initialize(NULL, data);
 
   for (int i = 0; i < list_size(list); i++) {
-    if (i == mid) continue;
+    if (i == mid)
+      continue;
 
-    int data = ((BTree*)list_get(list, i)->data)->data;
+    int data = ((BTree *)list_get(list, i)->data)->data;
     btree_insert(new_broot, data);
   }
   return new_broot;
@@ -131,8 +129,7 @@ BTree *btree_rebuild(BTree *tree)
  * @param tree the subtree to rebalance
  * @return Returns the new root of the binary tree.
  */
-BTree *btree_rebalance(BTree *tree)
-{
+BTree *btree_rebalance(BTree *tree) {
   if (!tree->parent)
     return tree;
 
