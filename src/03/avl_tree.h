@@ -1,13 +1,11 @@
 typedef struct node {
   struct node *left;
   struct node *right;
+  int height;
   int value;
-} AVLNode;
-
-typedef struct {
-  AVLNode *root;
 } AVLTree;
 
-AVLTree *avl_tree_init(void);
+AVLTree *avl_tree_initialize(int value);
 int avl_tree_size(AVLTree *tree);
-void avl_tree_insert(AVLTree *tree, int value);
+AVLTree *avl_tree_insert(AVLTree *tree, int value);
+void avl_tree_inspect(AVLTree *tree);

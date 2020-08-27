@@ -3,21 +3,63 @@
 #include <string.h>
 
 Ensure(initialize_returns_new_tree) {
-  AVLTree *tree = avl_tree_init();
+  AVLTree *tree = avl_tree_initialize(1);
   assert_that(tree, is_not_equal_to(NULL));
 }
 
 Ensure(size_returns_zero) {
-  AVLTree *tree = avl_tree_init();
+  AVLTree *tree = avl_tree_initialize(1);
 
-  assert_that(avl_tree_size(tree), is_equal_to(0));
+  assert_that(avl_tree_size(tree), is_equal_to(1));
 }
 
 Ensure(insert_changes_size) {
-  AVLTree *tree = avl_tree_init();
-  avl_tree_insert(tree, 33);
+  AVLTree *tree = avl_tree_initialize(5);
+  avl_tree_insert(tree, 4);
 
-  assert_that(avl_tree_size(tree), is_equal_to(1));
+  assert_that(avl_tree_size(tree), is_equal_to(2));
+}
+
+Ensure(insert_changes_height) {
+  AVLTree *tree = avl_tree_initialize(5);
+  tree = avl_tree_insert(tree, 4);
+
+  assert_that(tree->height, is_equal_to(2));
+  assert_that(tree->left->height, is_equal_to(1));
+}
+
+Ensure(insert_performs_a_left_rotation) {
+/*
+  (10)                  (20)
+    \                  /    \
+    (20)      ->    (10)    (30)
+      \
+      (30)
+*/
+  AVLTree *tree = avl_tree_initialize(10);
+  tree = avl_tree_insert(tree, 20);
+  tree = avl_tree_insert(tree, 30);
+
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->left->value, is_equal_to(10));
+  assert_that(tree->right->value, is_equal_to(30));
+};
+
+Ensure(insert_performs_a_right_rotation) {
+/*
+     (30)            (20)
+     /              /   \
+   (20)     -->   (10)  (30)
+   /
+(10)
+*/
+  AVLTree *tree = avl_tree_initialize(30);
+  tree = avl_tree_insert(tree, 20);
+  tree = avl_tree_insert(tree, 10);
+
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->left->value, is_equal_to(10));
+  assert_that(tree->right->value, is_equal_to(30));
 }
 
 TestSuite *avl_tree_tests() {
@@ -25,6 +67,9 @@ TestSuite *avl_tree_tests() {
   add_test(suite, initialize_returns_new_tree);
   add_test(suite, size_returns_zero);
   add_test(suite, insert_changes_size);
+  add_test(suite, insert_changes_height);
+  add_test(suite, insert_performs_a_left_rotation);
+  add_test(suite, insert_performs_a_right_rotation);
   return suite;
 }
 
