@@ -131,3 +131,121 @@ The following properties are satisfied before and after any operation:
 * no-red-edge: No two red nodes are adjacent. (except the root, `u.colour + u.parent.colour >= 1`)
 
 The root is black.
+
+
+## AVL Trees
+
+AVL trees are height-balanced.
+
+* height-balanced: at each node `u`, the height of the subtree rooted at `u.left` and the subtree rooted at `u.right` differ by at most one.
+
+AVL trees have a smaller height than red-black trees. The height
+balancing can be maintained during `add(x)` and `remove(x)` operations
+by walking back up the path to the root and performing a rebalancing
+operation at each node `u` where the height of `u`'s left and right subtrees differ by two.
+
+AVL is a self balancing binary search tree in which each node maintains
+extra information called a balance factor whose value is either -1, 0, or +1.
+
+The balance factor is determined by calculating the difference
+between the height of the left subtree and that of the right subtree of that node.
+
+Balance Factor = (Height of left subtree - height of right subtree) or (height of right subtree - height of left subtree).
+
+The self balancing property of an avl tree is maintained by the balance factory.
+
+E.g.
+
+```plaintext
+        (33) 1
+      /     \
+   (9) -1    (53) -1
+  /   \        \
+(8) 0 (21) 1    (61) 0
+     /
+  (11) 0
+```
+
+### Operations
+
+* Left Rotate: nodes on the right is transformed into arrangement on the left.
+* Right Rotate: nodes on the left are transformed into arrangment on the right.
+* Left-Right and Right-Left Rotate: shift left then right.
+
+
+Left Rotate:
+
+```plaintext
+1.
+  (x)
+    \
+    (y)
+
+2.
+
+   (y)
+  /
+(x)
+
+```
+
+Right Rotate:
+
+```plaintext
+1.
+  (y)
+  /
+(x)
+
+2.
+(x)
+  \
+  (y)
+```
+
+Left-Right Rotate:
+
+```plaintext
+1.
+  (z)
+  /
+(x)
+  \
+  (y)
+
+2.
+    (z)
+    /
+  (y)
+  /
+(x)
+
+3.
+  (y)
+  / \
+(x) (z)
+```
+
+
+```plaintext
+1.
+
+(z)
+  \
+   (x)
+  /
+(y)
+
+2.
+
+(z)
+  \
+   (y)
+     \
+     (x)
+
+3.
+   (y)
+  /   \
+(z)   (x)
+```

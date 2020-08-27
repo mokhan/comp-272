@@ -100,3 +100,4 @@ binary tree in which the elements are `heap-ordered.`
 heap-ordered: The value stored at any index `i` is not smaller than the value stored at index `parent(i)`, with the exception of the root value, `i = 0`.
 The smallest value in the priority Queue is at position 0.
 
+## MeldableHeap: A randomized meldable heap
