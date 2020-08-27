@@ -126,4 +126,3 @@ The following properties are satisfied before and after any operation:
 * no-red-edge: No two red nodes are adjacent. (except the root, `u.colour + u.parent.colour >= 1`)
 
 The root is black.
-
