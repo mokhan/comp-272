@@ -11,6 +11,8 @@ lemma:
 
 # Red-Black Trees
 
+[Lecture Video](https://www.youtube.com/watch?v=JMZkuYa04tY)
+
 * A binary search tree with logarithmic height.
 
 1. tree with `n` values has a height of most 2logn
