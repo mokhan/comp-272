@@ -22,6 +22,11 @@ Each node, `u`, has a colour which is either `red` or `black`.
 * red: is represented by the value 0.
 * black: is represented by the value 1.
 
+A red-black tree implements the SSet interface and supports
+operations `add(x)`, `remove(x)`, and `find(x)` in O(logn) worst-case time
+per operation.
+
+
 ```java
 class Node<T> extends BSTNode<Node<T>, T> {
   byte colour;
