@@ -302,6 +302,12 @@ Ensure(delete_handles_a_complicated_and_small_tree) {
   assert_that(tree->value, is_equal_to(1));
 }
 
+Ensure(delete_returns_a_null_root) {
+  AVLTree *tree = avl_tree_delete(NULL, 10);
+
+  assert_that(tree, is_equal_to(NULL));
+}
+
 TestSuite *avl_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, initialize_returns_new_tree);
@@ -322,6 +328,7 @@ TestSuite *avl_tree_tests() {
   add_test(x, delete_handles_right_left);
   add_test(x, delete_handles_a_complicated_and_large_tree);
   add_test(x, delete_handles_a_complicated_and_small_tree);
+  add_test(x, delete_returns_a_null_root);
   return x;
 }
 

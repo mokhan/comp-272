@@ -6,12 +6,12 @@ int max(int a, int b) {
   return (a > b) ? a : b;
 }
 
-int height_of(AVLTree *node) {
-  return node == NULL ? 0 : node->height;
+int height_of(AVLTree *tree) {
+  return tree == NULL ? 0 : tree->height;
 }
 
-AVLTree *smallest(AVLTree *node) {
-  AVLTree *current = node;
+AVLTree *smallest(AVLTree *tree) {
+  AVLTree *current = tree;
 
   while (current->left != NULL)
     current = current->left;
@@ -21,10 +21,10 @@ AVLTree *smallest(AVLTree *node) {
 
 AVLTree *rotate_right(AVLTree *y) {
   AVLTree *x = y->left;
-  AVLTree *T2 = x->right;
+  AVLTree *t = x->right;
 
   x->right = y;
-  y->left = T2;
+  y->left = t;
 
   y->height = max(height_of(y->left), height_of(y->right)) + 1;
   x->height = max(height_of(x->left), height_of(x->right)) + 1;
@@ -34,10 +34,10 @@ AVLTree *rotate_right(AVLTree *y) {
 
 AVLTree *rotate_left(AVLTree *x) {
   AVLTree *y = x->right;
-  AVLTree *T2 = y->left;
+  AVLTree *t = y->left;
 
   y->left = x;
-  x->right = T2;
+  x->right = t;
 
   x->height = max(height_of(x->left), height_of(x->right)) + 1;
   y->height = max(height_of(y->left), height_of(y->right)) + 1;
@@ -45,17 +45,17 @@ AVLTree *rotate_left(AVLTree *x) {
   return y;
 }
 
-int balance_of(AVLTree *node) {
-  return (node == NULL) ? 0 : height_of(node->left) - height_of(node->right);
+int balance_of(AVLTree *tree) {
+  return (tree == NULL) ? 0 : height_of(tree->left) - height_of(tree->right);
 }
 
 AVLTree *avl_tree_initialize(int value) {
-  AVLTree *node = malloc(sizeof(AVLTree));
-  node->value = value;
-  node->left = NULL;
-  node->right = NULL;
-  node->height = 1;
-  return node;
+  AVLTree *tree = malloc(sizeof(AVLTree));
+  tree->value = value;
+  tree->left = NULL;
+  tree->right = NULL;
+  tree->height = 1;
+  return tree;
 }
 
 int avl_tree_size(AVLTree *tree) {
@@ -71,10 +71,7 @@ int avl_tree_size(AVLTree *tree) {
 
 int compare(int a, int b)
 {
-  if (a < b) return -1;
-  if (a > b) return 1;
-
-  return 0;
+  return (a < b) ? -1 : ((a > b) ? 1 : 0);
 }
 
 AVLTree *rebalance(AVLTree *tree, int value) {
@@ -113,62 +110,60 @@ AVLTree *avl_tree_insert(AVLTree *tree, int value) {
       return tree;
   }
 
-  tree->height = 1 + max(
-    height_of(tree->left),
-    height_of(tree->right)
-  );
+  tree->height = 1 + max(height_of(tree->left), height_of(tree->right));
   return rebalance(tree, value);
 }
 
-AVLTree *avl_tree_delete(AVLTree *root, int value) {
-  if (root == NULL)
-    return root;
+AVLTree *avl_tree_delete(AVLTree *tree, int value) {
+  if (tree == NULL)
+    return tree;
 
-  if (value < root->value)
-    root->left = avl_tree_delete(root->left, value);
-  else if (value > root->value)
-    root->right = avl_tree_delete(root->right, value);
-  else {
-    if ((root->left == NULL) || (root->right == NULL)) {
-      AVLTree *temp = root->left ? root->left : root->right;
-
-      if (temp == NULL) {
-        temp = root;
-        root = NULL;
+  switch(compare(value, tree->value)) {
+    case -1:
+      tree->left = avl_tree_delete(tree->left, value);
+      break;
+    case 1:
+      tree->right = avl_tree_delete(tree->right, value);
+      break;
+    default:
+      if (tree->left && tree->right) {
+        AVLTree *min = smallest(tree->right);
+        tree->value = min->value;
+        tree->right = avl_tree_delete(tree->right, min->value);
       } else {
-        *root = *temp;
+        AVLTree *tmp = tree->left ? tree->left : tree->right;
+
+        if (tmp) {
+          *tree = *tmp;
+          free(tmp);
+        } else {
+          free(tree);
+          return NULL;
+        }
       }
-      free(temp);
-    } else {
-      AVLTree *temp = smallest(root->right);
-      root->value = temp->value;
-      root->right = avl_tree_delete(root->right, temp->value);
-    }
+      break;
   }
 
-  if (root == NULL)
-    return root;
+  tree->height = 1 + max(height_of(tree->left), height_of(tree->right));
 
-  root->height = 1 + max(height_of(root->left), height_of(root->right));
+  int balance = balance_of(tree);
+  if (balance > 1 && balance_of(tree->left) >= 0)
+    return rotate_right(tree);
 
-  int balance = balance_of(root);
-  if (balance > 1 && balance_of(root->left) >= 0)
-    return rotate_right(root);
-
-  if (balance > 1 && balance_of(root->left) < 0) {
-    root->left = rotate_left(root->left);
-    return rotate_right(root);
+  if (balance > 1 && balance_of(tree->left) < 0) {
+    tree->left = rotate_left(tree->left);
+    return rotate_right(tree);
   }
 
-  if (balance < -1 && balance_of(root->right) <= 0)
-    return rotate_left(root);
+  if (balance < -1 && balance_of(tree->right) <= 0)
+    return rotate_left(tree);
 
-  if (balance < -1 && balance_of(root->right) > 0) {
-    root->right = rotate_right(root->right);
-    return rotate_left(root);
+  if (balance < -1 && balance_of(tree->right) > 0) {
+    tree->right = rotate_right(tree->right);
+    return rotate_left(tree);
   }
 
-  return root;
+  return tree;
 }
 
 void print_tree(AVLTree *tree, int level) {
