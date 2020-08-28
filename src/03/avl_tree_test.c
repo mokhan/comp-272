@@ -276,6 +276,32 @@ Ensure(delete_handles_right_left) {
   assert_that(tree->right->right->value, is_equal_to(30));
 }
 
+Ensure(delete_handles_a_complicated_and_large_tree) {
+  int items[] = { 44, 17, 62, 10, 32, 50, 78, 21, 48, 54, 72, 88, 45, 49, 52, 56, 81, 92 };
+  unsigned int length = sizeof(items)/sizeof(items[0]);
+  AVLTree *tree = NULL;
+
+  for (int i = 0; i < length; i++)
+    tree = avl_tree_insert(tree, items[i]);
+
+  tree = avl_tree_delete(tree, 32);
+
+  assert_that(tree->value, is_equal_to(62));
+}
+
+Ensure(delete_handles_a_complicated_and_small_tree) {
+  int items[] = { 9, 1, 10, 0, 5, 11, -1, 2, 6 };
+  unsigned int length = sizeof(items)/sizeof(items[0]);
+  AVLTree *tree = NULL;
+
+  for (int i = 0; i < length; i++)
+    tree = avl_tree_insert(tree, items[i]);
+
+  tree = avl_tree_delete(tree, 10);
+
+  assert_that(tree->value, is_equal_to(1));
+}
+
 TestSuite *avl_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, initialize_returns_new_tree);
@@ -294,6 +320,8 @@ TestSuite *avl_tree_tests() {
   add_test(x, delete_handles_left_right_case);
   add_test(x, delete_handles_right_right_case);
   add_test(x, delete_handles_right_left);
+  add_test(x, delete_handles_a_complicated_and_large_tree);
+  add_test(x, delete_handles_a_complicated_and_small_tree);
   return x;
 }
 
