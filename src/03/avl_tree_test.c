@@ -105,10 +105,59 @@ Ensure(insert_performs_a_right_left_rotation) {
   assert_that(tree->right->value, is_equal_to(30));
 }
 
+Ensure(delete_handles_left_left_case) {
+/*
+      (z)                   (y)
+      / \                /      \
+    (y) (T4)          (X)        (z)
+    / \       -->   /    \      /   \
+  (x) (T3)        (T1)  (T2)  (T3)  (T4)
+  / \
+(T1) (T2)
+
+Delete (37):
+
+      (30)                           (20)
+      /  \                         /      \
+    (20) (35)                  (10)        (30)
+    / \     \           -->   /    \      /   \
+  (10) (25) *(37)            (5)  (15)  (25)  (35)
+  / \
+(5) (15)
+*/
+
+  AVLTree *tree = avl_tree_initialize(30);
+  tree = avl_tree_insert(tree, 35);
+  tree = avl_tree_insert(tree, 20);
+  tree = avl_tree_insert(tree, 10);
+  tree = avl_tree_insert(tree, 25);
+  tree = avl_tree_insert(tree, 37);
+  tree = avl_tree_insert(tree, 15);
+  tree = avl_tree_insert(tree, 5);
+
+  tree = avl_tree_delete(tree, 37);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->left->value, is_equal_to(10));
+  assert_that(tree->left->left->value, is_equal_to(5));
+  assert_that(tree->left->right->value, is_equal_to(15));
+
+  assert_that(tree->right->value, is_equal_to(30));
+  assert_that(tree->right->left->value, is_equal_to(25));
+  assert_that(tree->right->right->value, is_equal_to(35));
+}
+
+Ensure(delete_handles_left_right_case) { }
+Ensure(delete_handles_right_right_case) { }
+Ensure(delete_handles_right_left) { }
+
 TestSuite *avl_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, initialize_returns_new_tree);
+
   add_test(x, size_returns_zero);
+
   add_test(x, insert_changes_size);
   add_test(x, insert_changes_height);
   add_test(x, insert_creates_a_new_root);
@@ -116,6 +165,8 @@ TestSuite *avl_tree_tests() {
   add_test(x, insert_performs_a_right_rotation);
   add_test(x, insert_performs_a_left_right_rotation);
   add_test(x, insert_performs_a_right_left_rotation);
+
+  add_test(x, delete_handles_left_left_case);
   return x;
 }
 

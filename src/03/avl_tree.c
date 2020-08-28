@@ -120,14 +120,14 @@ AVLTree *avl_tree_insert(AVLTree *tree, int value) {
   return rebalance(tree, value);
 }
 
-AVLTree *node_delete(AVLTree *root, int value) {
+AVLTree *avl_tree_delete(AVLTree *root, int value) {
   if (root == NULL)
     return root;
 
   if (value < root->value)
-    root->left = node_delete(root->left, value);
+    root->left = avl_tree_delete(root->left, value);
   else if (value > root->value)
-    root->right = node_delete(root->right, value);
+    root->right = avl_tree_delete(root->right, value);
   else {
     if ((root->left == NULL) || (root->right == NULL)) {
       AVLTree *temp = root->left ? root->left : root->right;
@@ -142,7 +142,7 @@ AVLTree *node_delete(AVLTree *root, int value) {
     } else {
       AVLTree *temp = smallest(root->right);
       root->value = temp->value;
-      root->right = node_delete(root->right, temp->value);
+      root->right = avl_tree_delete(root->right, temp->value);
     }
   }
 
