@@ -190,7 +190,50 @@ Delete (37):
   assert_that(tree->right->right->value, is_equal_to(35));
 }
 
-Ensure(delete_handles_right_right_case) { }
+Ensure(delete_handles_right_right_case) {
+/*
+      (z)                       (y)
+      / \                    /       \
+   (T4) (y)                (z)        (x)
+        / \       -->     /   \      /   \
+     (T3) (x)          (T4)  (T3)  (T2)  (T1)
+          / \
+       (T2) (T1)
+
+
+      (20)                      (30)
+      / \                    /       \
+   (15) (30)               (20)      (35)
+   /     / \      -->     /   \      /   \
+*(10) (25) (35)        (15)  (25)  (33)  (37)
+            / \
+         (33) (37)
+*/
+  AVLTree *tree = avl_tree_initialize(20);
+
+  tree = avl_tree_insert(tree, 30);
+  tree = avl_tree_insert(tree, 15);
+  tree = avl_tree_insert(tree, 10);
+  tree = avl_tree_insert(tree, 20);
+  tree = avl_tree_insert(tree, 25);
+  tree = avl_tree_insert(tree, 35);
+  tree = avl_tree_insert(tree, 33);
+  tree = avl_tree_insert(tree, 37);
+
+  tree = avl_tree_delete(tree, 10);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(30));
+
+  assert_that(tree->left->value, is_equal_to(20));
+  assert_that(tree->left->left->value, is_equal_to(15));
+  assert_that(tree->left->right->value, is_equal_to(25));
+
+  assert_that(tree->right->value, is_equal_to(35));
+  assert_that(tree->right->left->value, is_equal_to(33));
+  assert_that(tree->right->right->value, is_equal_to(37));
+}
+
 Ensure(delete_handles_right_left) { }
 
 TestSuite *avl_tree_tests() {
@@ -209,6 +252,7 @@ TestSuite *avl_tree_tests() {
 
   add_test(x, delete_handles_left_left_case);
   add_test(x, delete_handles_left_right_case);
+  add_test(x, delete_handles_right_right_case);
   return x;
 }
 
