@@ -74,7 +74,23 @@ int compare(int a, int b)
   return (a < b) ? -1 : ((a > b) ? 1 : 0);
 }
 
-AVLTree *rebalance(AVLTree *tree, int value) {
+AVLTree *avl_tree_insert(AVLTree *tree, int value) {
+  if (tree == NULL)
+    return avl_tree_initialize(value);
+
+  switch(compare(value, tree->value)) {
+    case -1:
+      tree->left = avl_tree_insert(tree->left, value);
+      break;
+    case 1:
+      tree->right = avl_tree_insert(tree->right, value);
+      break;
+    default:
+      return tree;
+  }
+
+  tree->height = 1 + max(height_of(tree->left), height_of(tree->right));
+
   int balance = balance_of(tree);
   if (balance > 1 && value < tree->left->value)
     return rotate_right(tree);
@@ -93,25 +109,6 @@ AVLTree *rebalance(AVLTree *tree, int value) {
   }
 
   return tree;
-}
-
-AVLTree *avl_tree_insert(AVLTree *tree, int value) {
-  if (tree == NULL)
-    return avl_tree_initialize(value);
-
-  switch(compare(value, tree->value)) {
-    case -1:
-      tree->left = avl_tree_insert(tree->left, value);
-      break;
-    case 1:
-      tree->right = avl_tree_insert(tree->right, value);
-      break;
-    default:
-      return tree;
-  }
-
-  tree->height = 1 + max(height_of(tree->left), height_of(tree->right));
-  return rebalance(tree, value);
 }
 
 AVLTree *avl_tree_delete(AVLTree *tree, int value) {
