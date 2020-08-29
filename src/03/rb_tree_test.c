@@ -44,7 +44,7 @@ Ensure(insert_returns_a_new_tree_when_null) {
   assert_that(tree->colour, is_equal_to(black));
 }
 
-Ensure(insert_adds_a_new_item) {
+Ensure(insert_adds_a_new_item_to_right_subtree) {
   RBTree *tree = rb_tree_initialize(10);
 
   tree = rb_tree_insert(tree, 20);
@@ -56,11 +56,24 @@ Ensure(insert_adds_a_new_item) {
   assert_that(tree->right->value, is_equal_to(20));
 }
 
+Ensure(insert_adds_a_new_item_to_left_subtree) {
+  RBTree *tree = rb_tree_initialize(20);
+
+  tree = rb_tree_insert(tree, 10);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->colour, is_equal_to(black));
+  assert_that(tree->left, is_not_equal_to(NULL));
+  assert_that(tree->left->value, is_equal_to(10));
+}
+
 TestSuite *rb_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, one_equals_one);
   add_test(x, initialize_returns_a_new_tree);
   add_test(x, insert_returns_a_new_tree_when_null);
-  add_test(x, insert_adds_a_new_item);
+  add_test(x, insert_adds_a_new_item_to_right_subtree);
+  add_test(x, insert_adds_a_new_item_to_left_subtree);
   return x;
 }
