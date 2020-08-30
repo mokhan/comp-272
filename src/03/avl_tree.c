@@ -163,7 +163,7 @@ AVLTree *avl_tree_delete(AVLTree *tree, int value) {
   return tree;
 }
 
-void print_tree(AVLTree *tree, int level) {
+static void print_tree(AVLTree *tree, int level) {
   for (int i = 0; i < level; i++)
     printf(" ");
 

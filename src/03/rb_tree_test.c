@@ -68,6 +68,83 @@ Ensure(insert_adds_a_new_item_to_left_subtree) {
   assert_that(tree->left->value, is_equal_to(10));
 }
 
+Ensure(rb_tree_insert_performs_a_right_rotation) {
+/*
+      (30)          (20:b)
+      /            /    \
+   (20)     ->  (10:r)    (30:r)
+   /
+(10)
+
+*/
+  RBTree *tree = rb_tree_initialize(30);
+
+  tree = rb_tree_insert(tree, 20);
+  tree = rb_tree_insert(tree, 10);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->colour, is_equal_to(black));
+
+  assert_that(tree->left->value, is_equal_to(10));
+  assert_that(tree->left->colour, is_equal_to(red));
+
+  assert_that(tree->right->value, is_equal_to(30));
+  assert_that(tree->right->colour, is_equal_to(red));
+}
+
+Ensure(rb_tree_insert_performs_a_left_rotation) {
+/*
+(10)                 (20:b)
+   \                 /    \
+   (20)     ->  (10:r)    (30:r)
+     \
+     (30)
+*/
+
+  RBTree *tree = rb_tree_initialize(10);
+  tree = rb_tree_insert(tree, 20);
+  tree = rb_tree_insert(tree, 30);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->colour, is_equal_to(black));
+  assert_that(tree->left->value, is_equal_to(10));
+  assert_that(tree->left->colour, is_equal_to(red));
+  assert_that(tree->right->value, is_equal_to(30));
+  assert_that(tree->right->colour, is_equal_to(red));
+}
+
+Ensure(rb_tree_insert_repaints_the_new_node) {
+/*
+     (20:b)                   (20:r)
+     /    \                  /     \
+  (10:r)  (30:r)  -->   (10:b)    (30:b)
+  /                     /
+(5:r)                 (5:r)
+*/
+
+  RBTree *tree = rb_tree_initialize(20);
+  tree = rb_tree_insert(tree, 10);
+  tree = rb_tree_insert(tree, 30);
+  tree = rb_tree_insert(tree, 5);
+
+  rb_tree_inspect(tree);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(20));
+  assert_that(tree->colour, is_equal_to(red));
+
+  assert_that(tree->left->value, is_equal_to(10));
+  assert_that(tree->left->colour, is_equal_to(black));
+
+  assert_that(tree->left->left->value, is_equal_to(5));
+  assert_that(tree->left->left->colour, is_equal_to(red));
+
+  assert_that(tree->right->value, is_equal_to(30));
+  assert_that(tree->right->colour, is_equal_to(black));
+}
+
 TestSuite *rb_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, one_equals_one);
@@ -75,5 +152,8 @@ TestSuite *rb_tree_tests() {
   add_test(x, insert_returns_a_new_tree_when_null);
   add_test(x, insert_adds_a_new_item_to_right_subtree);
   add_test(x, insert_adds_a_new_item_to_left_subtree);
+  add_test(x, rb_tree_insert_performs_a_right_rotation);
+  add_test(x, rb_tree_insert_performs_a_left_rotation);
+  add_test(x, rb_tree_insert_repaints_the_new_node);
   return x;
 }
