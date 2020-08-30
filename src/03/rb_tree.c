@@ -155,9 +155,9 @@ static void print_tree(RBTree *tree, int level) {
   }
 }
 
-RBTree *rb_tree_initialize(int value) {
+RBTree *rb_tree_initialize_with(int value, enum Colour colour) {
   RBTree *tree = malloc(sizeof(RBTree));
-  tree->colour = black;
+  tree->colour = colour;
   tree->left = NULL;
   tree->parent = NULL;
   tree->right = NULL;
@@ -165,13 +165,15 @@ RBTree *rb_tree_initialize(int value) {
   return tree;
 }
 
+RBTree *rb_tree_initialize(int value) {
+  return rb_tree_initialize_with(value, black);
+}
+
 RBTree *rb_tree_insert(RBTree *tree, int value) {
-  RBTree *node = rb_tree_initialize(value);
-
   if (tree == NULL)
-    return node;
+    return rb_tree_initialize(value);
 
-  node->colour = red;
+  RBTree *node = rb_tree_initialize_with(value, red);
   insert(tree, node);
   repair_from(node);
   return root_of(node);
