@@ -24,10 +24,6 @@ height: logn if perfectly balanced.
 (nil) (nil)
  */
 
-Ensure(one_equals_one) {
-  assert_that(1, is_equal_to(1));
-}
-
 Ensure(initialize_returns_a_new_tree) {
   RBTree *tree = rb_tree_initialize(10);
 
@@ -143,15 +139,81 @@ Ensure(rb_tree_insert_repaints_the_new_node) {
   assert_that(tree->right->colour, is_equal_to(black));
 }
 
+Ensure(equals_returns_false_when_tree_is_NULL) {
+  assert_that(rb_equals(NULL, rb_tree_initialize(10)), is_equal_to(false));
+}
+
+Ensure(equals_returns_false_when_other_tree_is_NULL) {
+  assert_that(rb_equals(rb_tree_initialize(10), NULL), is_equal_to(false));
+}
+
+Ensure(equals_returns_true_when_both_trees_are_NULL) {
+  assert_that(rb_equals(NULL, NULL), is_equal_to(true));
+}
+
+Ensure(equals_returns_false_when_tree_has_one_node) {
+  RBTree *tree = rb_tree_initialize(20);
+  RBTree *other_tree = rb_tree_initialize(10);
+
+  assert_that(rb_equals(tree, other_tree), is_equal_to(false));
+}
+
+Ensure(equals_returns_true_when_tree_has_one_node) {
+  RBTree *tree = rb_tree_initialize(20);
+  RBTree *other_tree = rb_tree_initialize(20);
+
+  assert_that(rb_equals(tree, other_tree), is_equal_to(true));
+}
+
+Ensure(equals_returns_true_when_root_and_left_subtree_are_equal) {
+  RBTree *tree = rb_tree_initialize(20);
+  tree = rb_tree_insert(tree, 10);
+
+  RBTree *other_tree = rb_tree_initialize(20);
+  other_tree = rb_tree_insert(other_tree, 10);
+
+  assert_that(rb_equals(tree, other_tree), is_equal_to(true));
+}
+
+Ensure(equals_returns_false_when_root_and_left_subtree_are_not_equal) {
+  RBTree *tree = rb_tree_initialize(20);
+  tree = rb_tree_insert(tree, 10);
+
+  RBTree *other_tree = rb_tree_initialize(20);
+  other_tree = rb_tree_insert(other_tree, 15);
+
+  assert_that(rb_equals(tree, other_tree), is_equal_to(false));
+}
+
+Ensure(equals_returns_false_when_root_and_right_subtree_are_not_equal) {
+  RBTree *tree = rb_tree_initialize(20);
+  tree = rb_tree_insert(tree, 30);
+
+  RBTree *other_tree = rb_tree_initialize(20);
+  other_tree = rb_tree_insert(other_tree, 25);
+
+  assert_that(rb_equals(tree, other_tree), is_equal_to(false));
+}
+
 TestSuite *rb_tree_tests() {
   TestSuite *x = create_test_suite();
-  add_test(x, one_equals_one);
+
   add_test(x, initialize_returns_a_new_tree);
+
   add_test(x, insert_returns_a_new_tree_when_null);
   add_test(x, insert_adds_a_new_item_to_right_subtree);
   add_test(x, insert_adds_a_new_item_to_left_subtree);
   add_test(x, rb_tree_insert_performs_a_right_rotation);
   add_test(x, rb_tree_insert_performs_a_left_rotation);
   add_test(x, rb_tree_insert_repaints_the_new_node);
+
+  add_test(x, equals_returns_false_when_tree_is_NULL);
+  add_test(x, equals_returns_false_when_other_tree_is_NULL);
+  add_test(x, equals_returns_true_when_both_trees_are_NULL);
+  add_test(x, equals_returns_false_when_tree_has_one_node);
+  add_test(x, equals_returns_true_when_tree_has_one_node);
+  add_test(x, equals_returns_true_when_root_and_left_subtree_are_equal);
+  add_test(x, equals_returns_false_when_root_and_left_subtree_are_not_equal);
+  add_test(x, equals_returns_false_when_root_and_right_subtree_are_not_equal);
   return x;
 }
