@@ -108,29 +108,29 @@ void insert_repair_tree(RBTree *tree) {
   }
 }
 
+static int compare(int a, int b) {
+  return a == b ? 0 : a < b ? -1 : 1;
+}
+
 static void insert(RBTree *root, RBTree *node) {
-  if (root) {
-    if (node ->value < root->value) {
-      if (root->left) {
-        insert(root->left, node);
-        return;
-      } else {
-        root->left = node;
-      }
-    } else {
-      if (root->right) {
-        insert(root->right, node);
-        return;
-      } else {
-        root->right = node;
-      }
+  if (!root)
+    return;
+
+  if (compare(node->value, root->value) < 0) {
+    if (root->left)
+      insert(root->left, node);
+    else {
+      root->left = node;
+      node->parent = root;
+    }
+  } else {
+    if (root->right)
+      insert(root->right, node);
+    else {
+      root->right = node;
+      node->parent = root;
     }
   }
-
-  node->parent = root;
-  node->left = NULL;
-  node->right = NULL;
-  node->colour = red;
 }
 
 static void print_tree(RBTree *tree, int level) {
@@ -166,6 +166,7 @@ RBTree *rb_tree_insert(RBTree *tree, int value) {
   if (tree == NULL)
     return node;
 
+  node->colour = red;
   insert(tree, node);
   insert_repair_tree(node);
 
