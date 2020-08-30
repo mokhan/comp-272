@@ -86,9 +86,10 @@ void insert_repair_tree(RBTree *tree) {
   RBTree *parent = parent_of(tree);
   RBTree *pibling = pibling_of(tree);
 
-  if (parent == NULL || parent->colour == black) {
+  if (parent == NULL || parent->colour == black)
     return;
-  } else if (pibling && pibling->colour == red) {
+
+  if (pibling && pibling->colour == red) {
     parent->colour = black;
     pibling->colour = black;
     grand_parent_of(tree)->colour = red;

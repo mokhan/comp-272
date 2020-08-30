@@ -129,8 +129,6 @@ Ensure(rb_tree_insert_repaints_the_new_node) {
   tree = rb_tree_insert(tree, 30);
   tree = rb_tree_insert(tree, 5);
 
-  rb_tree_inspect(tree);
-
   assert_that(tree, is_not_equal_to(NULL));
   assert_that(tree->value, is_equal_to(20));
   assert_that(tree->colour, is_equal_to(red));
