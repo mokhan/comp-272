@@ -308,6 +308,28 @@ Ensure(delete_returns_a_null_root) {
   assert_that(tree, is_equal_to(NULL));
 }
 
+Ensure(to_rb_tree_returns_a_new_red_black_tree) {
+/*
+        (20:3)                      (20:b)
+        /    \       -->            /    \
+    (15:2)    (30:2)           (15:r)    (30:r)
+    /    \        \            /   \         \
+(10:1) (17:1)     (35:1)  (10:b) (17:b)      (35:b)
+ */
+  AVLTree *tree = NULL;
+  RBTree *expected = NULL;
+  int items[] = { 20, 15, 30, 10, 17, 35};
+  int length = sizeof(items) / sizeof(items[0]);
+
+  for (int i = 0; i < length; i++) {
+    tree = avl_tree_insert(tree, items[i]);
+    expected = rb_tree_insert(expected, items[i]);
+  }
+
+  RBTree *rb_tree = avl_tree_to_rb_tree(tree);
+  assert_that(rb_equals(expected, rb_tree), is_equal_to(true));
+}
+
 TestSuite *avl_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, initialize_returns_new_tree);
@@ -329,6 +351,8 @@ TestSuite *avl_tree_tests() {
   add_test(x, delete_handles_a_complicated_and_large_tree);
   add_test(x, delete_handles_a_complicated_and_small_tree);
   add_test(x, delete_returns_a_null_root);
+
+  add_test(x, to_rb_tree_returns_a_new_red_black_tree);
   return x;
 }
 

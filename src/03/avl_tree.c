@@ -168,7 +168,7 @@ static void print_tree(AVLTree *tree, int level) {
     printf(" ");
 
   if (tree) {
-    printf("(%d)\n", tree->value);
+    printf("(%d:%d)\n", tree->value, tree->height);
 
     if (!tree->left && !tree->right)
       return;
@@ -178,6 +178,16 @@ static void print_tree(AVLTree *tree, int level) {
   else {
     printf("( )\n");
   }
+}
+
+RBTree *avl_tree_to_rb_tree(AVLTree *tree) {
+  if (!tree)
+    return NULL;
+
+  RBTree *rb_tree = rb_tree_initialize(tree->value);
+  rb_tree->left = avl_tree_to_rb_tree(tree->left);
+  rb_tree->right = avl_tree_to_rb_tree(tree->right);
+  return rb_tree;
 }
 
 void avl_tree_inspect(AVLTree *tree) {
