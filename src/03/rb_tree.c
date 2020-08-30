@@ -7,10 +7,19 @@
  * * https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Insertion
  */
 
-void insert_repair_tree(RBTree *tree);
-
 RBTree *parent_of(RBTree *node) {
   return node ? node->parent : NULL;
+}
+
+RBTree *root_of(RBTree *node) {
+  RBTree *current = node;
+  RBTree *next = parent_of(current);
+
+  while (next) {
+    current = next;
+    next = parent_of(current);
+  }
+  return current;
 }
 
 RBTree *grand_parent_of(RBTree *node) {
@@ -70,19 +79,7 @@ static void rb_rotate_right(RBTree *tree) {
   tmp->parent = parent;
 }
 
-void insert_case_4_step_2(RBTree *tree) {
-  RBTree *parent = parent_of(tree);
-  RBTree *grand_parent = grand_parent_of(tree);
-
-  if (tree == parent->left)
-    rb_rotate_right(grand_parent);
-  else
-    rb_rotate_left(grand_parent);
-  parent->colour = black;
-  grand_parent->colour = red;
-}
-
-void insert_repair_tree(RBTree *tree) {
+static void repair_from(RBTree *tree) {
   RBTree *parent = parent_of(tree);
   RBTree *pibling = pibling_of(tree);
 
@@ -93,7 +90,7 @@ void insert_repair_tree(RBTree *tree) {
     parent->colour = black;
     pibling->colour = black;
     grand_parent_of(tree)->colour = red;
-    insert_repair_tree(grand_parent_of(tree));
+    repair_from(grand_parent_of(tree));
   } else {
     RBTree *grand_parent = grand_parent_of(tree);
 
@@ -104,7 +101,15 @@ void insert_repair_tree(RBTree *tree) {
       tree = tree->right;
     }
 
-    insert_case_4_step_2(tree);
+    parent = parent_of(tree);
+    grand_parent = grand_parent_of(tree);
+
+    if (tree == parent->left)
+      rb_rotate_right(grand_parent);
+    else
+      rb_rotate_left(grand_parent);
+    parent->colour = black;
+    grand_parent->colour = red;
   }
 }
 
@@ -168,12 +173,8 @@ RBTree *rb_tree_insert(RBTree *tree, int value) {
 
   node->colour = red;
   insert(tree, node);
-  insert_repair_tree(node);
-
-  RBTree *root = node;
-  while (parent_of(root))
-    root = parent_of(root);
-  return root;
+  repair_from(node);
+  return root_of(node);
 }
 
 void rb_tree_inspect(RBTree *tree) {
