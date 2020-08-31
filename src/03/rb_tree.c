@@ -7,11 +7,11 @@
  * * https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Insertion
  */
 
-RBTree *parent_of(RBTree *node) {
+static RBTree *parent_of(RBTree *node) {
   return node ? node->parent : NULL;
 }
 
-RBTree *root_of(RBTree *node) {
+static RBTree *root_of(RBTree *node) {
   RBTree *current = node;
   RBTree *next = parent_of(current);
 
@@ -22,11 +22,11 @@ RBTree *root_of(RBTree *node) {
   return current;
 }
 
-RBTree *grand_parent_of(RBTree *node) {
+static RBTree *grand_parent_of(RBTree *node) {
   return parent_of(parent_of(node));
 }
 
-RBTree *sibling_of(RBTree *node) {
+static RBTree *sibling_of(RBTree *node) {
   RBTree *parent = parent_of(node);
 
   if (!parent)
@@ -35,7 +35,7 @@ RBTree *sibling_of(RBTree *node) {
   return node == parent->left ? parent->right : parent->left;
 }
 
-RBTree *pibling_of(RBTree *node) {
+static RBTree *pibling_of(RBTree *node) {
   return sibling_of(parent_of(node));
 }
 
@@ -83,8 +83,9 @@ static void repair_from(RBTree *tree) {
   RBTree *parent = parent_of(tree);
   RBTree *pibling = pibling_of(tree);
 
-  if (parent == NULL || parent->colour == black)
+  if (parent == NULL || parent->colour == black) {
     return;
+  }
 
   if (pibling && pibling->colour == red) {
     parent->colour = black;
@@ -94,6 +95,8 @@ static void repair_from(RBTree *tree) {
   } else {
     RBTree *grand_parent = grand_parent_of(tree);
 
+    if (!grand_parent)
+      return;
     if (tree == parent->right && parent == grand_parent->left) {
       rb_rotate_left(parent);
     } else if (tree == parent->left && parent == grand_parent->right) {
@@ -104,10 +107,12 @@ static void repair_from(RBTree *tree) {
     parent = parent_of(tree);
     grand_parent = grand_parent_of(tree);
 
-    if (tree == parent->left)
+    if (tree == parent->left) {
       rb_rotate_right(grand_parent);
-    else
+    }
+    else {
       rb_rotate_left(grand_parent);
+    }
     parent->colour = black;
     grand_parent->colour = red;
   }
@@ -181,6 +186,17 @@ RBTree *rb_tree_insert(RBTree *tree, int value) {
 
 void rb_tree_inspect(RBTree *tree) {
   print_tree(tree, 0);
+}
+
+int rb_tree_size(RBTree *tree) {
+  int total = 0;
+  if (tree == NULL)
+    return total;
+  if (tree->left)
+    total += rb_tree_size(tree->left);
+  if (tree->right)
+    total += rb_tree_size(tree->right);
+  return total + 1;
 }
 
 bool rb_equals(RBTree *tree, RBTree *other_tree) {

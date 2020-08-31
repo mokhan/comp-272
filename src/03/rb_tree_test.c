@@ -139,6 +139,21 @@ Ensure(rb_tree_insert_repaints_the_new_node) {
   assert_that(tree->right->colour, is_equal_to(black));
 }
 
+Ensure(rb_tree_insert_handles_large_trees) {
+  RBTree *tree = NULL;
+  int n = 100;
+
+  for (int i = n; i > 0; i--)
+    tree = rb_tree_insert(tree, i);
+  rb_tree_inspect(tree);
+
+  assert_that(tree, is_not_equal_to(NULL));
+  assert_that(tree->value, is_equal_to(69));
+  assert_that(tree->colour, is_equal_to(red));
+
+  assert_that(rb_tree_size(tree), is_equal_to(n));
+}
+
 Ensure(equals_returns_false_when_tree_is_NULL) {
   assert_that(rb_equals(NULL, rb_tree_initialize(10)), is_equal_to(false));
 }
@@ -216,6 +231,7 @@ TestSuite *rb_tree_tests() {
   add_test(x, rb_tree_insert_performs_a_right_rotation);
   add_test(x, rb_tree_insert_performs_a_left_rotation);
   add_test(x, rb_tree_insert_repaints_the_new_node);
+  add_test(x, rb_tree_insert_handles_large_trees);
 
   add_test(x, equals_returns_false_when_tree_is_NULL);
   add_test(x, equals_returns_false_when_other_tree_is_NULL);
