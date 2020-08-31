@@ -145,7 +145,6 @@ Ensure(rb_tree_insert_handles_large_trees) {
 
   for (int i = n; i > 0; i--)
     tree = rb_tree_insert(tree, i);
-  rb_tree_inspect(tree);
 
   assert_that(tree, is_not_equal_to(NULL));
   assert_that(tree->value, is_equal_to(69));

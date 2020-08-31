@@ -330,6 +330,24 @@ Ensure(to_rb_tree_returns_a_new_red_black_tree) {
   assert_that(rb_equals(expected, rb_tree), is_equal_to(true));
 }
 
+Ensure(to_rb_tree_handles_trees_with_a_large_depth) {
+  AVLTree *subject = NULL;
+  RBTree *expected = NULL;
+
+  for (int i = 0; i < 5; i++) {
+    subject = avl_tree_insert(subject, i);
+    expected = rb_tree_insert(expected, i);
+  }
+
+  RBTree *actual = avl_tree_to_rb_tree(subject);
+
+  avl_tree_inspect(subject);
+  rb_tree_inspect(expected);
+  rb_tree_inspect(actual);
+
+  assert_that(rb_equals(expected, actual), is_equal_to(true));
+}
+
 TestSuite *avl_tree_tests() {
   TestSuite *x = create_test_suite();
   add_test(x, initialize_returns_new_tree);
@@ -353,6 +371,7 @@ TestSuite *avl_tree_tests() {
   add_test(x, delete_returns_a_null_root);
 
   add_test(x, to_rb_tree_returns_a_new_red_black_tree);
+  add_test(x, to_rb_tree_handles_trees_with_a_large_depth);
   return x;
 }
 
