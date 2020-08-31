@@ -64,3 +64,71 @@ void quickSort(T[] a, int i, int n, Comparator<T> c) {
   quickSort(a, q, n-(q-i), c);
 }
 ```
+
+## Heap-sort
+
+In-place sorting algorithm. Uses binary heaps.
+Binary heap data structure represents a heap in a single array.
+The heap sort converts the input array into a heap and then extracts the min
+value.
+
+## Counting sort and Radix sort
+
+These are not comparison based sorting algorithms.
+These are specialized for sorting small integers.
+
+### Counting Sort
+
+This algorithm sorts using an auxiliary array of counters.
+This is very efficient for sorting an array of integers when the length,
+`n`, of the array is not much smaller than the maximum value, `k-1`,
+that appears in the array.
+
+```java
+int[] counting_sort(int[] a, int k) {
+  int c[] == new int[k];
+  for (int i = 0; i < a.length; i++)
+    c[a[i]]++;
+  for (int i = 1; i < k; i++)
+    c[i] += c[i-1];
+  int b[] new int[a.length];
+  for (int i = a.length - 1; i >= 0; i--)
+    b[--c[a[i]]] = a[i];
+  return b;
+}
+```
+
+### Radix Sort
+
+Uses several passes of counting-sort to allow for a much
+greater range of maximum values.
+
+Sorts `w-bit` integers by using `w/d` passes of counting-sort
+to sort these integers `d` bits at a time.
+
+i.e.
+
+first sorts the ints by their least significant `d` bits,
+then their next significant `d` bits, and so on until,
+in the last pass, the ints are sorted by their most
+significant `d` bits.
+
+
+```java
+int[] radixSort(int[] a) {
+  int[] b = null;
+
+  for (int p = 0; p < w/d; p++) {
+    int c[] = new int[1<<d];
+    b = new int[a.length];
+    for (int i = 0; i < a.length; i++)
+      c[(a[i] >> d*p)&((1<<d)-1)]++;
+    for (int i = 1; i < 1<<d; i++)
+      c[i] += c[i-1];
+    for (int i = a.length - 1; i >= 0; i--)
+      b[--c[(a[i] >> d*p)&((1<<d)-1)]] = a[i];
+    a = b;
+  }
+  return b;
+}
+```
