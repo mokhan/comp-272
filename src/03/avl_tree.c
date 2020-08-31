@@ -185,6 +185,7 @@ RBTree *avl_tree_to_rb_tree(AVLTree *tree) {
     return NULL;
 
   RBTree *rb_tree = rb_tree_initialize(tree->value);
+  rb_tree->colour = tree->height % 2 == 0 ? black : red;
   rb_tree->left = avl_tree_to_rb_tree(tree->left);
   rb_tree->right = avl_tree_to_rb_tree(tree->right);
   return rb_tree;

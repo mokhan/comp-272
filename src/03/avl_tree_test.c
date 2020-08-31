@@ -310,11 +310,11 @@ Ensure(delete_returns_a_null_root) {
 
 Ensure(to_rb_tree_returns_a_new_red_black_tree) {
 /*
-        (20:3)                      (20:b)
-        /    \       -->            /    \
-    (15:2)    (30:2)           (15:r)    (30:r)
+        (20:3)                      (20:r)
+        /    \          -->         /    \
+    (15:2)    (30:2)           (15:b)    (30:b)
     /    \        \            /   \         \
-(10:1) (17:1)     (35:1)  (10:b) (17:b)      (35:b)
+(10:1) (17:1)     (35:1)  (10:r) (17:r)      (35:r)
  */
   AVLTree *tree = NULL;
   RBTree *expected = NULL;
