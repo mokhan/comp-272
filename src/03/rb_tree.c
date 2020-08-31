@@ -188,6 +188,7 @@ bool rb_equals(RBTree *tree, RBTree *other_tree) {
     return tree == other_tree;
 
   return tree->value == other_tree->value
+    && tree->colour == other_tree->colour
     && rb_equals(tree->left, other_tree->left)
     && rb_equals(tree->right, other_tree->right);
 }
