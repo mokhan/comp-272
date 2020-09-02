@@ -113,7 +113,7 @@ Ensure(rb_tree_insert_performs_a_left_rotation) {
 
 Ensure(rb_tree_insert_repaints_the_new_node) {
 /*
-     (20:b)                   (20:r)
+     (20:b)                   (20:b)
      /    \                  /     \
   (10:r)  (30:r)  -->   (10:b)    (30:b)
   /                     /
@@ -127,7 +127,7 @@ Ensure(rb_tree_insert_repaints_the_new_node) {
 
   assert_that(tree, is_not_equal_to(NULL));
   assert_that(tree->value, is_equal_to(20));
-  assert_that(tree->colour, is_equal_to(red));
+  assert_that(tree->colour, is_equal_to(black));
 
   assert_that(tree->left->value, is_equal_to(10));
   assert_that(tree->left->colour, is_equal_to(black));
@@ -148,7 +148,7 @@ Ensure(rb_tree_insert_handles_large_trees) {
 
   assert_that(tree, is_not_equal_to(NULL));
   assert_that(tree->value, is_equal_to(69));
-  assert_that(tree->colour, is_equal_to(red));
+  assert_that(tree->colour, is_equal_to(black));
 
   assert_that(rb_tree_size(tree), is_equal_to(n));
 }

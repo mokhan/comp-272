@@ -90,7 +90,9 @@ static void repair_from(RBTree *tree) {
   if (pibling && pibling->colour == red) {
     parent->colour = black;
     pibling->colour = black;
-    grand_parent_of(tree)->colour = red;
+    RBTree *grand_parent = grand_parent_of(tree);
+    if (grand_parent->parent)
+      grand_parent->colour = red;
     repair_from(grand_parent_of(tree));
   } else {
     RBTree *grand_parent = grand_parent_of(tree);
@@ -114,7 +116,8 @@ static void repair_from(RBTree *tree) {
       rb_rotate_left(grand_parent);
     }
     parent->colour = black;
-    grand_parent->colour = red;
+    if (grand_parent->parent)
+      grand_parent->colour = red;
   }
 }
 
