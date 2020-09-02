@@ -180,14 +180,30 @@ static void print_tree(AVLTree *tree, int level) {
   }
 }
 
+static bool is_even(int value) {
+  return value % 2 == 0;
+}
+
+static bool is_odd(int value) {
+  return !is_even(value);
+}
+
+RBTree *_avl_tree_to_rb_tree(AVLTree *tree, AVLTree *parent) {
+  if (!tree)
+    return NULL;
+
+  enum Colour colour = (parent && is_even(parent->height) && is_odd(tree->height)) ? red : black;
+  RBTree *rb_tree = rb_tree_initialize_with(tree->value, colour);
+  rb_tree->left = _avl_tree_to_rb_tree(tree->left, tree);
+  rb_tree->right = _avl_tree_to_rb_tree(tree->right, tree);
+  return rb_tree;
+}
+
 RBTree *avl_tree_to_rb_tree(AVLTree *tree) {
   if (!tree)
     return NULL;
 
-  RBTree *rb_tree = rb_tree_initialize_with(tree->value, tree->height % 2 == 0 ? black : red);
-  rb_tree->left = avl_tree_to_rb_tree(tree->left);
-  rb_tree->right = avl_tree_to_rb_tree(tree->right);
-  return rb_tree;
+  return _avl_tree_to_rb_tree(tree, NULL);
 }
 
 void avl_tree_inspect(AVLTree *tree) {
