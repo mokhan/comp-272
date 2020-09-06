@@ -341,10 +341,6 @@ Ensure(to_rb_tree_handles_trees_with_a_large_depth) {
 
   RBTree *actual = avl_tree_to_rb_tree(subject);
 
-  avl_tree_inspect(subject);
-  rb_tree_inspect(expected);
-  rb_tree_inspect(actual);
-
   assert_that(rb_equals(expected, actual), is_equal_to(true));
 }
 
