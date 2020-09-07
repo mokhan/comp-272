@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Vertex *vertex_initialize(char label) {
   Vertex *item = malloc(sizeof(Vertex));
@@ -9,7 +10,7 @@ Vertex *vertex_initialize(char label) {
 
 Graph *graph_initialize(void) {
   Graph *item = malloc(sizeof(Graph));
-  for (int i = 0; i < 256; ++i)
+  for (int i = 0; i < 128; ++i)
     item->vertices[i] = NULL;
   return item;
 }

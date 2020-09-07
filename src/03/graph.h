@@ -3,7 +3,7 @@ typedef struct {
 } Vertex;
 
 typedef struct {
-  Vertex *vertices[256];
+  Vertex *vertices[128];
 } Graph;
 
 Graph *graph_initialize(void);
