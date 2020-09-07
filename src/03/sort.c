@@ -4,16 +4,19 @@ void _merge(int *items, int min, int mid, int max)
 {
   int length = (max-min) + 1;
   int tmp[length];
+  int j = min, k = mid;
 
-  int j = 0, k = 0;
   for (int i = 0; i < length; i++) {
-    if (items[min+j] < items[mid+k]) {
-      tmp[i] = items[min+j];
-      j++;
-    } else {
-      tmp[i] = items[mid+k];
-      k++;
-    }
+    if (j < mid && k <= max)
+      if (items[j] < items[k])
+        tmp[i] = items[j++];
+      else
+        tmp[i] = items[k++];
+    else
+      if (j >= mid)
+        tmp[i] = items[k++];
+      else
+        tmp[i] = items[j++];
   }
 
   for (int i = 0; i < length; i++)

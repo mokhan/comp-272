@@ -57,11 +57,11 @@ Ensure(merge_sort_sorts_many_items) {
   assert_that(items[3], is_equal_to(3));
   assert_that(items[4], is_equal_to(3));
   assert_that(items[5], is_equal_to(4));
-  /*assert_that(items[6], is_equal_to(5));*/
-  /*assert_that(items[7], is_equal_to(5));*/
-  /*assert_that(items[8], is_equal_to(5));*/
-  /*assert_that(items[9], is_equal_to(6));*/
-  /*assert_that(items[10], is_equal_to(9));*/
+  assert_that(items[6], is_equal_to(5));
+  assert_that(items[7], is_equal_to(5));
+  assert_that(items[8], is_equal_to(5));
+  assert_that(items[9], is_equal_to(6));
+  assert_that(items[10], is_equal_to(9));
 }
 
 TestSuite *sort_tests() {
