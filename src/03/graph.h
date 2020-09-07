@@ -2,4 +2,9 @@ typedef struct {
   char label;
 } Vertex;
 
-Vertex *graph_initialize(char label);
+typedef struct {
+  Vertex *vertices[256];
+} Graph;
+
+Graph *graph_initialize(void);
+Vertex *graph_add_vertex(Graph *graph, char label);
