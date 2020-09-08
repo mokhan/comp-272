@@ -25,6 +25,6 @@ void graph_add_edge(Graph *graph, Vertex *a, Vertex *b) {
   graph->edges[a->label][b->label] = true;
 }
 
-bool graph_connected(Graph *graph, Vertex *a, Vertex *b) {
-  return true;
+bool graph_has_edge(Graph *graph, Vertex *a, Vertex *b) {
+  return graph->edges[a->label][b->label];
 }

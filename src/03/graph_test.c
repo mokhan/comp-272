@@ -42,14 +42,25 @@ Ensure(add_edge_connects_two_vertices) {
   assert_that(graph->edges['b']['a'], is_equal_to(false));
 }
 
-Ensure(connected_returns_true) {
+Ensure(has_edge_returns_true) {
   Graph *graph = graph_initialize();
   Vertex *a = graph_add_vertex(graph, 'a');
   Vertex *b = graph_add_vertex(graph, 'b');
 
   graph_add_edge(graph, a, b);
 
-  assert_that(graph_connected(graph, a, b), is_equal_to(true));
+  assert_that(graph_has_edge(graph, a, b), is_equal_to(true));
+}
+
+Ensure(has_edge_returns_false) {
+  Graph *graph = graph_initialize();
+  Vertex *a = graph_add_vertex(graph, 'a');
+  Vertex *b = graph_add_vertex(graph, 'b');
+  Vertex *c = graph_add_vertex(graph, 'c');
+
+  graph_add_edge(graph, a, b);
+
+  assert_that(graph_has_edge(graph, a, c), is_equal_to(false));
 }
 
 TestSuite *graph_tests() {
@@ -58,7 +69,8 @@ TestSuite *graph_tests() {
   add_test(x, add_edge_connects_two_vertices);
   add_test(x, add_vertex_adds_max_number_of_verticies_to_graph);
   add_test(x, add_vertex_returns_a_new_vertex);
-  add_test(x, connected_returns_true);
+  add_test(x, has_edge_returns_true);
+  add_test(x, has_edge_returns_false);
   add_test(x, initialize_returns_a_new_graph);
 
   return x;

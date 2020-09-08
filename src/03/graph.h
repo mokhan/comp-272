@@ -12,4 +12,4 @@ typedef struct {
 Graph *graph_initialize(void);
 Vertex *graph_add_vertex(Graph *graph, char label);
 void graph_add_edge(Graph *graph, Vertex *a, Vertex *b);
-bool graph_connected(Graph *graph, Vertex *a, Vertex *b);
+bool graph_has_edge(Graph *graph, Vertex *a, Vertex *b);
