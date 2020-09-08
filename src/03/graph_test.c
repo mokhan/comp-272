@@ -2,10 +2,6 @@
 #include <cgreen/cgreen.h>
 #include <string.h>
 
-Ensure(three_equals_three) {
-  assert_that(3, is_equal_to(3));
-}
-
 Ensure(initialize_returns_a_new_graph) {
   Graph *graph = graph_initialize();
 
@@ -46,17 +42,24 @@ Ensure(add_edge_connects_two_vertices) {
   assert_that(graph->edges['b']['a'], is_equal_to(false));
 }
 
+Ensure(connected_returns_true) {
+  Graph *graph = graph_initialize();
+  Vertex *a = graph_add_vertex(graph, 'a');
+  Vertex *b = graph_add_vertex(graph, 'b');
+
+  graph_add_edge(graph, a, b);
+
+  assert_that(graph_connected(graph, a, b), is_equal_to(true));
+}
+
 TestSuite *graph_tests() {
   TestSuite *x = create_test_suite();
 
-  add_test(x, three_equals_three);
-
-  add_test(x, initialize_returns_a_new_graph);
-
-  add_test(x, add_vertex_returns_a_new_vertex);
-  add_test(x, add_vertex_adds_max_number_of_verticies_to_graph);
-
   add_test(x, add_edge_connects_two_vertices);
+  add_test(x, add_vertex_adds_max_number_of_verticies_to_graph);
+  add_test(x, add_vertex_returns_a_new_vertex);
+  add_test(x, connected_returns_true);
+  add_test(x, initialize_returns_a_new_graph);
 
   return x;
 }
