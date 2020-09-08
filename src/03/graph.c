@@ -20,3 +20,7 @@ Vertex *graph_add_vertex(Graph *graph, char label) {
   graph->vertices[(int)label] = item;
   return item;
 }
+
+void graph_add_edge(Graph *graph, Vertex *a, Vertex *b) {
+  graph->edges[a->label][b->label] = true;
+}

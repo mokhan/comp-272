@@ -33,6 +33,17 @@ Ensure(add_vertex_adds_max_number_of_verticies_to_graph) {
   }
 }
 
+Ensure(add_edge_connects_two_vertices) {
+  Graph *graph = graph_initialize();
+  Vertex *a = graph_add_vertex(graph, 'a');
+  Vertex *b = graph_add_vertex(graph, 'b');
+
+  graph_add_edge(graph, a, b);
+
+  assert_that(graph->edges[a->label][b->label], is_equal_to(true));
+  assert_that(graph->edges[b->label][a->label], is_equal_to(false));
+}
+
 TestSuite *graph_tests() {
   TestSuite *x = create_test_suite();
 
@@ -42,6 +53,8 @@ TestSuite *graph_tests() {
 
   add_test(x, add_vertex_returns_a_new_vertex);
   add_test(x, add_vertex_adds_max_number_of_verticies_to_graph);
+
+  add_test(x, add_edge_connects_two_vertices);
 
   return x;
 }
