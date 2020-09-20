@@ -176,7 +176,7 @@ static void print_tree(RBTree *tree, int level) {
     printf(" ");
 
   if (tree) {
-    printf("(%d:%c)\n", tree->value, tree->colour == red ? 'R' : 'B');
+    printf("(%d:%c P:%d)\n", tree->value, tree->colour == red ? 'R' : 'B', tree->parent ? tree->parent->value : -1);
 
     if (!tree->left && !tree->right)
       return;
@@ -248,7 +248,7 @@ bool rb_tree_is_valid(RBTree *tree) {
     return false;
 
   if (depth(tree->left) != depth(tree->right))
-      return false;
+    return false;
 
   return rb_tree_is_valid(tree->left) && rb_tree_is_valid(tree->right);
 }
