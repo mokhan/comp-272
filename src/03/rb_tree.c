@@ -176,7 +176,7 @@ static void print_tree(RBTree *tree, int level) {
     printf(" ");
 
   if (tree) {
-    printf("(%d:%c P:%d)\n", tree->value, tree->colour == red ? 'R' : 'B', tree->parent ? tree->parent->value : -1);
+    printf("(%d%c H:%d)\n", tree->value, tree->colour == red ? 'R' : 'B', rb_tree_height(tree));
 
     if (!tree->left && !tree->right)
       return;
@@ -260,4 +260,11 @@ bool rb_tree_is_valid(RBTree *tree) {
     return false;
 
   return rb_tree_is_valid(tree->left) && rb_tree_is_valid(tree->right);
+}
+
+int rb_tree_height(RBTree *tree) {
+  if (!tree)
+    return 1;
+
+  return 1 + max(rb_tree_height(tree->left), rb_tree_height(tree->right));
 }

@@ -188,28 +188,54 @@ static bool is_odd(int value) {
   return !is_even(value);
 }
 
-RBTree *_avl_tree_to_rb_tree(AVLTree *tree, AVLTree *parent) {
+static RBTree *to_rb_tree(AVLTree *tree, AVLTree *parent) {
   if (!tree)
     return NULL;
 
-  enum Colour colour = (parent && is_even(parent->height) && is_odd(tree->height)) ? red : black;
-  RBTree *rb_tree = rb_tree_initialize_with(tree->value, colour);
+  RBTree *rb_tree = rb_tree_initialize(tree->value);
 
-  rb_tree->left = _avl_tree_to_rb_tree(tree->left, tree);
+  rb_tree->left = to_rb_tree(tree->left, tree);
   if (rb_tree->left)
     rb_tree->left->parent = rb_tree;
 
-  rb_tree->right = _avl_tree_to_rb_tree(tree->right, tree);
+  rb_tree->right = to_rb_tree(tree->right, tree);
   if (rb_tree->right)
     rb_tree->right->parent = rb_tree;
   return rb_tree;
+}
+
+static void colour_children(RBTree *a, RBTree *b);
+
+static void colour(RBTree* tree, enum Colour colour) {
+  if (!tree)
+    return;
+
+  tree->colour = colour;
+  colour_children(tree->left, tree->right);
+}
+
+static void colour_children(RBTree *a, RBTree *b) {
+  int a_height = rb_tree_height(a);
+  int b_height = rb_tree_height(b);
+
+  if (a_height < b_height || is_odd(a_height))
+    colour(a, black);
+  else
+    colour(a, red);
+
+  if (b_height < a_height || is_odd(b_height))
+    colour(b, black);
+  else
+    colour(b, red);
 }
 
 RBTree *avl_tree_to_rb_tree(AVLTree *tree) {
   if (!tree)
     return NULL;
 
-  return _avl_tree_to_rb_tree(tree, NULL);
+  RBTree *rb_tree = to_rb_tree(tree, NULL);
+  colour(rb_tree, black);
+  return rb_tree;
 }
 
 void avl_tree_inspect(AVLTree *tree) {

@@ -277,6 +277,24 @@ Ensure(is_valid_return_true) {
   assert_that(rb_tree_is_valid(tree), is_equal_to(true));
 }
 
+Ensure(height_returns_one) {
+  assert_that(rb_tree_height(NULL), is_equal_to(1));
+}
+
+Ensure(height_returns_three_when_left_subtree_is_present) {
+  RBTree *tree = rb_tree_initialize(10);
+  tree = rb_tree_insert(tree, 5);
+
+  assert_that(rb_tree_height(tree), is_equal_to(3));
+}
+
+Ensure(height_returns_three_when_right_subtree_is_present) {
+  RBTree *tree = rb_tree_initialize(10);
+  tree = rb_tree_insert(tree, 15);
+
+  assert_that(rb_tree_height(tree), is_equal_to(3));
+}
+
 TestSuite *rb_tree_tests() {
   TestSuite *x = create_test_suite();
 
@@ -305,5 +323,9 @@ TestSuite *rb_tree_tests() {
   add_test(x, is_valid_returns_false_when_red_node_has_red_child);
   add_test(x, is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes);
   add_test(x, is_valid_return_true);
+
+  add_test(x, height_returns_one);
+  add_test(x, height_returns_three_when_left_subtree_is_present);
+  add_test(x, height_returns_three_when_right_subtree_is_present);
   return x;
 }

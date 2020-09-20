@@ -326,8 +326,11 @@ Ensure(to_rb_tree_returns_a_new_red_black_tree) {
     expected = rb_tree_insert(expected, items[i]);
   }
 
-  RBTree *rb_tree = avl_tree_to_rb_tree(tree);
-  assert_that(rb_equals(expected, rb_tree), is_equal_to(true));
+  RBTree *actual = avl_tree_to_rb_tree(tree);
+
+  assert_that(rb_equals(expected, actual), is_equal_to(true));
+  assert_that(rb_tree_is_valid(actual), is_equal_to(true));
+  assert_that(rb_tree_is_valid(expected), is_equal_to(true));
 }
 
 Ensure(to_rb_tree_handles_trees_with_a_large_depth) {

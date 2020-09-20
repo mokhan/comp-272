@@ -20,3 +20,4 @@ bool rb_equals(RBTree *tree, RBTree *other_tree);
 bool rb_tree_is_valid(RBTree *tree);
 int rb_tree_size(RBTree *tree);
 void rb_tree_inspect(RBTree *tree);
+int rb_tree_height(RBTree *tree);
