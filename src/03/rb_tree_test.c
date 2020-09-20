@@ -226,6 +226,28 @@ Ensure(is_valid_returns_false_when_root_is_red) {
   assert_that(rb_tree_is_valid(tree), is_equal_to(false));
 }
 
+Ensure(is_valid_returns_false_when_red_node_has_red_child) {
+  RBTree *tree = NULL;
+
+  for (int i = 10; i > 0; i--)
+    tree = rb_tree_insert(tree, i);
+
+  tree->left->colour = red;
+  tree->left->left->colour = red;
+
+  assert_that(rb_tree_is_valid(tree), is_equal_to(false));
+}
+
+Ensure(is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes) {
+  RBTree *tree = NULL;
+
+  for (int i = 10; i > 0; i--)
+    tree = rb_tree_insert(tree, i);
+
+  tree->left->left->colour = black;
+  assert_that(rb_tree_is_valid(tree), is_equal_to(false));
+}
+
 TestSuite *rb_tree_tests() {
   TestSuite *x = create_test_suite();
 
@@ -250,5 +272,7 @@ TestSuite *rb_tree_tests() {
   add_test(x, equals_returns_false_when_root_and_right_subtree_are_not_equal);
 
   add_test(x, is_valid_returns_false_when_root_is_red);
+  add_test(x, is_valid_returns_false_when_red_node_has_red_child);
+  add_test(x, is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes);
   return x;
 }

@@ -7,6 +7,31 @@
  * * https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Insertion
  */
 
+static int max(int a, int b) {
+  return a == b ? a : (a > b ? a : b);
+}
+
+/**
+ * Number of black nodes to leaf.
+ *
+ * @param tree The node to traverse down to a leaf.
+ * @return the # of black nodes from the given node to a leaf.
+ */
+static int depth(RBTree *tree) {
+  int total = 1;
+
+  while (tree) {
+    if (tree->colour == black)
+      total += 1;
+    tree = tree->left;
+  }
+  return total;
+}
+
+static bool is_root(RBTree *node) {
+  return node->parent == NULL;
+}
+
 static RBTree *parent_of(RBTree *node) {
   return node ? node->parent : NULL;
 }
@@ -213,5 +238,17 @@ bool rb_equals(RBTree *tree, RBTree *other_tree) {
 }
 
 bool rb_tree_is_valid(RBTree *tree) {
-  return false;
+  if (tree == NULL)
+    return true;
+
+  if (is_root(tree) && tree->colour == red)
+    return false;
+
+  if (tree->colour == red && tree->parent->colour == red)
+    return false;
+
+  if (depth(tree->left) != depth(tree->right))
+      return false;
+
+  return rb_tree_is_valid(tree->left) && rb_tree_is_valid(tree->right);
 }
