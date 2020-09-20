@@ -48,15 +48,3 @@ Step 6:
       /   \         \
   (10:r) (17:r)      (35:r)
 ```
-
-```c
-RBTree *avl_tree_to_rb_tree(AVLTree *t) {
-  if (!t)
-    return NULL;
-
-  RBTree *r = rb_tree_initialize_with(t->value, t->height % 2 == 0 ? black : red);
-  r->left = avl_tree_to_rb_tree(t->left);
-  r->right = avl_tree_to_rb_tree(t->right);
-  return r;
-}
-```

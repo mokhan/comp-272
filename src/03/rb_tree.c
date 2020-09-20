@@ -211,3 +211,7 @@ bool rb_equals(RBTree *tree, RBTree *other_tree) {
     && rb_equals(tree->left, other_tree->left)
     && rb_equals(tree->right, other_tree->right);
 }
+
+bool rb_tree_is_valid(RBTree *tree) {
+  return false;
+}
