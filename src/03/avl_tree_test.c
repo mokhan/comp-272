@@ -335,18 +335,21 @@ Ensure(to_rb_tree_returns_a_new_red_black_tree) {
 
 Ensure(to_rb_tree_handles_trees_with_a_large_depth) {
   AVLTree *subject = NULL;
-  RBTree *expected = NULL;
+  int n = 100;
 
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < n; i++)
     subject = avl_tree_insert(subject, i);
-    expected = rb_tree_insert(expected, i);
-  }
 
   RBTree *actual = avl_tree_to_rb_tree(subject);
 
-  assert_that(rb_equals(expected, actual), is_equal_to(true));
   assert_that(rb_tree_is_valid(actual), is_equal_to(true));
-  assert_that(rb_tree_is_valid(expected), is_equal_to(true));
+
+  for (int i = 0; i < n; i++) {
+    RBTree *node = rb_tree_find(actual, i);
+
+    assert_that(node, is_not_equal_to(NULL));
+    assert_that(node->value, is_equal_to(i));
+  }
 }
 
 TestSuite *avl_tree_tests() {

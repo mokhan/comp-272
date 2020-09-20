@@ -16,6 +16,7 @@ typedef struct rb_node {
 RBTree *rb_tree_initialize(int value);
 RBTree *rb_tree_initialize_with(int value, enum Colour colour);
 RBTree *rb_tree_insert(RBTree *tree, int value);
+RBTree *rb_tree_find(RBTree *tree, int value);
 bool rb_equals(RBTree *tree, RBTree *other_tree);
 bool rb_tree_is_valid(RBTree *tree);
 int rb_tree_size(RBTree *tree);

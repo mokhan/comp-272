@@ -268,3 +268,11 @@ int rb_tree_height(RBTree *tree) {
 
   return 1 + max(rb_tree_height(tree->left), rb_tree_height(tree->right));
 }
+
+RBTree *rb_tree_find(RBTree *t, int value) {
+  if (!t)
+    return NULL;
+
+  int x = compare(value, t->value);
+  return x == 0 ? t : rb_tree_find(x < 0 ? t->left : t->right, value);
+}
