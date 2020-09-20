@@ -194,8 +194,14 @@ RBTree *_avl_tree_to_rb_tree(AVLTree *tree, AVLTree *parent) {
 
   enum Colour colour = (parent && is_even(parent->height) && is_odd(tree->height)) ? red : black;
   RBTree *rb_tree = rb_tree_initialize_with(tree->value, colour);
+
   rb_tree->left = _avl_tree_to_rb_tree(tree->left, tree);
+  if (rb_tree->left)
+    rb_tree->left->parent = rb_tree;
+
   rb_tree->right = _avl_tree_to_rb_tree(tree->right, tree);
+  if (rb_tree->right)
+    rb_tree->right->parent = rb_tree;
   return rb_tree;
 }
 

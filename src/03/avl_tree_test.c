@@ -342,6 +342,8 @@ Ensure(to_rb_tree_handles_trees_with_a_large_depth) {
   RBTree *actual = avl_tree_to_rb_tree(subject);
 
   assert_that(rb_equals(expected, actual), is_equal_to(true));
+  assert_that(rb_tree_is_valid(actual), is_equal_to(true));
+  assert_that(rb_tree_is_valid(expected), is_equal_to(true));
 }
 
 TestSuite *avl_tree_tests() {
