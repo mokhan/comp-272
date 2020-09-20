@@ -248,6 +248,15 @@ Ensure(is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same
   assert_that(rb_tree_is_valid(tree), is_equal_to(false));
 }
 
+Ensure(is_valid_return_true) {
+  RBTree *tree = NULL;
+
+  for (int i = 0; i < 100; ++i)
+    tree = rb_tree_insert(tree, i);
+
+  assert_that(rb_tree_is_valid(tree), is_equal_to(true));
+}
+
 TestSuite *rb_tree_tests() {
   TestSuite *x = create_test_suite();
 
@@ -274,5 +283,6 @@ TestSuite *rb_tree_tests() {
   add_test(x, is_valid_returns_false_when_root_is_red);
   add_test(x, is_valid_returns_false_when_red_node_has_red_child);
   add_test(x, is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes);
+  add_test(x, is_valid_return_true);
   return x;
 }
