@@ -226,6 +226,19 @@ Ensure(equals_returns_false_when_root_and_right_subtree_are_not_equal) {
   assert_that(rb_equals(tree, other_tree), is_equal_to(false));
 }
 
+Ensure(equals_returns_false_when_parent_is_not_equal) {
+  RBTree *tree = rb_tree_initialize(20);
+  tree = rb_tree_insert(tree, 30);
+
+  RBTree *other_tree = rb_tree_initialize(20);
+  other_tree = rb_tree_insert(other_tree, 30);
+
+  other_tree->right->parent = NULL;
+
+  assert_that(rb_equals(tree, other_tree), is_equal_to(false));
+  assert_that(rb_equals(other_tree, tree), is_equal_to(false));
+}
+
 Ensure(is_valid_returns_false_when_root_is_red) {
   RBTree *tree = rb_tree_initialize(20);
   tree->colour = red;
@@ -286,6 +299,7 @@ TestSuite *rb_tree_tests() {
   add_test(x, equals_returns_true_when_root_and_left_subtree_are_equal);
   add_test(x, equals_returns_false_when_root_and_left_subtree_are_not_equal);
   add_test(x, equals_returns_false_when_root_and_right_subtree_are_not_equal);
+  add_test(x, equals_returns_false_when_parent_is_not_equal);
 
   add_test(x, is_valid_returns_false_when_root_is_red);
   add_test(x, is_valid_returns_false_when_red_node_has_red_child);

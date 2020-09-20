@@ -231,6 +231,15 @@ bool rb_equals(RBTree *tree, RBTree *other_tree) {
   if (!tree || !other_tree)
     return tree == other_tree;
 
+  if (tree->parent && !other_tree->parent)
+    return false;
+
+  if (!tree->parent && other_tree->parent)
+    return false;
+
+  if (tree->parent && tree->parent->value != other_tree->parent->value)
+    return false;
+
   return tree->value == other_tree->value
     && tree->colour == other_tree->colour
     && rb_equals(tree->left, other_tree->left)
