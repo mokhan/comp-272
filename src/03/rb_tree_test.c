@@ -87,6 +87,8 @@ Ensure(rb_tree_insert_performs_a_right_rotation) {
 
   assert_that(tree->right->value, is_equal_to(30));
   assert_that(tree->right->colour, is_equal_to(red));
+
+  assert_that(rb_tree_is_valid(tree), is_equal_to(true));
 }
 
 Ensure(rb_tree_insert_performs_a_left_rotation) {
@@ -109,6 +111,8 @@ Ensure(rb_tree_insert_performs_a_left_rotation) {
   assert_that(tree->left->colour, is_equal_to(red));
   assert_that(tree->right->value, is_equal_to(30));
   assert_that(tree->right->colour, is_equal_to(red));
+
+  assert_that(rb_tree_is_valid(tree), is_equal_to(true));
 }
 
 Ensure(rb_tree_insert_repaints_the_new_node) {
@@ -137,6 +141,8 @@ Ensure(rb_tree_insert_repaints_the_new_node) {
 
   assert_that(tree->right->value, is_equal_to(30));
   assert_that(tree->right->colour, is_equal_to(black));
+
+  assert_that(rb_tree_is_valid(tree), is_equal_to(true));
 }
 
 Ensure(rb_tree_insert_handles_large_trees) {
@@ -151,6 +157,7 @@ Ensure(rb_tree_insert_handles_large_trees) {
   assert_that(tree->colour, is_equal_to(black));
 
   assert_that(rb_tree_size(tree), is_equal_to(n));
+  assert_that(rb_tree_is_valid(tree), is_equal_to(true));
 }
 
 Ensure(equals_returns_false_when_tree_is_NULL) {
