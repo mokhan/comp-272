@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static void dump(int *items, int n)
+{
+  printf("[");
+  for (int i = 0; i < n; ++i)
+    printf("%d,", items[i]);
+  printf("]\n");
+}
+
 static void _merge(int *items, int min, int mid, int max) {
   int length = (max-min) + 1;
   int tmp[length];
