@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void _merge(int *items, int min, int mid, int max) {
+static void _merge(int *items, int min, int mid, int max) {
   int length = (max-min) + 1;
   int tmp[length];
   int j = min, k = mid;
@@ -23,7 +23,7 @@ void _merge(int *items, int min, int mid, int max) {
     items[min+i] = tmp[i];
 }
 
-void _merge_sort(int *items, int min, int max) {
+static void _merge_sort(int *items, int min, int max) {
   if (min >= max)
     return;
 
@@ -33,14 +33,7 @@ void _merge_sort(int *items, int min, int max) {
   _merge(items, min, mid + 1, max);
 }
 
-void merge_sort(int *items, int length) {
-  if (!items || length <= 0)
-    return;
-
-  _merge_sort(items, 0, length - 1);
-}
-
-int partition(int *items, int min, int max) {
+static int partition(int *items, int min, int max) {
   int pivot = items[max];
   int index = min - 1;
   int tmp;
@@ -60,7 +53,7 @@ int partition(int *items, int min, int max) {
   return index + 1;
 }
 
-void _quick_sort(int *items, int min, int max) {
+static void _quick_sort(int *items, int min, int max) {
   if (min >= max)
     return;
 
@@ -69,8 +62,15 @@ void _quick_sort(int *items, int min, int max) {
   _quick_sort(items, index + 1, max);
 }
 
+void merge_sort(int *items, int length) {
+  if (!items || length <= 0)
+    return;
+
+  _merge_sort(items, 0, length - 1);
+}
+
 void quick_sort(int *items, int length) {
-  if (!items)
+  if (!items || length <= 0)
     return;
 
   _quick_sort(items, 0, length - 1);
