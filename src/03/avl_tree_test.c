@@ -310,7 +310,7 @@ Ensure(delete_returns_a_null_root) {
 
 Ensure(to_rb_tree_returns_a_new_red_black_tree) {
 /*
-        (20:3)                      (20:r)
+        (20:3)                      (20:b)
         /    \          -->         /    \
     (15:2)    (30:2)           (15:b)    (30:b)
     /    \        \            /   \         \
