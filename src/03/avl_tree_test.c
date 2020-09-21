@@ -94,7 +94,7 @@ Ensure(insert_performs_a_right_left_rotation) {
     \            /  \
     (30)  --> (10)  (30)
    /
- (20)
+(20)
 */
   AVLTree *tree = avl_tree_initialize(10);
   tree = avl_tree_insert(tree, 30);
