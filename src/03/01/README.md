@@ -10,10 +10,8 @@ red-black tree.
     /    \        \            /   \         \
 (10:1) (17:1)     (35:1)  (10:r) (17:r)      (35:r)
 
-* copy tree
-* colour each node black
-* perform in order traversal
-* assign colour of Red/Black node based on height of each node
+* perform pre order traversal
+* assign colour of Red/Black node based on height of each AVL node
 
 Step 1:
           (20:b)
@@ -25,19 +23,21 @@ Step 2:
 
 Step 3:
           (20:b)
-          /    \
-      (15:b)    (30:b)
-
-Step 4:
-          (20:b)
-          /    \
-      (15:b)    (30:b)
+          /
+      (15:b)
       /
   (10:r)
 
+Step 4:
+          (20:b)
+          /
+      (15:b)
+      /   \
+  (10:r) (17:r)
+
 Step 5:
           (20:b)
-          /    \
+          /     \
       (15:b)    (30:b)
       /   \
   (10:r) (17:r)
