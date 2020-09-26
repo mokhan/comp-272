@@ -379,15 +379,17 @@ TestSuite *avl_tree_tests() {
   return x;
 }
 
+TestSuite *graph_tests();
+TestSuite *matrix_tests();
 TestSuite *rb_tree_tests();
 TestSuite *sort_tests();
-TestSuite *graph_tests();
 
 int main(int argc, char **argv) {
   TestSuite *suite = create_test_suite();
   add_suite(suite, avl_tree_tests());
+  add_suite(suite, graph_tests());
+  add_suite(suite, matrix_tests());
   add_suite(suite, rb_tree_tests());
   add_suite(suite, sort_tests());
-  add_suite(suite, graph_tests());
   return run_test_suite(suite, create_text_reporter());
 }

@@ -551,7 +551,81 @@ When we visit each cell in the matrix we can flip the 1 to a 0 to ensure that
 we do not revisit a visited edge.
 
 1. Start at any vertex
-2. Iterate through list of edges.
-3. If the vertex on the other end of the edge has not been visited yet then visit it and loop until all edges are exhausted for the vertex.
-4. Backtrack to previous vertex
-5. Visit any edge where you can backtrack safely.
+1. Iterate through list of edges.
+1. If the vertex on the other end of the edge has not been visited yet then visit it and loop until all edges are exhausted for the vertex.
+1. Remove the edge from the matrix when visiting a node
+1. Backtrack to previous vertex, and remove the edge.
+1. Visit any edge where you can backtrack safely.
+
+An example of this algorithm can be found in `./matrix.c` with accompanying tests in `./matrix_test.c`.
+
+The graph to traverse is:
+
+```plaintext
+(a)---(b)---(c)---(d)
+ | \       /     /
+ |  \     /     /
+(e)  \(f)/  (g)/--(h)
+ |     |   / |    /
+ |     |  /  |   /
+(i)---(j)/  (k) / (l)
+ | \         | /   |
+ |  \        |/    |
+(m)  \(n)---(o)---(p)
+```
+
+We can build a matrix that will look like the following:
+
+```bash
+| |a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|
+|a|0|1|0|0|1|1|0|0|0|0|0|0|0|0|0|0|
+|b|1|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|c|0|1|0|1|0|1|0|0|0|0|0|0|0|0|0|0|
+|d|0|0|1|0|0|0|1|0|0|0|0|0|0|0|0|0|
+|e|1|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|
+|f|1|0|1|0|0|0|0|0|0|1|0|0|0|0|0|0|
+|g|0|0|0|1|0|0|0|1|0|1|1|0|0|0|0|0|
+|h|0|0|0|0|0|0|1|0|0|0|0|0|0|0|1|0|
+|i|0|0|0|0|1|0|0|0|0|1|0|0|1|1|0|0|
+|j|0|0|0|0|0|1|1|0|1|0|0|0|0|0|0|0|
+|k|0|0|0|0|0|0|1|0|0|0|0|0|0|0|1|0|
+|l|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|
+|m|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|
+|n|0|0|0|0|0|0|0|0|1|0|0|0|0|0|1|0|
+|o|0|0|0|0|0|0|0|0|0|0|1|0|0|1|0|1|
+|p|0|0|0|0|0|0|0|0|0|0|0|1|0|0|1|0|
+```
+
+The order of traversal will be:
+
+```plaintext
+->(a)->(b)->(c)->(d)->(g)->(h)->(o)->(k)->(g)->(j)->(f)->(a)->(e)->(i)->(m)-
+                                                                           |
+|---------------------------------------------------------------------------
+->(i)->(n)->(o)->(p)->(l)->(p)->(o)->(n)->(i)->(j)->(i)->(e)->(a)->(f)->(c)-
+                                                                           |
+|---------------------------------------------------------------------------
+->(f)->(j)->(g)->(k)->(o)->(h)->(g)->(d)->(c)->(b)->(a)
+```
+
+After the traversal the matrix will have zero edges.
+
+```bash
+| |a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|
+|a|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|b|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|c|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|d|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|e|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|f|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|g|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|h|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|i|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|j|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|k|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|l|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|m|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|n|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|o|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|p|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+```
