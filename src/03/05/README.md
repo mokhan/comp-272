@@ -543,9 +543,15 @@ a higher priority concern than time.
 
 To traverse every edge in both directions we can use an adjacency matrix
 and iterate through every cell in the matrix. If the cell contains a 1 to
-indicate a connection than we know that we can traverse from the edge at
+indicate an edge than we know that we can traverse from the edge at
 that row and column. Both directions will be represented in different cells
 in the matrix.
 
 When we visit each cell in the matrix we can flip the 1 to a 0 to ensure that
 we do not revisit a visited edge.
+
+1. Start at any vertex
+2. Iterate through list of edges.
+3. If the vertex on the other end of the edge has not been visited yet then visit it and loop until all edges are exhausted for the vertex.
+4. Backtrack to previous vertex
+5. Visit any edge where you can backtrack safely.

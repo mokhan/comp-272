@@ -100,33 +100,41 @@ void traverse(int vertex) {
       printf("->(%c)", labels[vertex]);
     }
   }
+  for (int edge = 0; edge < 16; ++edge) {
+    if (graph[vertex][edge] > 0 && graph[edge][vertex] > 0) {
+      graph[vertex][edge] = 0;
+      traverse(edge);
+      graph[edge][vertex] = 0;
+      printf("->(%c)", labels[vertex]);
+    }
+  }
 }
 
-void inspect_graph() {
+void graph_inspect(int n) {
   printf("\n");
 
   printf("| ");
-  for (int i = 0; i < 16; ++i)
+  for (int i = 0; i < n; ++i)
     printf("|%c", labels[i]);
   printf("|\n");
 
-  for (int i = 0; i < 16; ++i) {
+  for (int i = 0; i < n; ++i) {
     printf("|%c|", labels[i]);
-    for (int j = 0; j < 16; ++j)
+    for (int j = 0; j < n; ++j)
       printf("%d|", graph[i][j]);
     printf("\n");
   }
 }
 
 Ensure(every_edge_is_traversed_in_both_directions_at_least_once) {
-  traverse(0);
-  inspect_graph();
+  int n = 16;
 
-  for (int i = 0; i < 16; ++i) {
-    for (int j = 0; j < 16; ++j) {
+  traverse(0);
+  graph_inspect(n);
+
+  for (int i = 0; i < n; ++i)
+    for (int j = 0; j < n; ++j)
       assert_that(graph[i][j], is_equal_to(0));
-    }
-  }
 }
 
 TestSuite *graph_tests() {
