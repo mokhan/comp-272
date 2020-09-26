@@ -464,7 +464,7 @@ Order: [b, a, f, c, e, j, d, i, g, m, n, h, k, o, p, l]
 (m)  \(n)---(o)---(p)
 
 (a) -> [b, e, f]
-(b) -> [a, c, f]
+(b) -> [a, f]
 (c) -> [b, d, f]
 (d) -> [c, g]
 (e) -> [a, i]
@@ -480,6 +480,14 @@ Order: [b, a, f, c, e, j, d, i, g, m, n, h, k, o, p, l]
 (o) -> [k, n, p]
 (p) -> [l, o]
 ```
+
+Good:
+
+* Space efficient because no space is wasted for edges that do not exist.
+
+Bad:
+
+* A lookup to determine if two vertexes are connected requires a linear time lookup due to the size of the list for a single edge. `O(n)`.
 
 # Adjacency Matrix
 
@@ -500,7 +508,7 @@ Order: [b, a, f, c, e, j, d, i, g, m, n, h, k, o, p, l]
 -----------------------------------
 | |a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|
 |a|0|1|0|0|1|1|0|0|0|0|0|0|0|0|0|0|
-|b|1|0|1|0|0|1|0|0|0|0|0|0|0|0|0|0|
+|b|1|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|
 |c|0|1|0|1|0|1|0|0|0|0|0|0|0|0|0|0|
 |d|0|0|1|0|0|0|1|0|0|0|0|0|0|0|0|0|
 |e|1|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|
@@ -518,4 +526,26 @@ Order: [b, a, f, c, e, j, d, i, g, m, n, h, k, o, p, l]
 -----------------------------------
 ```
 
+Good:
+
+* constant time lookup to see if two vertexes are connected `O(1)`
+
+Bad:
+
+* space inefficient `O(n^2)`
+
+
+An adjacency matrix might be a better choice when space is less important
+than fast lookups. An adjacency list may be a better choice if space is
+a higher priority concern than time.
+
 # Traverse Every Edge
+
+To traverse every edge in both directions we can use an adjacency matrix
+and iterate through every cell in the matrix. If the cell contains a 1 to
+indicate a connection than we know that we can traverse from the edge at
+that row and column. Both directions will be represented in different cells
+in the matrix.
+
+When we visit each cell in the matrix we can flip the 1 to a 0 to ensure that
+we do not revisit a visited edge.

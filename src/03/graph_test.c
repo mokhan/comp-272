@@ -62,6 +62,72 @@ Ensure(has_edge_returns_false) {
 
   assert_that(graph_has_edge(graph, a, c), is_equal_to(false));
 }
+int graph[16][16] = {
+  {0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0},
+  {0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0},
+  {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+  {1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0},
+  {0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,0},
+  {0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0},
+  {0,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0},
+  {0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0},
+  {0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1},
+  {0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0},
+};
+char labels[16] = {
+  'a', 'b', 'c', 'd',
+  'e', 'f', 'g', 'h',
+  'i', 'j', 'k', 'l',
+  'm', 'n', 'o', 'p'
+};
+int visited[16] = {0};
+
+void traverse(int vertex) {
+  printf("->(%c)", labels[vertex]);
+  visited[vertex] = 1;
+
+  for (int edge = 0; edge < 16; ++edge) {
+    if (!visited[edge] && graph[vertex][edge] > 0) {
+      graph[vertex][edge] = 0;
+      traverse(edge);
+      graph[edge][vertex] = 0;
+      printf("->(%c)", labels[vertex]);
+    }
+  }
+}
+
+void inspect_graph() {
+  printf("\n");
+
+  printf("| ");
+  for (int i = 0; i < 16; ++i)
+    printf("|%c", labels[i]);
+  printf("|\n");
+
+  for (int i = 0; i < 16; ++i) {
+    printf("|%c|", labels[i]);
+    for (int j = 0; j < 16; ++j)
+      printf("%d|", graph[i][j]);
+    printf("\n");
+  }
+}
+
+Ensure(every_edge_is_traversed_in_both_directions_at_least_once) {
+  traverse(0);
+  inspect_graph();
+
+  for (int i = 0; i < 16; ++i) {
+    for (int j = 0; j < 16; ++j) {
+      assert_that(graph[i][j], is_equal_to(0));
+    }
+  }
+}
 
 TestSuite *graph_tests() {
   TestSuite *x = create_test_suite();
@@ -73,5 +139,6 @@ TestSuite *graph_tests() {
   add_test(x, has_edge_returns_false);
   add_test(x, initialize_returns_a_new_graph);
 
+  add_test(x, every_edge_is_traversed_in_both_directions_at_least_once);
   return x;
 }
