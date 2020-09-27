@@ -1,7 +1,8 @@
-# Learning Profile for Assignment #3 - Computer Science 272: Data Structures and Algorithms
+# Learning Profile for Assignment #3
+## Computer Science 272: Data Structures and Algorithms
 
-Name: Mo Khan
-Student ID: 3431709
+* Name: Mo Khan
+* Student ID: 3431709
 
 ## Question 1
 ### Problem Statement
@@ -991,7 +992,7 @@ Suppose we have a function `h` that takes input `k`
 and returns a tree with `k` leaves.
 
 For each positive natural number we can
-assert that the height of the tree must greater
+assert that the height of the tree must be greater
 than or equal to `log2(k)`.
 
 ```plaintext
