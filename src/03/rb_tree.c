@@ -7,6 +7,13 @@
  * * https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Insertion
  */
 
+/**
+ * Returns the larger integer between the two provided as arguments.
+ *
+ * @param a An integer value to compare
+ * @param b Another integer value to compare
+ * @return Returns the larger value
+ */
 static int max(int a, int b) { return a == b ? a : (a > b ? a : b); }
 
 /**
@@ -26,10 +33,28 @@ static int depth(RBTree *tree) {
   return total;
 }
 
+/**
+ * Determines if a provided subtree is the root.
+ *
+ * @param node The subtree to investigate
+ * @param Returns tree when the node is the root otherwise false.
+ */
 static bool is_root(RBTree *node) { return node->parent == NULL; }
 
+/**
+ * Returns the parent node of a node.
+ *
+ * @param node The node to investigate.
+ * @return The parent of the node or NULL.
+ */
 static RBTree *parent_of(RBTree *node) { return node ? node->parent : NULL; }
 
+/**
+ * Returns the root of a subtree
+ *
+ * @param node The subtree to investigate
+ * @return Returns the root of the subtree
+ */
 static RBTree *root_of(RBTree *node) {
   RBTree *current = node;
   RBTree *next = parent_of(current);
@@ -41,10 +66,22 @@ static RBTree *root_of(RBTree *node) {
   return current;
 }
 
+/**
+ * Returns the grand parent node of a node.
+ *
+ * @param node The node to investigate.
+ * @return The grand parent of the node or NULL.
+ */
 static RBTree *grand_parent_of(RBTree *node) {
   return parent_of(parent_of(node));
 }
 
+/**
+ * Returns a sibling node of a given node.
+ *
+ * @param node The node to investigate.
+ * @return The sibling of the node or NULL.
+ */
 static RBTree *sibling_of(RBTree *node) {
   RBTree *parent = parent_of(node);
 
@@ -54,6 +91,12 @@ static RBTree *sibling_of(RBTree *node) {
   return node == parent->left ? parent->right : parent->left;
 }
 
+/**
+ * Returns a pibling (aunt/uncle) node of a given node.
+ *
+ * @param node The node to investigate.
+ * @return The pibling of the node or NULL.
+ */
 static RBTree *pibling_of(RBTree *node) { return sibling_of(parent_of(node)); }
 
 static void rb_rotate_left(RBTree *tree) {
@@ -76,6 +119,11 @@ static void rb_rotate_left(RBTree *tree) {
   tmp->parent = parent;
 }
 
+/**
+ * Performs a right rotation on a subtree
+ *
+ * @param tree The subtree to perform the rotation on
+ */
 static void rb_rotate_right(RBTree *tree) {
   RBTree *tmp = tree->left;
   RBTree *parent = parent_of(tree);
@@ -96,6 +144,11 @@ static void rb_rotate_right(RBTree *tree) {
   tmp->parent = parent;
 }
 
+/**
+ * Performs any repairs necessary on a subtree
+ *
+ * @param tree The subtree to perform a repair on
+ */
 static void repair_from(RBTree *tree) {
   RBTree *parent = parent_of(tree);
   RBTree *pibling = pibling_of(tree);
@@ -137,8 +190,24 @@ static void repair_from(RBTree *tree) {
   }
 }
 
+/**
+ * Compares two integers and returns -1, 0, 1.
+ * If a is equal to b then 0 is returned.
+ * If a is greater than b then 1 is returned.
+ * If a is less than b then -1 is returned.
+ *
+ * @param a An integer
+ * @param b Another integer
+ * @return Returns 0, 1, or -1.
+ */
 static int compare(int a, int b) { return a == b ? 0 : a < b ? -1 : 1; }
 
+/**
+ * Inserts a new node into a subtree.
+ *
+ * @param tree The subtree to attempt to insert a new value into.
+ * @param node The new node to insert.
+ */
 static void insert(RBTree *root, RBTree *node) {
   if (!root)
     return;
@@ -160,6 +229,12 @@ static void insert(RBTree *root, RBTree *node) {
   }
 }
 
+/**
+ * Print a visual representation of a tree.
+ *
+ * @param tree The subtree to print
+ * @param level The level in the tree that this subtree is in
+ */
 static void print_tree(RBTree *tree, int level) {
   for (int i = 0; i < level; i++)
     printf(" ");
@@ -177,6 +252,13 @@ static void print_tree(RBTree *tree, int level) {
   }
 }
 
+/**
+ * Initializes an instance of a tree.
+ *
+ * @param value The value to assign to the new node in the tree.
+ * @param color The colour to assign to the new node in the tree.
+ * @return Returns the new tree node instance.
+ */
 RBTree *rb_tree_initialize_with(int value, enum Colour colour) {
   RBTree *tree = malloc(sizeof(RBTree));
   tree->colour = colour;
@@ -187,10 +269,23 @@ RBTree *rb_tree_initialize_with(int value, enum Colour colour) {
   return tree;
 }
 
+/**
+ * Initializes an instance of a tree with a default colour of black.
+ *
+ * @param value The value to assign to the new node in the tree.
+ * @return Returns the new tree node instance.
+ */
 RBTree *rb_tree_initialize(int value) {
   return rb_tree_initialize_with(value, black);
 }
 
+/**
+ * Inserts a new value into a subtree.
+ *
+ * @param tree The subtree to attempt to insert a new value into.
+ * @param value The value to insert.
+ * @return Returns the new root of the subtree.
+ */
 RBTree *rb_tree_insert(RBTree *tree, int value) {
   if (tree == NULL)
     return rb_tree_initialize(value);
@@ -201,6 +296,12 @@ RBTree *rb_tree_insert(RBTree *tree, int value) {
   return root_of(node);
 }
 
+/**
+ * Prints a visual inspection of
+ * a tree for debugging purposes to stdout.
+ *
+ * @param tree The tree to visualize
+ */
 void rb_tree_inspect(RBTree *tree) { print_tree(tree, 0); }
 
 int rb_tree_size(RBTree *tree) {
@@ -214,6 +315,15 @@ int rb_tree_size(RBTree *tree) {
   return total + 1;
 }
 
+/**
+ * Determines if two trees are equal by verifying
+ * that each descendant node in each subtree have
+ * the same value and colour.
+ *
+ * @param tree A tree to compare
+ * @param other_tree Another tree to compare
+ * @return Returns true when both subtrees are equal otherwise false
+ */
 bool rb_equals(RBTree *tree, RBTree *other_tree) {
   if (!tree || !other_tree)
     return tree == other_tree;
@@ -233,6 +343,17 @@ bool rb_equals(RBTree *tree, RBTree *other_tree) {
          rb_equals(tree->right, other_tree->right);
 }
 
+/**
+ * Determines if a tree matches the properties
+ * necessary to claim to be a valid Red Black tree.
+ *
+ * 1. root must be black
+ * 2. there are the same # of black nodes on every root to the leaf path.
+ * 3. No two red nodes are adjacent.
+ *
+ * @param tree The tree to investigate
+ * @return Returns true if the tree meets the criteria otherwise false.
+ */
 bool rb_tree_is_valid(RBTree *tree) {
   if (tree == NULL)
     return true;
@@ -249,6 +370,12 @@ bool rb_tree_is_valid(RBTree *tree) {
   return rb_tree_is_valid(tree->left) && rb_tree_is_valid(tree->right);
 }
 
+/**
+ * Returns the height of a subtree.
+ *
+ * @param tree The subtree to investigate
+ * @return Returns the height of the subtree
+ */
 int rb_tree_height(RBTree *tree) {
   if (!tree)
     return 1;
@@ -256,6 +383,13 @@ int rb_tree_height(RBTree *tree) {
   return 1 + max(rb_tree_height(tree->left), rb_tree_height(tree->right));
 }
 
+/**
+ * Searches for a node in a subtree with a particular value.
+ *
+ * @param t The subtree to search.
+ * @param value The value to search for
+ * @returns Returns the node containing the value otherwise NULL
+ */
 RBTree *rb_tree_find(RBTree *t, int value) {
   if (!t)
     return NULL;

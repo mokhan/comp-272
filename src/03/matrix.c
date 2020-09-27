@@ -5,6 +5,11 @@ char labels[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                    's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
+/**
+ * Traverses a graph represented as an adjacency matrix
+ * to visit every vertex in the graph and traverse each
+ * edge in both directions only once.
+ */
 void matrix_traverse(int n, int graph[n][n], int visited[n], int vertex) {
   printf("->(%c)", labels[vertex]);
   visited[vertex] = 1;
@@ -27,6 +32,13 @@ void matrix_traverse(int n, int graph[n][n], int visited[n], int vertex) {
   }
 }
 
+/**
+ * Prints a visual representation of an
+ * adjacency matrix to stdout out for debugging purposes.
+ *
+ * @param n The number of vertexes in the graph.
+ * @param graph The adjacency matrix that represents the graph.
+ */
 void matrix_inspect(int n, int graph[n][n]) {
   printf("\n");
 

@@ -3,8 +3,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Compares two integers and returns -1, 0, 1.
+ * If a is equal to b then 0 is returned.
+ * If a is greater than b then 1 is returned.
+ * If a is less than b then -1 is returned.
+ *
+ * @param a An integer
+ * @param b Another integer
+ * @return Returns 0, 1, or -1.
+ */
 static int compare(int a, int b) { return (a < b) ? -1 : ((a > b) ? 1 : 0); }
 
+/**
+ * Print a visual representation of a heap.
+ *
+ * @param heap The subtree to print
+ * @param level The level in the heap that this subtree is in
+ */
 static void print_tree(MeldableHeap *heap, int level) {
   for (int i = 0; i < level; i++)
     printf(" ");
@@ -21,6 +37,12 @@ static void print_tree(MeldableHeap *heap, int level) {
   }
 }
 
+/**
+ * Initializes an instance of an meldable heap.
+ *
+ * @param value The value to assign to the new node in the heap.
+ * @return Returns the new heap node instance.
+ */
 MeldableHeap *meldable_heap_initialize(int value) {
   MeldableHeap *heap = malloc(sizeof(MeldableHeap));
   heap->left = NULL;
@@ -30,6 +52,13 @@ MeldableHeap *meldable_heap_initialize(int value) {
   return heap;
 };
 
+/**
+ * Adds a new value into a heap.
+ *
+ * @param heap The subtree to attempt to insert a new value into.
+ * @param value The value to insert.
+ * @return Returns the new root of the subtree.
+ */
 MeldableHeap *meldable_heap_add(MeldableHeap *heap, int value) {
   MeldableHeap *root =
       meldable_heap_merge(meldable_heap_initialize(value), heap);
@@ -37,6 +66,14 @@ MeldableHeap *meldable_heap_add(MeldableHeap *heap, int value) {
   return root;
 }
 
+/**
+ * Merges to meldable heaps into a single heap and returns the
+ * root of the new heap.
+ *
+ * @param h1 A heap
+ * @param h2 Another heap
+ * @return Returns the merged heap
+ */
 MeldableHeap *meldable_heap_merge(MeldableHeap *h1, MeldableHeap *h2) {
   if (h1 == NULL)
     return h2;
@@ -56,8 +93,19 @@ MeldableHeap *meldable_heap_merge(MeldableHeap *h1, MeldableHeap *h2) {
   return h1;
 }
 
+/**
+ * Prints a visual inspection of
+ * a heap for debugging purposes to stdout.
+ *
+ * @param heap The heap to visualize
+ */
 void meldable_heap_inspect(MeldableHeap *heap) { print_tree(heap, 0); }
 
+/**
+ * Removes a value from a meldable heap.
+ *
+ * @param heap The subtree to remove
+ */
 void meldable_heap_remove(MeldableHeap *heap) {
   MeldableHeap *replacement = meldable_heap_merge(heap->left, heap->right);
 

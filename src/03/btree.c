@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Print a visual representation of an binary tree.
+ *
+ * @param tree The subtree to print
+ * @param level The level in the tree that this subtree is in
+ */
 static void inspect(BTree *tree, int level) {
   if (!tree)
     return;
@@ -14,6 +20,12 @@ static void inspect(BTree *tree, int level) {
   inspect(tree->right, level + 1);
 }
 
+/**
+ * Initializes an instance of an binary tree.
+ *
+ * @param data The value to assign to the new node in the tree.
+ * @return Returns the new binary tree node instance.
+ */
 BTree *btree_initialize(int data) {
   BTree *tree = malloc(sizeof(BTree));
   tree->left = NULL;
@@ -22,6 +34,13 @@ BTree *btree_initialize(int data) {
   return tree;
 }
 
+/**
+ * Inserts a new value into a binary subtree.
+ *
+ * @param tree The subtree to attempt to insert a new value into.
+ * @param data The data to insert into the tree.
+ * @return Returns the new root of the subtree.
+ */
 BTree *btree_insert(BTree *tree, int data) {
   if (!tree)
     return btree_initialize(data);
@@ -39,6 +58,12 @@ BTree *btree_insert(BTree *tree, int data) {
   return tree;
 }
 
+/**
+ * Returns the height of a binary subtree.
+ *
+ * @param tree The subtree to interrogate.
+ * @return The height of the subtree
+ */
 int btree_height(BTree *tree) {
   if (tree == NULL)
     return 0;
@@ -49,6 +74,12 @@ int btree_height(BTree *tree) {
   return (left > right) ? left + 1 : right + 1;
 }
 
+/**
+ * Prints a visual inspection of
+ * a binary tree for debugging purposes to stdout.
+ *
+ * @param tree The tree to visualize
+ */
 void btree_inspect(BTree *tree) { inspect(tree, 0); }
 
 int btree_leaves(BTree *tree) {
@@ -61,6 +92,13 @@ int btree_leaves(BTree *tree) {
   return btree_leaves(tree->left) + btree_leaves(tree->right);
 }
 
+/**
+ * Generates a binary tree with a desired number of leaf
+ * nodes.
+ *
+ * @param leaves The total number of leaf nodes to generate in the tree.
+ * @return Returns a new binary tree.
+ */
 BTree *btree_generate(int leaves) {
   BTree *tree = NULL;
 
