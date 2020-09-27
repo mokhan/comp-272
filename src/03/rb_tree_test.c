@@ -4,14 +4,17 @@
 /*
  * Every node has a colour. red or black
  * Root of the tree is always black.
- * There are no two adjacent red nodes. (red node cannot have red parent or child)
+ * There are no two adjacent red nodes. (red node cannot have red parent or
+child)
  * Every path from root to child NULL node has same # of black nodes.
  *
  *
  * 1. every node is coloured red or black.
  * 2. All leaves (nils) are black.
- * 3. Every red node has black children. black nodes can have any color children.
- * 4. From any node, the # of black nodes on any path to the leaves is the same. (same # of black nodes from top to bottom)
+ * 3. Every red node has black children. black nodes can have any color
+children.
+ * 4. From any node, the # of black nodes on any path to the leaves is the same.
+(same # of black nodes from top to bottom)
 
 height: logn if perfectly balanced.
 
@@ -65,14 +68,14 @@ Ensure(insert_adds_a_new_item_to_left_subtree) {
 }
 
 Ensure(rb_tree_insert_performs_a_right_rotation) {
-/*
-      (30)          (20:b)
-      /            /    \
-   (20)     ->  (10:r)    (30:r)
-   /
-(10)
+  /*
+        (30)          (20:b)
+        /            /    \
+     (20)     ->  (10:r)    (30:r)
+     /
+  (10)
 
-*/
+  */
   RBTree *tree = rb_tree_initialize(30);
 
   tree = rb_tree_insert(tree, 20);
@@ -92,13 +95,13 @@ Ensure(rb_tree_insert_performs_a_right_rotation) {
 }
 
 Ensure(rb_tree_insert_performs_a_left_rotation) {
-/*
-(10)                 (20:b)
-   \                 /    \
-   (20)     ->  (10:r)    (30:r)
-     \
-     (30)
-*/
+  /*
+  (10)                 (20:b)
+     \                 /    \
+     (20)     ->  (10:r)    (30:r)
+       \
+       (30)
+  */
 
   RBTree *tree = rb_tree_initialize(10);
   tree = rb_tree_insert(tree, 20);
@@ -116,13 +119,13 @@ Ensure(rb_tree_insert_performs_a_left_rotation) {
 }
 
 Ensure(rb_tree_insert_repaints_the_new_node) {
-/*
-     (20:b)                   (20:b)
-     /    \                  /     \
-  (10:r)  (30:r)  -->   (10:b)    (30:b)
-  /                     /
-(5:r)                 (5:r)
-*/
+  /*
+       (20:b)                   (20:b)
+       /    \                  /     \
+    (10:r)  (30:r)  -->   (10:b)    (30:b)
+    /                     /
+  (5:r)                 (5:r)
+  */
 
   RBTree *tree = rb_tree_initialize(20);
   tree = rb_tree_insert(tree, 10);
@@ -258,7 +261,8 @@ Ensure(is_valid_returns_false_when_red_node_has_red_child) {
   assert_that(rb_tree_is_valid(tree), is_equal_to(false));
 }
 
-Ensure(is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes) {
+Ensure(
+    is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes) {
   RBTree *tree = NULL;
 
   for (int i = 10; i > 0; i--)
@@ -312,7 +316,8 @@ TestSuite *rb_tree_tests() {
   add_test(x, equals_returns_false_when_other_tree_is_NULL);
   add_test(x, equals_returns_true_when_both_trees_are_NULL);
   add_test(x, equals_returns_false_when_tree_has_one_node);
-  add_test(x, equals_returns_false_when_tree_has_one_node_with_different_colours);
+  add_test(x,
+           equals_returns_false_when_tree_has_one_node_with_different_colours);
   add_test(x, equals_returns_true_when_tree_has_one_node);
   add_test(x, equals_returns_true_when_root_and_left_subtree_are_equal);
   add_test(x, equals_returns_false_when_root_and_left_subtree_are_not_equal);
@@ -321,7 +326,9 @@ TestSuite *rb_tree_tests() {
 
   add_test(x, is_valid_returns_false_when_root_is_red);
   add_test(x, is_valid_returns_false_when_red_node_has_red_child);
-  add_test(x, is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes);
+  add_test(
+      x,
+      is_valid_returns_false_when_each_path_to_leaves_does_not_contain_the_same_number_of_black_nodes);
   add_test(x, is_valid_return_true);
 
   add_test(x, height_returns_one);

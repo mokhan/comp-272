@@ -32,11 +32,8 @@ Ensure(add_vertex_adds_max_number_of_verticies_to_graph) {
 Ensure(add_edge_connects_two_vertices) {
   Graph *graph = graph_initialize();
 
-  graph_add_edge(
-    graph,
-    graph_add_vertex(graph, 'a'),
-    graph_add_vertex(graph, 'b')
-  );
+  graph_add_edge(graph, graph_add_vertex(graph, 'a'),
+                 graph_add_vertex(graph, 'b'));
 
   assert_that(graph->edges['a']['b'], is_equal_to(true));
   assert_that(graph->edges['b']['a'], is_equal_to(false));

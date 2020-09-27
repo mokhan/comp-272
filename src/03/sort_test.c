@@ -2,13 +2,9 @@
 #include <cgreen/cgreen.h>
 #include <string.h>
 
-Ensure(one_equals_one) {
-  assert_that(1, is_equal_to(1));
-}
+Ensure(one_equals_one) { assert_that(1, is_equal_to(1)); }
 
-Ensure(merge_sort_sorts_a_null_list) {
-  merge_sort(NULL, 0);
-}
+Ensure(merge_sort_sorts_a_null_list) { merge_sort(NULL, 0); }
 
 Ensure(merge_sort_sorts_an_empty_list) {
   int items[] = {};
@@ -37,7 +33,7 @@ Ensure(merge_sort_sorts_a_list_with_two_items) {
 }
 
 Ensure(merge_sort_sorts_three_unique_items) {
-  int items[] = { 3, 1, 4 };
+  int items[] = {3, 1, 4};
 
   merge_sort(items, sizeof(items) / sizeof(int));
 
@@ -47,7 +43,7 @@ Ensure(merge_sort_sorts_three_unique_items) {
 }
 
 Ensure(merge_sort_sorts_many_items) {
-  int items[] = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 };
+  int items[] = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
 
   merge_sort(items, sizeof(items) / sizeof(int));
 
@@ -64,9 +60,7 @@ Ensure(merge_sort_sorts_many_items) {
   assert_that(items[10], is_equal_to(9));
 }
 
-Ensure(quick_sort_sorts_a_null_list) {
-  quick_sort(NULL, 0);
-}
+Ensure(quick_sort_sorts_a_null_list) { quick_sort(NULL, 0); }
 
 Ensure(quick_sort_sorts_an_empty_list) {
   int items[] = {};
@@ -94,7 +88,7 @@ Ensure(quick_sort_sorts_a_list_with_two_items) {
 }
 
 Ensure(quick_sort_sorts_three_unique_items) {
-  int items[] = { 3, 1, 4 };
+  int items[] = {3, 1, 4};
 
   quick_sort(items, sizeof(items) / sizeof(int));
 
@@ -104,7 +98,7 @@ Ensure(quick_sort_sorts_three_unique_items) {
 }
 
 Ensure(quick_sort_sorts_many_items) {
-  int items[] = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 };
+  int items[] = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
 
   quick_sort(items, sizeof(items) / sizeof(int));
 
@@ -120,7 +114,6 @@ Ensure(quick_sort_sorts_many_items) {
   assert_that(items[9], is_equal_to(6));
   assert_that(items[10], is_equal_to(9));
 }
-
 
 TestSuite *sort_tests() {
   TestSuite *x = create_test_suite();

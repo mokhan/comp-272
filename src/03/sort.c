@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void dump(int *items, int n)
-{
+static void dump(int *items, int n) {
   printf("[");
   for (int i = 0; i < n; ++i)
     printf("%d,", items[i]);
@@ -10,7 +9,7 @@ static void dump(int *items, int n)
 }
 
 static void _merge(int *items, int min, int mid, int max) {
-  int length = (max-min) + 1;
+  int length = (max - min) + 1;
   int tmp[length];
   int j = min, k = mid;
 
@@ -20,15 +19,14 @@ static void _merge(int *items, int min, int mid, int max) {
         tmp[i] = items[j++];
       else
         tmp[i] = items[k++];
+    else if (j >= mid)
+      tmp[i] = items[k++];
     else
-      if (j >= mid)
-        tmp[i] = items[k++];
-      else
-        tmp[i] = items[j++];
+      tmp[i] = items[j++];
   }
 
   for (int i = 0; i < length; i++)
-    items[min+i] = tmp[i];
+    items[min + i] = tmp[i];
 }
 
 static void _merge_sort(int *items, int min, int max) {
@@ -54,8 +52,8 @@ static int partition(int *items, int min, int max) {
       items[j] = tmp;
     }
   }
-  tmp = items[index+1];
-  items[index+1] = items[max];
+  tmp = items[index + 1];
+  items[index + 1] = items[max];
   items[max] = tmp;
 
   return index + 1;

@@ -13,19 +13,14 @@ static void print_tree(AVLTree *tree, int level) {
       return;
     print_tree(tree->left, level + 1);
     print_tree(tree->right, level + 1);
-  }
-  else {
+  } else {
     printf("( )\n");
   }
 }
 
-static bool is_even(int value) {
-  return value % 2 == 0;
-}
+static bool is_even(int value) { return value % 2 == 0; }
 
-static bool is_odd(int value) {
-  return !is_even(value);
-}
+static bool is_odd(int value) { return !is_even(value); }
 
 static RBTree *to_rb_tree(AVLTree *tree, AVLTree *parent) {
   if (!tree)
@@ -43,25 +38,21 @@ static RBTree *to_rb_tree(AVLTree *tree, AVLTree *parent) {
   return rb_tree;
 }
 
-static void change_colour(RBTree* tree, enum Colour colour) {
+static void change_colour(RBTree *tree, enum Colour colour) {
   if (!tree)
     return;
 
-  int left_height = rb_tree_height(tree->left);
-  int right_height = rb_tree_height(tree->right);
+  int l = rb_tree_height(tree->left);
+  int r = rb_tree_height(tree->right);
 
   tree->colour = colour;
-  change_colour(tree->left, left_height < right_height || is_odd(left_height) ? black : red);
-  change_colour(tree->right, right_height < left_height || is_odd(right_height) ? black : red);
+  change_colour(tree->left, l < r || is_odd(l) ? black : red);
+  change_colour(tree->right, r < l || is_odd(r) ? black : red);
 }
 
-static int max(int a, int b) {
-  return (a > b) ? a : b;
-}
+static int max(int a, int b) { return (a > b) ? a : b; }
 
-static int height_of(AVLTree *tree) {
-  return tree == NULL ? 0 : tree->height;
-}
+static int height_of(AVLTree *tree) { return tree == NULL ? 0 : tree->height; }
 
 static AVLTree *smallest(AVLTree *tree) {
   AVLTree *current = tree;
@@ -102,10 +93,7 @@ static int balance_of(AVLTree *tree) {
   return (tree == NULL) ? 0 : height_of(tree->left) - height_of(tree->right);
 }
 
-static int compare(int a, int b)
-{
-  return (a < b) ? -1 : ((a > b) ? 1 : 0);
-}
+static int compare(int a, int b) { return (a < b) ? -1 : ((a > b) ? 1 : 0); }
 
 AVLTree *avl_tree_initialize(int value) {
   AVLTree *tree = malloc(sizeof(AVLTree));
@@ -131,15 +119,15 @@ AVLTree *avl_tree_insert(AVLTree *tree, int value) {
   if (tree == NULL)
     return avl_tree_initialize(value);
 
-  switch(compare(value, tree->value)) {
-    case -1:
-      tree->left = avl_tree_insert(tree->left, value);
-      break;
-    case 1:
-      tree->right = avl_tree_insert(tree->right, value);
-      break;
-    default:
-      return tree;
+  switch (compare(value, tree->value)) {
+  case -1:
+    tree->left = avl_tree_insert(tree->left, value);
+    break;
+  case 1:
+    tree->right = avl_tree_insert(tree->right, value);
+    break;
+  default:
+    return tree;
   }
 
   tree->height = 1 + max(height_of(tree->left), height_of(tree->right));
@@ -168,30 +156,30 @@ AVLTree *avl_tree_delete(AVLTree *tree, int value) {
   if (tree == NULL)
     return tree;
 
-  switch(compare(value, tree->value)) {
-    case -1:
-      tree->left = avl_tree_delete(tree->left, value);
-      break;
-    case 1:
-      tree->right = avl_tree_delete(tree->right, value);
-      break;
-    default:
-      if (tree->left && tree->right) {
-        AVLTree *min = smallest(tree->right);
-        tree->value = min->value;
-        tree->right = avl_tree_delete(tree->right, min->value);
-      } else {
-        AVLTree *tmp = tree->left ? tree->left : tree->right;
+  switch (compare(value, tree->value)) {
+  case -1:
+    tree->left = avl_tree_delete(tree->left, value);
+    break;
+  case 1:
+    tree->right = avl_tree_delete(tree->right, value);
+    break;
+  default:
+    if (tree->left && tree->right) {
+      AVLTree *min = smallest(tree->right);
+      tree->value = min->value;
+      tree->right = avl_tree_delete(tree->right, min->value);
+    } else {
+      AVLTree *tmp = tree->left ? tree->left : tree->right;
 
-        if (tmp) {
-          *tree = *tmp;
-          free(tmp);
-        } else {
-          free(tree);
-          return NULL;
-        }
+      if (tmp) {
+        *tree = *tmp;
+        free(tmp);
+      } else {
+        free(tree);
+        return NULL;
       }
-      break;
+    }
+    break;
   }
 
   tree->height = 1 + max(height_of(tree->left), height_of(tree->right));
@@ -225,6 +213,4 @@ RBTree *avl_tree_to_rb_tree(AVLTree *tree) {
   return rb_tree;
 }
 
-void avl_tree_inspect(AVLTree *tree) {
-  print_tree(tree, 0);
-}
+void avl_tree_inspect(AVLTree *tree) { print_tree(tree, 0); }

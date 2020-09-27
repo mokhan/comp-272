@@ -1,15 +1,13 @@
 #include "rb_tree.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
  * Implementation derived from:
  * * https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Insertion
  */
 
-static int max(int a, int b) {
-  return a == b ? a : (a > b ? a : b);
-}
+static int max(int a, int b) { return a == b ? a : (a > b ? a : b); }
 
 /**
  * Number of black nodes to leaf.
@@ -28,13 +26,9 @@ static int depth(RBTree *tree) {
   return total;
 }
 
-static bool is_root(RBTree *node) {
-  return node->parent == NULL;
-}
+static bool is_root(RBTree *node) { return node->parent == NULL; }
 
-static RBTree *parent_of(RBTree *node) {
-  return node ? node->parent : NULL;
-}
+static RBTree *parent_of(RBTree *node) { return node ? node->parent : NULL; }
 
 static RBTree *root_of(RBTree *node) {
   RBTree *current = node;
@@ -60,9 +54,7 @@ static RBTree *sibling_of(RBTree *node) {
   return node == parent->left ? parent->right : parent->left;
 }
 
-static RBTree *pibling_of(RBTree *node) {
-  return sibling_of(parent_of(node));
-}
+static RBTree *pibling_of(RBTree *node) { return sibling_of(parent_of(node)); }
 
 static void rb_rotate_left(RBTree *tree) {
   RBTree *tmp = tree->right;
@@ -136,8 +128,7 @@ static void repair_from(RBTree *tree) {
 
     if (tree == parent->left) {
       rb_rotate_right(grand_parent);
-    }
-    else {
+    } else {
       rb_rotate_left(grand_parent);
     }
     parent->colour = black;
@@ -146,9 +137,7 @@ static void repair_from(RBTree *tree) {
   }
 }
 
-static int compare(int a, int b) {
-  return a == b ? 0 : a < b ? -1 : 1;
-}
+static int compare(int a, int b) { return a == b ? 0 : a < b ? -1 : 1; }
 
 static void insert(RBTree *root, RBTree *node) {
   if (!root)
@@ -176,14 +165,14 @@ static void print_tree(RBTree *tree, int level) {
     printf(" ");
 
   if (tree) {
-    printf("(%d%c H:%d)\n", tree->value, tree->colour == red ? 'R' : 'B', rb_tree_height(tree));
+    printf("(%d%c H:%d)\n", tree->value, tree->colour == red ? 'R' : 'B',
+           rb_tree_height(tree));
 
     if (!tree->left && !tree->right)
       return;
     print_tree(tree->left, level + 1);
     print_tree(tree->right, level + 1);
-  }
-  else {
+  } else {
     printf("( )\n");
   }
 }
@@ -212,9 +201,7 @@ RBTree *rb_tree_insert(RBTree *tree, int value) {
   return root_of(node);
 }
 
-void rb_tree_inspect(RBTree *tree) {
-  print_tree(tree, 0);
-}
+void rb_tree_inspect(RBTree *tree) { print_tree(tree, 0); }
 
 int rb_tree_size(RBTree *tree) {
   int total = 0;
@@ -240,10 +227,10 @@ bool rb_equals(RBTree *tree, RBTree *other_tree) {
   if (tree->parent && tree->parent->value != other_tree->parent->value)
     return false;
 
-  return tree->value == other_tree->value
-    && tree->colour == other_tree->colour
-    && rb_equals(tree->left, other_tree->left)
-    && rb_equals(tree->right, other_tree->right);
+  return tree->value == other_tree->value &&
+         tree->colour == other_tree->colour &&
+         rb_equals(tree->left, other_tree->left) &&
+         rb_equals(tree->right, other_tree->right);
 }
 
 bool rb_tree_is_valid(RBTree *tree) {

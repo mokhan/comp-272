@@ -1,8 +1,8 @@
 #include "btree.h"
 #include "rb_tree.h"
 #include <cgreen/cgreen.h>
-#include <string.h>
 #include <math.h>
+#include <string.h>
 
 Ensure(initialize_returns_new_btree) {
   BTree *tree = btree_initialize(10);

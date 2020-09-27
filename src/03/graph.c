@@ -1,6 +1,6 @@
 #include "graph.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 Vertex *vertex_initialize(char label) {
   Vertex *item = malloc(sizeof(Vertex));

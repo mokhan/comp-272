@@ -38,13 +38,13 @@ Ensure(insert_creates_a_new_root) {
 }
 
 Ensure(insert_performs_a_left_rotation) {
-/*
-  (10)                  (20)
-    \                  /    \
-    (20)      ->    (10)    (30)
-      \
-      (30)
-*/
+  /*
+    (10)                  (20)
+      \                  /    \
+      (20)      ->    (10)    (30)
+        \
+        (30)
+  */
   AVLTree *tree = avl_tree_initialize(10);
   tree = avl_tree_insert(tree, 20);
   tree = avl_tree_insert(tree, 30);
@@ -55,13 +55,13 @@ Ensure(insert_performs_a_left_rotation) {
 };
 
 Ensure(insert_performs_a_right_rotation) {
-/*
-     (30)            (20)
-     /              /   \
-   (20)     -->   (10)  (30)
-   /
-(10)
-*/
+  /*
+       (30)            (20)
+       /              /   \
+     (20)     -->   (10)  (30)
+     /
+  (10)
+  */
   AVLTree *tree = avl_tree_initialize(30);
   tree = avl_tree_insert(tree, 20);
   tree = avl_tree_insert(tree, 10);
@@ -72,13 +72,13 @@ Ensure(insert_performs_a_right_rotation) {
 }
 
 Ensure(insert_performs_a_left_right_rotation) {
-/*
-   (30)         (20)
-   /           /    \
-(10)     -> (10)    (30)
-   \
-   (20)
-*/
+  /*
+     (30)         (20)
+     /           /    \
+  (10)     -> (10)    (30)
+     \
+     (20)
+  */
   AVLTree *tree = avl_tree_initialize(30);
   tree = avl_tree_insert(tree, 10);
   tree = avl_tree_insert(tree, 20);
@@ -89,13 +89,13 @@ Ensure(insert_performs_a_left_right_rotation) {
 }
 
 Ensure(insert_performs_a_right_left_rotation) {
-/*
-(10)             (20)
-    \            /  \
-    (30)  --> (10)  (30)
-   /
-(20)
-*/
+  /*
+  (10)             (20)
+      \            /  \
+      (30)  --> (10)  (30)
+     /
+  (20)
+  */
   AVLTree *tree = avl_tree_initialize(10);
   tree = avl_tree_insert(tree, 30);
   tree = avl_tree_insert(tree, 20);
@@ -106,25 +106,25 @@ Ensure(insert_performs_a_right_left_rotation) {
 }
 
 Ensure(delete_handles_left_left_case) {
-/*
-      (z)                   (y)
-      / \                /      \
-    (y) (T4)          (X)        (z)
-    / \       -->   /    \      /   \
-  (x) (T3)        (T1)  (T2)  (T3)  (T4)
-  / \
-(T1) (T2)
+  /*
+        (z)                   (y)
+        / \                /      \
+      (y) (T4)          (X)        (z)
+      / \       -->   /    \      /   \
+    (x) (T3)        (T1)  (T2)  (T3)  (T4)
+    / \
+  (T1) (T2)
 
-Delete (37):
+  Delete (37):
 
-      (30)                           (20)
-      /  \                         /      \
-    (20) (35)                  (10)        (30)
-    / \     \           -->   /    \      /   \
-  (10) (25) *(37)            (5)  (15)  (25)  (35)
-  / \
-(5) (15)
-*/
+        (30)                           (20)
+        /  \                         /      \
+      (20) (35)                  (10)        (30)
+      / \     \           -->   /    \      /   \
+    (10) (25) *(37)            (5)  (15)  (25)  (35)
+    / \
+  (5) (15)
+  */
 
   AVLTree *tree = avl_tree_initialize(30);
   tree = avl_tree_insert(tree, 35);
@@ -149,25 +149,25 @@ Delete (37):
 }
 
 Ensure(delete_handles_left_right_case) {
-/*
-      (z)                   (x)
-      / \                 /     \
-    (y) (T4)           (y)       (z)
-    /  \        -->   /   \     /   \
-  (T1)  (x)         (T1) (T2) (T3) (T4)
-       /   \
-    (T2)  (T3)
+  /*
+        (z)                   (x)
+        / \                 /     \
+      (y) (T4)           (y)       (z)
+      /  \        -->   /   \     /   \
+    (T1)  (x)         (T1) (T2) (T3) (T4)
+         /   \
+      (T2)  (T3)
 
-Delete (37):
+  Delete (37):
 
-      (30)                           (25)
-      /  \                         /      \
-    (20) (35)                  (20)        (30)
-    / \     \           -->   /    \      /   \
-  (10) (25) *(37)           (10)  (22)  (27)  (35)
-        / \
-      (22) (27)
-*/
+        (30)                           (25)
+        /  \                         /      \
+      (20) (35)                  (20)        (30)
+      / \     \           -->   /    \      /   \
+    (10) (25) *(37)           (10)  (22)  (27)  (35)
+          / \
+        (22) (27)
+  */
   AVLTree *tree = avl_tree_initialize(30);
   tree = avl_tree_insert(tree, 20);
   tree = avl_tree_insert(tree, 35);
@@ -191,24 +191,24 @@ Delete (37):
 }
 
 Ensure(delete_handles_right_right_case) {
-/*
-      (z)                       (y)
-      / \                    /       \
-   (T4) (y)                (z)        (x)
-        / \       -->     /   \      /   \
-     (T3) (x)          (T4)  (T3)  (T2)  (T1)
-          / \
-       (T2) (T1)
-
-
-      (20)                      (30)
-      / \                    /       \
-   (15) (30)               (20)      (35)
-   /     / \      -->     /   \      /   \
-*(10) (25) (35)        (15)  (25)  (33)  (37)
+  /*
+        (z)                       (y)
+        / \                    /       \
+     (T4) (y)                (z)        (x)
+          / \       -->     /   \      /   \
+       (T3) (x)          (T4)  (T3)  (T2)  (T1)
             / \
-         (33) (37)
-*/
+         (T2) (T1)
+
+
+        (20)                      (30)
+        / \                    /       \
+     (15) (30)               (20)      (35)
+     /     / \      -->     /   \      /   \
+  *(10) (25) (35)        (15)  (25)  (33)  (37)
+              / \
+           (33) (37)
+  */
   AVLTree *tree = avl_tree_initialize(20);
 
   tree = avl_tree_insert(tree, 30);
@@ -235,24 +235,24 @@ Ensure(delete_handles_right_right_case) {
 }
 
 Ensure(delete_handles_right_left) {
-/*
-      (z)                       (x)
-      /   \                   /       \
-    (T4)  (y)               (z)       (y)
-          / \              /  \      /   \
-        (x) (T1)   -->  (T4)  (T3) (T2)  (T1)
-        / \
-    (T3) (T2)
+  /*
+        (z)                       (x)
+        /   \                   /       \
+      (T4)  (y)               (z)       (y)
+            / \              /  \      /   \
+          (x) (T1)   -->  (T4)  (T3) (T2)  (T1)
+          / \
+      (T3) (T2)
 
 
-      (20)                       (22)
-      /   \                   /       \
-    (15)  (25)               (20)      (25)
-    /      / \              /  \      /   \
-*(10)  (22)  (30)   -->  (15)  (21) (23)  (30)
-      /  \
-   (21)  (23)
-*/
+        (20)                       (22)
+        /   \                   /       \
+      (15)  (25)               (20)      (25)
+      /      / \              /  \      /   \
+  *(10)  (22)  (30)   -->  (15)  (21) (23)  (30)
+        /  \
+     (21)  (23)
+  */
 
   AVLTree *tree = avl_tree_initialize(20);
   tree = avl_tree_insert(tree, 15);
@@ -277,8 +277,9 @@ Ensure(delete_handles_right_left) {
 }
 
 Ensure(delete_handles_a_complicated_and_large_tree) {
-  int items[] = { 44, 17, 62, 10, 32, 50, 78, 21, 48, 54, 72, 88, 45, 49, 52, 56, 81, 92 };
-  unsigned int length = sizeof(items)/sizeof(items[0]);
+  int items[] = {44, 17, 62, 10, 32, 50, 78, 21, 48,
+                 54, 72, 88, 45, 49, 52, 56, 81, 92};
+  unsigned int length = sizeof(items) / sizeof(items[0]);
   AVLTree *tree = NULL;
 
   for (int i = 0; i < length; i++)
@@ -290,8 +291,8 @@ Ensure(delete_handles_a_complicated_and_large_tree) {
 }
 
 Ensure(delete_handles_a_complicated_and_small_tree) {
-  int items[] = { 9, 1, 10, 0, 5, 11, -1, 2, 6 };
-  unsigned int length = sizeof(items)/sizeof(items[0]);
+  int items[] = {9, 1, 10, 0, 5, 11, -1, 2, 6};
+  unsigned int length = sizeof(items) / sizeof(items[0]);
   AVLTree *tree = NULL;
 
   for (int i = 0; i < length; i++)
@@ -309,16 +310,16 @@ Ensure(delete_returns_a_null_root) {
 }
 
 Ensure(to_rb_tree_returns_a_new_red_black_tree) {
-/*
-        (20:3)                      (20:b)
-        /    \          -->         /    \
-    (15:2)    (30:2)           (15:b)    (30:b)
-    /    \        \            /   \         \
-(10:1) (17:1)     (35:1)  (10:r) (17:r)      (35:r)
- */
+  /*
+          (20:3)                      (20:b)
+          /    \          -->         /    \
+      (15:2)    (30:2)           (15:b)    (30:b)
+      /    \        \            /   \         \
+  (10:1) (17:1)     (35:1)  (10:r) (17:r)      (35:r)
+   */
   AVLTree *tree = NULL;
   RBTree *expected = NULL;
-  int items[] = { 20, 15, 30, 10, 17, 35};
+  int items[] = {20, 15, 30, 10, 17, 35};
   int length = sizeof(items) / sizeof(items[0]);
 
   for (int i = 0; i < length; i++) {
