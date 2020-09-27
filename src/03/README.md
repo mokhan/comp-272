@@ -1,3 +1,11 @@
+# Learning Profile for Assignment #3 - Computer Science 272: Data Structures and Algorithms
+
+Name: Mo Khan
+Student ID: 3431709
+
+## Question 1
+### Problem Statement
+
 Illustrate that the nodes of any AVL tree T can be
 colored "red" and "black" so that T becomes a
 red-black tree.
@@ -9,10 +17,12 @@ red-black tree.
     (15:2)    (30:2)           (15:b)    (30:b)
     /    \        \            /   \         \
 (10:1) (17:1)     (35:1)  (10:r) (17:r)      (35:r)
+```
 
 * perform pre order traversal
 * assign colour of Red/Black node based on height of each AVL node
 
+```plaintext
 Step 1:
           (20:b)
 
@@ -49,6 +59,33 @@ Step 6:
       /   \         \
   (10:r) (17:r)      (35:r)
 ```
+
+### Description of the Code
+
+The function `avl_tree_to_rb_tree` provides an
+implementation of this. To accomplish this
+the code makes two passes down the tree. The
+first pass it used to build a clone of the
+AVL tree as a Red-Black tree with all nodes coloured
+black. The second pass traverses the red-black
+tree and applies the appropriate colour to
+each node in the function `change_colour`.
+
+If the height of the left subtree is less
+than the height of hte right subtree or
+the height is odd then the left child is
+coloured black otherwise red.
+
+The same is applied to the right subtree.
+
+```c
+change_colour(tree->left, left_height < right_height || is_odd(left_height) ? black : red);
+change_colour(tree->right, right_height < left_height || is_odd(right_height) ? black : red);
+```
+
+
+## Question 2
+### Problem Statement
 
 Illustrate that via AVL single rotation, any binary search tree T1 can be
 transformed into another search tree T2 (with the same items).
@@ -97,6 +134,9 @@ Give an algorithm to perform this transformation using O(N log N) rotation on av
 
 See `./avl_tree.c`.
 
+## Question 3
+### Problem Statement
+
 Suppose you are given two sequences S1 and S2 of `n` elements, possibly
 containing duplicates, on which a total order relation is defined.
 
@@ -120,6 +160,8 @@ The space complexity is constant, `O(1)`, because only two pointers
 are needed to walk through both sequences. The amount of space required
 to perform this algorithm does not change as the input size of `n` changes.
 
+## Question 4
+### Problem Statement
 
 Given sequence 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, sort the sequence using the
 following algorithms, and illustrate the details of the execution of the
@@ -178,6 +220,9 @@ Using the last item in the sub-sequence as the pivot:
 [1,1,2,3,3,4,5,5,5,6,]
 ```
 
+## Question 5
+### Problem Statement
+
 Given the graph shown below, answer the following questions:
 
 1. Illustrate the sequence of vertices of this graph visited using depth-first search traversal starting at vertex `g`.
@@ -185,7 +230,6 @@ Given the graph shown below, answer the following questions:
 1. Illustrate adjacency list representation and adjacency matrix representation, respectively, for this graph.
   * What are the advantages and disadvantages of those two representations?
 1. Describe an algorithm to find in the graph a path illustrated below that goes through every edge exactly once in each direction.
-
 
 ```plaintext
 (a)---(b)---(c)---(d)
@@ -200,7 +244,7 @@ Given the graph shown below, answer the following questions:
 (m)  \(n)---(o)---(p)
 ```
 
-# Depth First Traversal
+#### Depth First Traversal
 
 Order: g, h, o, p, l, k, n, i, m, j, f, c, d, b, a, e
 
@@ -428,7 +472,7 @@ Order: g, h, o, p, l, k, n, i, m, j, f, c, d, b, a, e
 (*)  \(*)---(*)---(*)
 ```
 
-# Breadth First Traversal
+#### Breadth First Traversal
 
 Order: [b, a, f, c, e, j, d, i, g, m, n, h, k, o, p, l]
 
@@ -656,7 +700,7 @@ Order: [b, a, f, c, e, j, d, i, g, m, n, h, k, o, p, l]
 (*)  \(*)---(*)---(*)
 ```
 
-# Adjacency List
+#### Adjacency List
 
 ```plaintext
 (a)---(b)---(c)---(d)
@@ -696,7 +740,7 @@ Bad:
 
 * A lookup to determine if two vertexes are connected requires a linear time lookup due to the size of the list for a single edge. `O(n)`.
 
-# Adjacency Matrix
+#### Adjacency Matrix
 
 ```plaintext
 (a)---(b)---(c)---(d)
@@ -746,7 +790,7 @@ An adjacency matrix might be a better choice when space is less important
 than fast lookups. An adjacency list may be a better choice if space is
 a higher priority concern than time.
 
-# Traverse Every Edge
+#### Traverse Every Edge
 
 To traverse every edge in both directions we can use an adjacency matrix
 and iterate through every cell in the matrix. If the cell contains a 1 to
@@ -837,9 +881,15 @@ After the traversal the matrix will have zero edges.
 |p|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
 ```
 
+## Question 6
+### Problem Statement
+
 Why does the method `remove(x)` in the `RedBlackTree` implementation
 perform the assignment `u:parent = w:parent?`
 Shouldn’t this already be done by the call to `splice(w)`?
+
+It is possible that more than one rotation needs to occur so assigning the new parent
+is necessary.
 
 ```java
 boolean remove(T x)
@@ -886,6 +936,9 @@ void removeFixup(Node<T> u) {
 ```
 Source [Open Data Structures](https://www.aupress.ca/app/uploads/120226_99Z_Morin_2013-Open_Data_Structures.pdf)
 
+## Question 7
+### Problem Statement
+
 Implement the `remove(u)` method, that removes the node `u` from a
 `MeldableHeap`. This method should run in `O(log n)` expected time.
 
@@ -928,6 +981,8 @@ class MeldableHeap {
 
 An implementation of `meldable_heap_remove(u)` can be found in `./meldable_heap.c`.
 
+## Question 8
+### Problem Statement
 
 Prove that a binary tree with `k` leaves has height at least `log k`.
 
