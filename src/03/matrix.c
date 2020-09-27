@@ -9,6 +9,11 @@ char labels[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
  * Traverses a graph represented as an adjacency matrix
  * to visit every vertex in the graph and traverse each
  * edge in both directions only once.
+ *
+ * @param n The # of vertexes in the graph
+ * @param graph An adjacency matrix that represents the graph
+ * @param visited An array that keeps track of which vertexes have been visited
+ * @param vertex The current vertex to traverse.
  */
 void matrix_traverse(int n, int graph[n][n], int visited[n], int vertex) {
   printf("->(%c)", labels[vertex]);
