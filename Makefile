@@ -12,3 +12,4 @@ test :
 
 fmt :
 	clang-format -i src/**/**/*.c
+	clang-format -i src/**/*.c
