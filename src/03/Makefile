@@ -5,8 +5,8 @@ CC=clang
 TEST_LIBS = -lcgreen
 
 BUILDDIR := build
-OBJS := $(addprefix $(BUILDDIR)/,avl_tree.o rb_tree.o sort.o graph.o matrix.o)
-TEST_OBJS := $(addprefix $(BUILDDIR)/,avl_tree_test.o rb_tree_test.o sort_test.o graph_test.o matrix_test.o)
+OBJS := $(addprefix $(BUILDDIR)/,avl_tree.o rb_tree.o sort.o graph.o matrix.o meldable_heap.o)
+TEST_OBJS := $(addprefix $(BUILDDIR)/,avl_tree_test.o rb_tree_test.o sort_test.o graph_test.o matrix_test.o meldable_heap_test.o)
 
 $(BUILDDIR)/%.o : %.c
 	$(COMPILE.c) $(OUTPUT_OPTION) $<

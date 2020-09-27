@@ -1,4 +1,3 @@
-
 Implement the `remove(u)` method, that removes the node `u` from a
 `MeldableHeap`. This method should run in `O(log n)` expected time.
 
@@ -38,3 +37,7 @@ class MeldableHeap {
 }
 ```
 [Source](https://www.aupress.ca/app/uploads/120226_99Z_Morin_2013-Open_Data_Structures.pdf)
+
+
+
+An implementation of `meldable_heap_remove(u)` can be found in `./meldable_heap.c`.
