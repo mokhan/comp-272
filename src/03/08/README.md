@@ -1,45 +1,23 @@
-
 Prove that a binary tree with `k` leaves has height at least `log k`.
 
-```plaintext
-tree = h(k)
-assert(height(tree) == log k)
+The proof can be derived with the following.
+Suppose we have a function `h` that takes input `k`
+and returns a tree with `k` leaves.
 
-for each positive natural number this is true.
+For each positive natural number we can
+assert that the height of the tree must greater
+than or equal to `log2(k)`.
+
+```plaintext
+for each positive natural number
+  assert(height(h(k)) >= log2(k))
 ```
+
+An example test is provided in `btree_test.c` that
+asserts that this holds true for the first
+500 positive integers.
 
 ```c
-BTree *h(int k)
-{
-  BTree *tree = rb_tree_initialize();
-  // assert(true == true);
-  // generate k leaves with random data
-  return tree;
-}
-
-for (int k = 0; k < 1000; k++) {
-  assert(height(h(k)) >= log(k))
-}
-```
-
-
-```plaintext
-n: 3
-h: 3
-
-(x)
-  \
-  (y)
-    \
-    (z)
-
-n: 3
-k: 2
-h: 2
-
-    (y)
-   /   \
-(x)     (z)
-
-2^x == 2
+for (int k = 0; k < 500; ++k)
+  assert_that(btree_height(btree_generate(k)) >= log2(k), is_equal_to(true));
 ```

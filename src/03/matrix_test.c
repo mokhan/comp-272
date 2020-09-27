@@ -24,9 +24,8 @@ Ensure(every_edge_is_traversed_in_both_directions_at_least_once) {
     {0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0},
   };
 
-  matrix_inspect(n, graph);
   matrix_traverse(n, graph, visited, 0);
-  matrix_inspect(n, graph);
+  printf("\n");
 
   for (int i = 0; i < n; ++i)
     for (int j = 0; j < n; ++j)

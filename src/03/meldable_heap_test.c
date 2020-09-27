@@ -73,9 +73,7 @@ Ensure(remove_removes_the_node_from_the_tree) {
   for (int i = 1; i <= 10; ++i)
     heap = meldable_heap_add(heap, i);
 
-  meldable_heap_inspect(heap);
   meldable_heap_remove(heap->right->left);
-  meldable_heap_inspect(heap);
 
   assert_that(heap->value, is_equal_to(1));
 
