@@ -10,13 +10,13 @@
   (D) (E)
 ```
 
-a. only in-order
-b. only level order
-c. only post-order
-d. only pre-order
-e. pre-order and level order
-f. in-order and level order
-g. none of the above
+* [ ] a. only in-order
+* [ ] b. only level order
+* [ ] c. only post-order
+* [ ] d. only pre-order
+* [ ] e. pre-order and level order
+* [ ] f. in-order and level order
+* [ ] g. none of the above
 
 2. Which of the following is a post-order traversal of the BST?
 
